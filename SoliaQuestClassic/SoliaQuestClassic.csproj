@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F203D845-E8CC-43B9-8176-73D7ABB6879A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SoliaQuestClassic</RootNamespace>
+    <AssemblyName>SoliaQuestClassic</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Kirali">
+      <HintPath>..\..\REPT\Kirali\bin\Debug\Kirali.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EnterNameDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EnterNameDialog.Designer.cs">
+      <DependentUpon>EnterNameDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FightDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FightDialog.Designer.cs">
+      <DependentUpon>FightDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoulForge\Abilities\CrystalStorm.cs" />
+    <Compile Include="SoulForge\Abilities\CrystalTalon.cs" />
+    <Compile Include="SoulForge\Abilities\DustOff.cs" />
+    <Compile Include="SoulForge\Abilities\Exsanguinate.cs" />
+    <Compile Include="SoulForge\Abilities\Mirror.cs" />
+    <Compile Include="SoulForge\Abilities\Opalium.cs" />
+    <Compile Include="SoulForge\Abilities\PrismSlash.cs" />
+    <Compile Include="SoulForge\Abilities\PrismSlashII.cs" />
+    <Compile Include="SoulForge\Abilities\Scratch.cs" />
+    <Compile Include="SoulForge\Abilities\Self.cs" />
+    <Compile Include="SoulForge\Abilities\Shatter.cs" />
+    <Compile Include="SoulForge\Abilities\Swish.cs" />
+    <Compile Include="SoulForge\Abilities\UseItem.cs" />
+    <Compile Include="SoulForge\ColorMods\Cosmic.cs" />
+    <Compile Include="SoulForge\ColorMods\Default.cs" />
+    <Compile Include="SoulForge\ColorMods\Leucistic.cs" />
+    <Compile Include="SoulForge\ColorMods\Negative.cs" />
+    <Compile Include="SoulForge\ColorMods\Prismatic.cs" />
+    <Compile Include="SoulForge\ColorMods\Unusual.cs" />
+    <Compile Include="SoulForge\ColorMods\Vibrant.cs" />
+    <Compile Include="SoulForge\Effects\ExsanguinateEffect.cs" />
+    <Compile Include="SoulForge\Effects\MirrorEffect.cs" />
+    <Compile Include="SoulForge\Effects\SwishEffect.cs" />
+    <Compile Include="SoulForge\ItemFamilies\FoodItems.cs" />
+    <Compile Include="SoulForge\ItemFamilies\HealingItems.cs" />
+    <Compile Include="SoulForge\ItemFamilies\Unitemized.cs" />
+    <Compile Include="SoulForge\Items\FoodItems\BakedPotato.cs" />
+    <Compile Include="SoulForge\Items\FoodItems\Carrot.cs" />
+    <Compile Include="SoulForge\Items\HealingItems\HealingPotion0.cs" />
+    <Compile Include="SoulForge\Items\Unitemized\DefaultAbilityScript.cs" />
+    <Compile Include="SoulForge\Items\Unitemized\RankUpgrade.cs" />
+    <Compile Include="SoulForge\Items\Unitemized\StatPointBox.cs" />
+    <Compile Include="SoulForge\Species\AvieaDer.cs" />
+    <Compile Include="SoulForge\SQItemFamily.cs" />
+    <Compile Include="SoulForge\Items\Nothing.cs" />
+    <Compile Include="SoulForge\Species\Acyltri.cs" />
+    <Compile Include="SoulForge\Species\Silvertail.cs" />
+    <Compile Include="SoulForge\SQAbility.cs" />
+    <Compile Include="SoulForge\SQColorMod.cs" />
+    <Compile Include="SoulForge\SQCreature.cs" />
+    <Compile Include="SoulForge\SQEffect.cs" />
+    <Compile Include="SoulForge\SQInventory.cs" />
+    <Compile Include="SoulForge\SQItem.cs" />
+    <Compile Include="SoulForge\SQItemStack.cs" />
+    <Compile Include="SoulForge\SQSpecies.cs" />
+    <Compile Include="SoulForge\SQStatMod.cs" />
+    <Compile Include="SoulForge\SQType.cs" />
+    <Compile Include="SoulForge\SQWorld.cs" />
+    <Compile Include="SoulForge\StatDetailsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SoulForge\StatDetailsWindow.Designer.cs">
+      <DependentUpon>StatDetailsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SoulForge\StatMods\Arcane.cs" />
+    <Compile Include="SoulForge\StatMods\Celestial.cs" />
+    <Compile Include="SoulForge\StatMods\Deadly.cs" />
+    <Compile Include="SoulForge\StatMods\Extraordinary.cs" />
+    <Compile Include="SoulForge\StatMods\Mythical.cs" />
+    <Compile Include="SoulForge\StatMods\Unimpressive.cs" />
+    <Compile Include="SoulForge\StatMods\Ordinary.cs" />
+    <Compile Include="SoulForge\Types\Air.cs" />
+    <Compile Include="SoulForge\Types\Crystal.cs" />
+    <Compile Include="SoulForge\Types\Dark.cs" />
+    <Compile Include="SoulForge\Types\Fire.cs" />
+    <Compile Include="SoulForge\Types\Ice.cs" />
+    <Compile Include="SoulForge\Types\Light.cs" />
+    <Compile Include="SoulForge\Types\Metal.cs" />
+    <Compile Include="SoulForge\Types\Plasma.cs" />
+    <Compile Include="SoulForge\Types\Spirit.cs" />
+    <Compile Include="SoulForge\Types\Stone.cs" />
+    <Compile Include="SoulForge\Types\Typeless.cs" />
+    <Compile Include="SoulForge\Types\Water.cs" />
+    <Compile Include="UseItemPopupSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UseItemPopupSelect.Designer.cs">
+      <DependentUpon>UseItemPopupSelect.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="EnterNameDialog.resx">
+      <DependentUpon>EnterNameDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FightDialog.resx">
+      <DependentUpon>FightDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="SoulForge\StatDetailsWindow.resx">
+      <DependentUpon>StatDetailsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UseItemPopupSelect.resx">
+      <DependentUpon>UseItemPopupSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Families\r000unitemized\00nothing.png" />
+    <EmbeddedResource Include="Resources\Families\r000unitemized\01unknown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Families\r001healing\00health0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Families\r000unitemized\02experience.png" />
+    <EmbeddedResource Include="Resources\Families\r000unitemized\03skillpoint.png" />
+    <EmbeddedResource Include="Resources\Families\r000unitemized\04statpointbox.png" />
+    <EmbeddedResource Include="Resources\Families\r000unitemized\05statRankUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Families\r002foodItems\01carrot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Families\r000unitemized\06learnAbility.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Families\r000unitemized\07learnAbility.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Families\r000unitemized\08airdisk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Families\r000unitemized\09crystaldisk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\CreatureImages\Silvertail\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\TypeImages\Crystal.png" />
+    <EmbeddedResource Include="Resources\TypeImages\Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\TypeImages\Typeless.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\TypeImages\Air.png" />
+    <EmbeddedResource Include="Resources\TypeImages\Water.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\TypeImages\Dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Families\r000unitemized\10darkdisk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\TypeImages\Fire.png" />
+    <EmbeddedResource Include="Resources\TypeImages\Ice.png" />
+    <EmbeddedResource Include="Resources\TypeImages\Metal.png" />
+    <EmbeddedResource Include="Resources\TypeImages\Plasma.png" />
+    <EmbeddedResource Include="Resources\TypeImages\Stone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\TypeImages\Plant.png" />
+    <EmbeddedResource Include="Resources\TypeImages\Spirit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Families\r002foodItems\02caramelizedCarrot.png" />
+    <EmbeddedResource Include="Resources\Families\r002foodItems\03potato.png" />
+    <EmbeddedResource Include="Resources\Families\r002foodItems\04bakedPotato.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
