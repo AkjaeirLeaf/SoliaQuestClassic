@@ -21,7 +21,7 @@ namespace SoliaQuestClassic.SoulForge.Species
 
             //Set base stats
             statHealth  = 39.0;
-            statDefense = 14.0;
+            statDefense = 6.0;
             statAttack  =  0.8;
             statStamina = 36.0;
             statEvade   =  0.8;

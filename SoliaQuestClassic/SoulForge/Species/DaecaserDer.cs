@@ -6,40 +6,44 @@ using System.Threading.Tasks;
 
 namespace SoliaQuestClassic.SoulForge.Species
 {
-    public class AvieaDer : SQSpecies
+    public class DaecaserDer : SQSpecies
     {
-        public AvieaDer()
+        public DaecaserDer()
         {
             //Set creature ref and name
-            ModifySpeciesReference("Aviean Bear", "avieader");
-            description = "A stocky bipedal bearlike species known for their tough and hardened spirit.";
+            ModifySpeciesReference("Daecaser Bear", "daecaserDer");
+            description = "A stout little bear race originating from the first moon of Aviea.";
 
             //Set creature type
-            SetSpeciesType("water");
+            SetSpeciesType("air");
             SetSpeciesType("stone");
-            SetSpeciesType("metal");
 
             //Set base stats
-            statHealth = 120.0;
-            statDefense = 15.0;
-            statAttack = 2.5;
-            statStamina = 98.0;
-            statEvade = 1.1;
+            statHealth = 102.0;
+            statDefense = 12.0;
+            statAttack = 2.1;
+            statStamina = 95.0;
+            statEvade = 2.9;
             statControl = 0.5;
 
             //add initially known abilities:
             AddInitialAbility("useItem");
-            AddInitialAbility("scratchbasic");
 
 
             //Setup which stat / color mods options to use
-
-
 
         }
 
         public override void Event_LevelUp(SQCreature sender)
         {
+            switch (sender.Level)
+            {
+
+                default:
+
+                    break;
+            }
+
             base.Event_LevelUp(sender);
         }
 
@@ -51,14 +55,14 @@ namespace SoliaQuestClassic.SoulForge.Species
         //boring stuff
         public static int RegisterSpecies()
         {
-            SQWorld.Register(new AvieaDer());
+            SQWorld.Register(new DaecaserDer());
             return 1;
         }
 
 
         public override SQCreature NewCreatureOf()
         {
-            return new SQCreature(new AvieaDer());
+            return new SQCreature(new DaecaserDer());
         }
     }
 }

@@ -4,35 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using SoliaQuestClassic.SoulForge;
-using SoliaQuestClassic.SoulForge.Types;
-
 namespace SoliaQuestClassic.SoulForge.Species
 {
-    public class Silvertail : SQSpecies
+    public class EaltaeQhota : SQSpecies
     {
-        public Silvertail()
+        public EaltaeQhota()
         {
             //Set creature ref and name
-            ModifySpeciesReference("Silvertail Cat", "silvertail");
-            description = "A sleek, silvery feline seen on rare occasions in the deepest and darkest of forests.";
+            ModifySpeciesReference("Ealtae River Cat", "ealtaeQhota");
+            description = "A sleek, silvery-blue feline that lives in small communities near Ealtae\'s forest rivers and caves.\n" +
+                "Exceptionally high evasive stat but lower defense and resistance.\n" +
+                "Possibly a descendent or relative of the elusive Silvertail Cat.";
 
             //Set creature type
-            SetSpeciesType("crystal");
-            SetSpeciesType("light");
+            SetSpeciesType("water");
+            SetSpeciesType("spirit");
 
             //Set base stats
-            statHealth =  120.0;
-            statDefense =   7.0;
-            statAttack  =   2.8;
-            statStamina =  85.0;
-            statEvade   =   2.3;
-            statControl =   0.5;
+            statHealth = 92.0;
+            statDefense = 7.0;
+            statAttack = 2.1;
+            statStamina = 72.0;
+            statEvade = 5.3;
+            statControl = 0.5;
 
             //add initially known abilities:
             AddInitialAbility("useItem");
-            AddInitialAbility("crystalTalon");
-            AddInitialAbility("prismSlashI");
+            AddInitialAbility("whisper");
+            AddInitialAbility("mirror");
 
 
             //Setup which stat / color mods options to use
@@ -44,7 +43,7 @@ namespace SoliaQuestClassic.SoulForge.Species
             switch (sender.Level)
             {
                 case 3:
-                    sender.TeachAbility(new Abilities.Mirror());
+                    sender.TeachAbility(new Abilities.Mirage());
                     break;
                 case 5:
                     sender.TeachAbility(new Abilities.Opalium());
@@ -68,14 +67,14 @@ namespace SoliaQuestClassic.SoulForge.Species
         //boring stuff
         public static int RegisterSpecies()
         {
-            SQWorld.Register(new Silvertail());
+            SQWorld.Register(new EaltaeQhota());
             return 1;
         }
 
 
         public override SQCreature NewCreatureOf()
         {
-            return new SQCreature(new Silvertail());
+            return new SQCreature(new EaltaeQhota());
         }
     }
 }
