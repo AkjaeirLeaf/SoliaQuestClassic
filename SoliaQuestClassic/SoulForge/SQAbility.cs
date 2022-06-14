@@ -30,7 +30,8 @@ namespace SoliaQuestClassic.SoulForge
 
         protected SQAbilityCategory abilityCategory = SQAbilityCategory.UNKNOWN;
         public SQAbilityCategory Category { get { return abilityCategory; } }
-
+        protected int abilityOverwritePriority = 0;
+        public int OverwritePower { get { return abilityOverwritePriority; } }
 
         protected bool doShowAbility = true;
         public bool HideAbility { get { return !doShowAbility; } }

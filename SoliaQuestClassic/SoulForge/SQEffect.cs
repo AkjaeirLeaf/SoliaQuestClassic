@@ -196,6 +196,11 @@ namespace SoliaQuestClassic.SoulForge
 
         }
 
+        public virtual int EffectEvent_Activated(SQCreature effected)
+        {
+            return 0;
+        }
+
         public virtual int EffectEvent_DoTick(SQCreature effected)
         {
             return 0;
@@ -211,7 +216,7 @@ namespace SoliaQuestClassic.SoulForge
             return 0;
         }
 
-        public virtual SQAbilityInfo PreDoDamage(SQAbilityInfo incoming, SQCreature effected)
+        public virtual SQAbilityInfo PreDoDamage(SQAbilityInfo incoming, SQCreature effected, bool dodged = false)
         {
             return incoming;
         }

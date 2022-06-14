@@ -100,15 +100,8 @@ namespace SoliaQuestClassic.SoulForge
             }
         }
 
-        private static void WriteAllResources()
-        {
-            string[] names = Assembly.GetExecutingAssembly().GetManifestResourceNames();
-            for (int o = 0; o < names.Length; o++)
-            {
-                Console.WriteLine(names[o]);
-            }
-        }
 
+        //REGISTRATION
         public static void AllocSetupAll()
         {
             WriteAllResources();
@@ -133,6 +126,7 @@ namespace SoliaQuestClassic.SoulForge
 
             Abilities.Swish.RegisterAbility();
 
+            Abilities.Mirage.RegisterAbility();
             Abilities.Mirror.RegisterAbility();
 
             Abilities.CrystalTalon.RegisterAbility();
@@ -140,6 +134,10 @@ namespace SoliaQuestClassic.SoulForge
             Abilities.Opalium.RegisterAbility();
             Abilities.Shatter.RegisterAbility();
             Abilities.CrystalStorm.RegisterAbility();
+
+            Abilities.Infinity.RegisterAbility();
+
+            Abilities.Whisper.RegisterAbility();
 
             //Register Stat Modifiers
             StatMods.Ordinary.RegisterStatMod();
@@ -167,8 +165,13 @@ namespace SoliaQuestClassic.SoulForge
             //Register Species (do this last :))
             Species.Acyltri.RegisterSpecies();
             Species.AvieaDer.RegisterSpecies();
+            Species.DaecaserDer.RegisterSpecies();
+            Species.EaltaeQhota.RegisterSpecies();
+            Species.NoctaelQhota.RegisterSpecies();
             Species.Silvertail.RegisterSpecies();
+            Species.Ufim.RegisterSpecies();
         }
+
 
         public static int Register(SQSpecies species)
         {
@@ -183,7 +186,6 @@ namespace SoliaQuestClassic.SoulForge
                 return 0;
             }
         }
-
         public static int Register(SQType newtype)
         {
             try
@@ -197,7 +199,6 @@ namespace SoliaQuestClassic.SoulForge
                 return 0;
             }
         }
-
         public static int Register(SQAbility ability)
         {
             try
@@ -211,7 +212,6 @@ namespace SoliaQuestClassic.SoulForge
                 return 0;
             }
         }
-
         public static int Register(SQStatMod statMod)
         {
             try
@@ -225,7 +225,6 @@ namespace SoliaQuestClassic.SoulForge
                 return 0;
             }
         }
-
         public static int Register(SQColorMod colorMod)
         {
             try
@@ -239,7 +238,6 @@ namespace SoliaQuestClassic.SoulForge
                 return 0;
             }
         }
-
         public static int Register(SQItemFamily itemFamily)
         {
             try
@@ -253,6 +251,7 @@ namespace SoliaQuestClassic.SoulForge
                 return 0;
             }
         }
+
 
         //item searches:
         public static SQItem GetItem(int familyID, int itemID)
@@ -276,6 +275,14 @@ namespace SoliaQuestClassic.SoulForge
 
 
         //image grabbing
+        private static void WriteAllResources()
+        {
+            string[] names = Assembly.GetExecutingAssembly().GetManifestResourceNames();
+            for (int o = 0; o < names.Length; o++)
+            {
+                Console.WriteLine(names[o]);
+            }
+        }
         public static Bitmap LoadResourceImage(string resourcePath)
         {
             Assembly myAssembly = Assembly.GetExecutingAssembly();
@@ -284,6 +291,121 @@ namespace SoliaQuestClassic.SoulForge
             return image;
         }
 
+
+        //calculations stuff
+        public static string C_FindMostEffective(string[] CreatureSenderTypes, string[] CreatureTargetTypes, int typesCt = 1)
+        {
+            double max = -1;
+            string maxs = "";
+            switch (typesCt)
+            {
+                case 1:
+                    for (int y = 0; y < SQWorld.TypesNames.Length; y++)
+                    {
+                        double eff = SQWorld.C_AbilityEffective(CreatureSenderTypes, new string[] { SQWorld.TypesNames[y] }, CreatureTargetTypes);
+                        if (eff > max) { max = eff; maxs = SQWorld.TypesNames[y] + " effectiveness: " + max; }
+                    }
+                    break;
+                case 2:
+                    for (int x = 0; x < SQWorld.TypesNames.Length; x++)
+                    {
+                        for (int y = 0; y < SQWorld.TypesNames.Length; y++)
+                        {
+                            if (x != y)
+                            {
+                                double eff = SQWorld.C_AbilityEffective(CreatureSenderTypes, new string[] { SQWorld.TypesNames[x], SQWorld.TypesNames[y] }, CreatureTargetTypes);
+                                if (eff > max) { max = eff; maxs = SQWorld.TypesNames[x] + "/" + SQWorld.TypesNames[y] + " effectiveness: " + max; }
+
+                            }
+                        }
+                    }
+                    break;
+                case 3:
+                    for (int w = 0; w < SQWorld.TypesNames.Length; w++)
+                    {
+                        for (int x = 0; x < SQWorld.TypesNames.Length; x++)
+                        {
+                            for (int y = 0; y < SQWorld.TypesNames.Length; y++)
+                            {
+                                if (x != w && x != y && w != y)
+                                {
+                                    double eff = SQWorld.C_AbilityEffective(CreatureSenderTypes, new string[] { SQWorld.TypesNames[w], SQWorld.TypesNames[x], SQWorld.TypesNames[y] }, CreatureTargetTypes);
+                                    if (eff > max) { max = eff; maxs = SQWorld.TypesNames[w] + "/" + SQWorld.TypesNames[x] + "/" + SQWorld.TypesNames[y] + " effectiveness: " + max; }
+
+                                }
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    for (int y = 0; y < SQWorld.TypesNames.Length; y++)
+                    {
+                        double eff = SQWorld.C_AbilityEffective(CreatureSenderTypes, new string[] { SQWorld.TypesNames[y] }, CreatureTargetTypes);
+                        if (eff > max) { max = eff; maxs = SQWorld.TypesNames[y] + " effectiveness: " + max; }
+                    }
+                    break;
+            }
+            return maxs;
+
+            //on its own, crystal is most effective
+            // 2 types: crystal / dark
+            // 3 types: crystal / dark / spirit
+        }
+        public static double C_AbilityEffective(string[] typesSender, string[] typesAbility, string[] typesTarget)
+        {
+            if (typesSender.Length > 0)
+            {
+                //list each type here, then compare to provided sender type
+                double modify = 0.0;
+                int totalDiv = 0;
+                for (int totalSend = 0; totalSend < typesSender.Length; totalSend++)
+                {
+                    SQType thisType;
+                    if (SQWorld.SQWorldTypeList.TryGetValue(typesSender[totalSend], out thisType))
+                    {
+                        //cycle through ability's types for effectiveness comparison
+                        for (int subTypes = 0; subTypes < typesAbility.Length; subTypes++)
+                        {
+                            //modify += effectorsOf[subTypes] * thisType.GetModifyDamageOutgoing(actionType[subTypes]);
+                            modify += 1 * thisType.GetModifyDamageOutgoing(typesAbility[subTypes]);
+                            totalDiv++;
+                        }
+                    }
+                    else { modify += 1.0; totalDiv += 1; }
+                }
+                double avgMod = modify / totalDiv;
+
+
+                //incoming
+
+                double modify2 = 0.0;
+                int typeTotal = 0;
+                for (int typeCt = 0; typeCt < typesTarget.Length; typeCt++)
+                {
+                    //modify = attacks[attackIndex].damageType.GetModifyDamageOutgoing(m_species.UseSpeciesTypes[typeCt]);
+                    SQType thisType;
+                    if (SQWorld.SQWorldTypeList.TryGetValue(typesTarget[typeCt], out thisType))
+                    {
+                        double subModify = 0.0; int h = 0;
+                        for (h = 0; h < typesAbility.Length; h++)
+                        {
+                            subModify += thisType.GetModifyDamageIncoming(typesAbility[h]);
+                        }
+                        modify2 += (subModify / h);
+                    }
+                    else { modify2 += 1.0; }
+
+                    typeTotal++;
+                }
+                modify2 /= typeTotal;
+
+                return avgMod * modify2;
+            }
+            else
+            {
+                return 1.0;
+            }
+        }
 
         public SQWorld()
         {
