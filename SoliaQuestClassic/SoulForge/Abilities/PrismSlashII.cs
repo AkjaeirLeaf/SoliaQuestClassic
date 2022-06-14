@@ -15,6 +15,7 @@ namespace SoliaQuestClassic.SoulForge.Abilities
             description = "A single powerful strike to your opponent leaves their defenses devastated.";
             doShowAbility = true;
             abilityCategory = SQAbilityCategory.PHYSICAL;
+            abilityOverwritePriority = 1;
 
             //set base damage / heal stuff
             m_doBaseDamageTarget = 32.0;

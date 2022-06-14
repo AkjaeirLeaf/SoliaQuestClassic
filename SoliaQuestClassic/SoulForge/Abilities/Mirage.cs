@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace SoliaQuestClassic.SoulForge.Abilities
 {
-    public class Swish : SQAbility
+    public class Mirage : SQAbility
     {
-        public Swish()
+        public Mirage()
         {
-            ModifyAbilityReference("Swish", "swish");
-            addTypeOf("air", 1.0);
-            description = "A basic wind attack. Reduces next hit damage by .1, stacks up to 10.";
+            ModifyAbilityReference("Mirage", "mirage");
+            addTypeOf("light", 1.0);
+            description = "A trick of light confuses your opponent. Your EVADE stat increases.";
             doShowAbility = true;
-            abilityCategory = SQAbilityCategory.PHYSICAL;
+            abilityCategory = SQAbilityCategory.ENERGY;
 
             //set base damage / heal stuff
-            m_doBaseDamageTarget = 5.0;
+            m_doBaseDamageTarget = 15.0;
             m_doBaseDamageSelf = 0.0;
             m_doBaseHealTarget = 0.0;
             m_doBaseHealSelf = 0.0;
@@ -25,22 +25,22 @@ namespace SoliaQuestClassic.SoulForge.Abilities
             //id like to add another bonus tho
 
             //how possible is evading this attack?
-            m_dodgeCompdChance = 0.2;
+            m_dodgeCompdChance = 0.12;
 
             //stamina usage
-            m_doBaseStaminaCost = 3.0;
+            m_doBaseStaminaCost = 9.5;
 
             //I will use the base ability damage info here :)
         }
 
         public override void OnAbilityUse(SQCreature sender)
         {
-            sender.AddEffect(new Effects.SwishEffect());
+            sender.AddEffect(new Effects.MirageEffect());
         }
 
         public static int RegisterAbility()
         {
-            SQWorld.Register(new Swish());
+            SQWorld.Register(new Mirage());
             return 1;
         }
     }

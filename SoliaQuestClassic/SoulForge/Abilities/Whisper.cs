@@ -6,41 +6,41 @@ using System.Threading.Tasks;
 
 namespace SoliaQuestClassic.SoulForge.Abilities
 {
-    public class Swish : SQAbility
+    public class Whisper : SQAbility
     {
-        public Swish()
+        public Whisper()
         {
-            ModifyAbilityReference("Swish", "swish");
-            addTypeOf("air", 1.0);
-            description = "A basic wind attack. Reduces next hit damage by .1, stacks up to 10.";
+            ModifyAbilityReference("Whisper", "whisper");
+            addTypeOf("spirit", 1.0);
+            description = "A trick of light confuses your opponent. Your EVADE stat increases.";
             doShowAbility = true;
-            abilityCategory = SQAbilityCategory.PHYSICAL;
+            abilityCategory = SQAbilityCategory.ENERGY;
 
             //set base damage / heal stuff
-            m_doBaseDamageTarget = 5.0;
+            m_doBaseDamageTarget = 21.0;
             m_doBaseDamageSelf = 0.0;
             m_doBaseHealTarget = 0.0;
-            m_doBaseHealSelf = 0.0;
+            m_doBaseHealSelf = 8.0;
 
             //id like to add another bonus tho
 
             //how possible is evading this attack?
-            m_dodgeCompdChance = 0.2;
+            m_dodgeCompdChance = 0.01;
 
             //stamina usage
-            m_doBaseStaminaCost = 3.0;
+            m_doBaseStaminaCost = 15;
 
             //I will use the base ability damage info here :)
         }
 
         public override void OnAbilityUse(SQCreature sender)
         {
-            sender.AddEffect(new Effects.SwishEffect());
+            sender.DoModifyEvade(sender.Evade * 1.15);
         }
 
         public static int RegisterAbility()
         {
-            SQWorld.Register(new Swish());
+            SQWorld.Register(new Whisper());
             return 1;
         }
     }
