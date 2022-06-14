@@ -30,7 +30,7 @@ namespace SoliaQuestClassic
             InitializeComponent();
             enemyCreature = new SQCreature(new SoulForge.Species.Silvertail());
             enemyCreature.AddTag("tag_isActiveUser", false);
-            enemyCreature.TeachAbility(new SoulForge.Abilities.Opalium());
+            enemyCreature.TeachAbility(new SoulForge.Abilities.Opalium("X"));
 
             CreateLootInventory();
             UpdateTextGeneral();
@@ -59,9 +59,9 @@ namespace SoliaQuestClassic
                 enemyCreature.QuickGiveItem(new RankUpgrade(), 1);
             }
             rareitem0 = Kirali.Framework.Random.Int(0, 500);
-            if (rareitem0 < 250)
+            if (rareitem0 < 25)
             {
-                enemyCreature.QuickGiveItem(new DefaultAbilityScript(new SoulForge.Abilities.Opalium(), 0), 1);
+                enemyCreature.QuickGiveItem(new DefaultAbilityScript(new SoulForge.Abilities.Opalium("X"), 3), 1);
             }
         }
 
@@ -155,14 +155,18 @@ namespace SoliaQuestClassic
         private useAbilityEnum creatureUseAbility(string internalID, SQCreature sender, SQCreature target)
         {
             SQCreatureState creatureStateSender = sender.State;
+            bool targetDodged = false;
 
             if (creatureStateSender == SQCreatureState.Nominal) //TODO Work on this!
             {
                 //Get the info about the attack, specific to the player's creature
                 SQAbilityInfo abilityUsedInfo = sender.GetAbilityInfo(internalID, target);
                 string doCreatureDisplay;
+                string doTargetDisplay;
                 if (!String.IsNullOrEmpty(sender.CreatureName)) { doCreatureDisplay = sender.CreatureName; }
                 else { doCreatureDisplay = sender.CreatureSpecies.SpeciesName; }
+                if (!String.IsNullOrEmpty(target.CreatureName)) { doTargetDisplay = target.CreatureName; }
+                else { doTargetDisplay = target.CreatureSpecies.SpeciesName; }
 
                 if (abilityUsedInfo.ErrorCode == SQAbilityError.noError)
                 {
@@ -185,6 +189,9 @@ namespace SoliaQuestClassic
                     //grant experience to player for using ability:
                     sender.GiveExperience(abilityUsedInfo.experienceForUse);
                     abilityLogDisplayString += doCreatureDisplay + " used " + abilityUsedInfo.abilityDisplay + ".\n";
+                    targetDodged = damageToTarget.evade;
+                    if (targetDodged) { abilityLogDisplayString += doTargetDisplay + " dodged.\n"; }
+
                     return useAbilityEnum.used;
                 }
                 else

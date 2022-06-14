@@ -27,17 +27,20 @@ namespace SoliaQuestClassic
 
         public MainWindow()
         {
-            //testing
-            //SQItemStack stack1 = new SQItemStack(new SoulForge.Items.HealingItems.HealingPotion0(), 14, out _);
-            //SQItemStack stack2 = new SQItemStack(new SoulForge.Items.HealingItems.HealingPotion0(), 14, out _);
-            //
-            //SQItemStack stack3;
-            //stack1.Combine(stack2, out stack3);
+            SQWorld.AllocSetupAll();
+            SQSpecies sender = new EaltaeQhota();
+            SQSpecies target = new NoctaelQhota();
+            //SQWorld.C_AbilityEffective(sender.UseSpeciesTypes, new string[] { "light" }, target.UseSpeciesTypes);
+            //SQWorld.C_AbilityEffective(sender.UseSpeciesTypes, new string[] { "light", "spirit" }, target.UseSpeciesTypes);
+            //SQWorld.C_AbilityEffective(sender.UseSpeciesTypes, new string[] { "light", "spirit", "crystal" }, target.UseSpeciesTypes);
+            //Console.WriteLine(SQWorld.C_FindMostEffective(sender.UseSpeciesTypes, target.UseSpeciesTypes, 1));
+            //Console.WriteLine(SQWorld.C_FindMostEffective(sender.UseSpeciesTypes, target.UseSpeciesTypes, 2));
+            //Console.WriteLine(SQWorld.C_FindMostEffective(sender.UseSpeciesTypes, target.UseSpeciesTypes, 3));
 
 
+#if true
             //initialize
             InitializeComponent();
-            SQWorld.AllocSetupAll();
             AwakeGenerateCreature();
 
 
@@ -48,11 +51,13 @@ namespace SoliaQuestClassic
             //creatureInventoryLabel.Text = player.CreatureName + "\'s Inventory:";
             player.CreateCreatureMainInventory(8);
             player.QuickGiveItem(new SoulForge.Items.HealingItems.HealingPotion0(), 3);
-            player.QuickGiveItem(new SoulForge.Items.Unitemized.DefaultAbilityScript(new SoulForge.Abilities.Self(player.CreatureSpecies.UseSpeciesTypes), 1), 1);
+            
 
             UpdateTextData();
             UpdateInventoryImages();
             UpdateAbilitiesDisplay();
+#endif
+
         }
 
         private int SelectedAbilityIndex = 0;
@@ -151,12 +156,11 @@ namespace SoliaQuestClassic
         }
 
 
-
         public static SQCreature player;
         private bool usable = false;
         private void AwakeGenerateCreature()
         {
-            player = new Silvertail().NewCreatureOf();
+            player = new EaltaeQhota().NewCreatureOf();
             player.AddTag("tag_isActiveUser", true);
             usable = true;
         }

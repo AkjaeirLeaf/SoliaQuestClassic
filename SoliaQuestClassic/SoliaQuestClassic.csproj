@@ -73,6 +73,8 @@
     <Compile Include="SoulForge\Abilities\CrystalTalon.cs" />
     <Compile Include="SoulForge\Abilities\DustOff.cs" />
     <Compile Include="SoulForge\Abilities\Exsanguinate.cs" />
+    <Compile Include="SoulForge\Abilities\Infinity.cs" />
+    <Compile Include="SoulForge\Abilities\Mirage.cs" />
     <Compile Include="SoulForge\Abilities\Mirror.cs" />
     <Compile Include="SoulForge\Abilities\Opalium.cs" />
     <Compile Include="SoulForge\Abilities\PrismSlash.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="SoulForge\Abilities\Shatter.cs" />
     <Compile Include="SoulForge\Abilities\Swish.cs" />
     <Compile Include="SoulForge\Abilities\UseItem.cs" />
+    <Compile Include="SoulForge\Abilities\Whisper.cs" />
     <Compile Include="SoulForge\ColorMods\Cosmic.cs" />
     <Compile Include="SoulForge\ColorMods\Default.cs" />
     <Compile Include="SoulForge\ColorMods\Leucistic.cs" />
@@ -90,6 +93,7 @@
     <Compile Include="SoulForge\ColorMods\Unusual.cs" />
     <Compile Include="SoulForge\ColorMods\Vibrant.cs" />
     <Compile Include="SoulForge\Effects\ExsanguinateEffect.cs" />
+    <Compile Include="SoulForge\Effects\MirageEffect.cs" />
     <Compile Include="SoulForge\Effects\MirrorEffect.cs" />
     <Compile Include="SoulForge\Effects\SwishEffect.cs" />
     <Compile Include="SoulForge\ItemFamilies\FoodItems.cs" />
@@ -102,6 +106,11 @@
     <Compile Include="SoulForge\Items\Unitemized\RankUpgrade.cs" />
     <Compile Include="SoulForge\Items\Unitemized\StatPointBox.cs" />
     <Compile Include="SoulForge\Species\AvieaDer.cs" />
+    <Compile Include="SoulForge\Species\DaecaserDer.cs" />
+    <Compile Include="SoulForge\Species\EaltaeQhota.cs" />
+    <Compile Include="SoulForge\Species\NoctaelQhota.cs" />
+    <Compile Include="SoulForge\Species\Ufim.cs" />
+    <Compile Include="SoulForge\Species\Yikjder.cs" />
     <Compile Include="SoulForge\SQItemFamily.cs" />
     <Compile Include="SoulForge\Items\Nothing.cs" />
     <Compile Include="SoulForge\Species\Acyltri.cs" />
