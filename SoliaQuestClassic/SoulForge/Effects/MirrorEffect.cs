@@ -31,7 +31,7 @@ namespace SoliaQuestClassic.SoulForge.Effects
         }
 
         private bool didBlock = false;
-        public override SQAbilityInfo PreDoDamage(SQAbilityInfo incoming, SQCreature effected)
+        public override SQAbilityInfo PreDoDamage(SQAbilityInfo incoming, SQCreature effected, bool dodged = false)
         {
             didBlock = true;
             if (didReflect && didBlock) { effected.RemoveEffect(this.InternalName); }

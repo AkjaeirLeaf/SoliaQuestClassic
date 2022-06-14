@@ -17,18 +17,22 @@ namespace SoliaQuestClassic.SoulForge.Effects
             m_timeLeft = -1;
         }
 
-        public override SQAbilityInfo PreDoDamage(SQAbilityInfo incoming, SQCreature effected)
+        public override SQAbilityInfo PreDoDamage(SQAbilityInfo incoming, SQCreature effected, bool dodged = false)
         {
-            int stack = 1;
-            for(int i = 0; i < effected.ActiveEffects.Length; i++)
+            if (!dodged)
             {
-                if(effected.ActiveEffects[i].InternalName == this.InternalName) { stack = effected.EffectsStack[i]; }
-            }
+                int stack = 1;
+                for (int i = 0; i < effected.ActiveEffects.Length; i++)
+                {
+                    if (effected.ActiveEffects[i].InternalName == this.InternalName) { stack = effected.EffectsStack[i]; }
+                }
 
-            SQAbilityInfo incAbility = incoming;
-            incAbility.doDamageTarget *= 1 - (0.1 * stack);
-            effected.RemoveEffect(this.InternalName);
-            return incAbility;
+                SQAbilityInfo incAbility = incoming;
+                incAbility.doDamageTarget *= 1 - (0.1 * stack);
+                effected.RemoveEffect(this.InternalName);
+                return incAbility;
+            }
+            return incoming;
         }
     }
 }

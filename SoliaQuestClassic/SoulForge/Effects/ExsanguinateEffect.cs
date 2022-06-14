@@ -29,6 +29,8 @@ namespace SoliaQuestClassic.SoulForge.Effects
                 info.abilityDisplay = "Exsanguinate";
                 info.abilityType = new SQType[] { darkType };
                 info.doDamageTarget = this.m_tickBaseDamageTarget;
+                double oldDefense = effected.DynamicDefense;
+                effected.DoModifyDefense(oldDefense *= .80);
 
                 effected.DoDamage(info);
                 timeRemainingCustom--;
