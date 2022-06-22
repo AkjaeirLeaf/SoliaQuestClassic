@@ -15,6 +15,7 @@ namespace SoliaQuestClassic.SoulForge.Abilities
             description = "Launches a volley of sharp crystal shards towards a target. Heals the user a small amount.";
             doShowAbility = true;
             abilityCategory = SQAbilityCategory.ENERGY;
+            abilityPurpose = SQAbilityPurpose.HEAL_DAMAGE;
 
             //set base damage / heal stuff
             m_doBaseDamageTarget =  32.0;

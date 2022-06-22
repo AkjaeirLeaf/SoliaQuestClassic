@@ -15,6 +15,7 @@ namespace SoliaQuestClassic.SoulForge.Abilities
             description = "A basic wind attack. Reduces next hit damage by .1, stacks up to 10.";
             doShowAbility = true;
             abilityCategory = SQAbilityCategory.PHYSICAL;
+            abilityPurpose = SQAbilityPurpose.STAT_BOOST;
 
             //set base damage / heal stuff
             m_doBaseDamageTarget = 5.0;

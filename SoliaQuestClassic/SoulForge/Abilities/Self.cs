@@ -18,6 +18,7 @@ namespace SoliaQuestClassic.SoulForge.Abilities
             description = "A costly attack most effective when facing off against your own kind.";
             doShowAbility = true;
             abilityCategory = SQAbilityCategory.ENERGY;
+            abilityPurpose = SQAbilityPurpose.UNKNOWN;
 
             //set base damage / heal stuff
             m_doBaseDamageTarget = 0.0;

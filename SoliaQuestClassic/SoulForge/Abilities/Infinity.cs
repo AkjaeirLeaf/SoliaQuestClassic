@@ -17,6 +17,7 @@ namespace SoliaQuestClassic.SoulForge.Abilities
             description = "Your opponent will be lost to the void.";
             doShowAbility = true;
             abilityCategory = SQAbilityCategory.ENERGY;
+            abilityPurpose = SQAbilityPurpose.APPLY_DAMAGE_EFFECT;
 
             //set base damage / heal stuff
             m_doBaseDamageTarget = 21.0;

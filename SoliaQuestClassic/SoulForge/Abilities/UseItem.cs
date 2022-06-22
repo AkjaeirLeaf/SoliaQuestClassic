@@ -15,6 +15,7 @@ namespace SoliaQuestClassic.SoulForge.Abilities
             description = "Allows you to use an item in a fight.";
             doShowAbility = true;
             abilityCategory = SQAbilityCategory.PHYSICAL;
+            abilityPurpose = SQAbilityPurpose.USE_ITEM;
 
             //set base damage / heal stuff
             m_doBaseDamageTarget = 0.0;

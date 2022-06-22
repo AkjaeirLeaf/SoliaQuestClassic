@@ -15,6 +15,7 @@ namespace SoliaQuestClassic.SoulForge.Abilities
             description = "A trick of light confuses your opponent. Your EVADE stat increases.";
             doShowAbility = true;
             abilityCategory = SQAbilityCategory.ENERGY;
+            abilityPurpose = SQAbilityPurpose.STAT_BOOST;
 
             //set base damage / heal stuff
             m_doBaseDamageTarget = 15.0;

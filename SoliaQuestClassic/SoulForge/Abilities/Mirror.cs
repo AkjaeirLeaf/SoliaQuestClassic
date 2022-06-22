@@ -15,6 +15,7 @@ namespace SoliaQuestClassic.SoulForge.Abilities
             description = "The next attack on your creature will be partially reflected.";
             doShowAbility = true;
             abilityCategory = SQAbilityCategory.ENERGY;
+            abilityPurpose = SQAbilityPurpose.DAMAGE_REFLECT;
 
             //set base damage / heal stuff
             m_doBaseDamageTarget = 0.0;

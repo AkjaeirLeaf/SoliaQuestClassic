@@ -15,6 +15,7 @@ namespace SoliaQuestClassic.SoulForge.Abilities
             description = "Causes your enemy to bleed.";
             doShowAbility = true;
             abilityCategory = SQAbilityCategory.ENERGY;
+            abilityPurpose = SQAbilityPurpose.APPLY_DAMAGE_EFFECT;
 
             //set base damage / heal stuff
             m_doBaseDamageTarget = 33.0;

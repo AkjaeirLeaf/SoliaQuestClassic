@@ -15,6 +15,7 @@ namespace SoliaQuestClassic.SoulForge.Abilities
             description = "A basic claw attack";
             doShowAbility = true;
             abilityCategory = SQAbilityCategory.PHYSICAL;
+            abilityPurpose = SQAbilityPurpose.DAMAGE_ONLY;
 
             //set base damage / heal stuff
             m_doBaseDamageTarget = 9.0;

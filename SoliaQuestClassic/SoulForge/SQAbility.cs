@@ -248,6 +248,7 @@ namespace SoliaQuestClassic.SoulForge
     {
         UNKNOWN,
         STAT_HIT,
+        STAT_BOOST,
         DAMAGE_ONLY,
         DAMAGE_REFLECT,
         APPLY_DAMAGE_EFFECT,

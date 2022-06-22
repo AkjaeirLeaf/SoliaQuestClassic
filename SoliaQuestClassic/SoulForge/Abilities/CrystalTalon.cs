@@ -15,6 +15,7 @@ namespace SoliaQuestClassic.SoulForge.Abilities
             description = "Claws sharp as crystal shards cut through anything they contact.";
             doShowAbility = true;
             abilityCategory = SQAbilityCategory.PHYSICAL;
+            abilityPurpose = SQAbilityPurpose.DAMAGE_ONLY;
 
             //set base damage / heal stuff
             m_doBaseDamageTarget = 23.0;

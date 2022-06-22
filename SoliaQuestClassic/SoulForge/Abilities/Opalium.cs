@@ -23,6 +23,7 @@ namespace SoliaQuestClassic.SoulForge.Abilities
             description = "A blinding shard of light pierces your conscience";
             doShowAbility = true;
             abilityCategory = SQAbilityCategory.ENERGY;
+            abilityPurpose = SQAbilityPurpose.DAMAGE_ONLY;
 
             //set base damage / heal stuff
             m_doBaseDamageTarget = 22.0;

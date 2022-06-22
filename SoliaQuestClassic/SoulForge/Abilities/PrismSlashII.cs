@@ -16,6 +16,7 @@ namespace SoliaQuestClassic.SoulForge.Abilities
             doShowAbility = true;
             abilityCategory = SQAbilityCategory.PHYSICAL;
             abilityOverwritePriority = 1;
+            abilityPurpose = SQAbilityPurpose.STAT_HIT;
 
             //set base damage / heal stuff
             m_doBaseDamageTarget = 32.0;

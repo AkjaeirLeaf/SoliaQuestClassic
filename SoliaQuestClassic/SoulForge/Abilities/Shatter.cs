@@ -15,6 +15,7 @@ namespace SoliaQuestClassic.SoulForge.Abilities
             description = "A burst of shards fly off your opponent, their defense is greatly reduced.";
             doShowAbility = true;
             abilityCategory = SQAbilityCategory.ENERGY;
+            abilityPurpose = SQAbilityPurpose.STAT_HIT;
 
             //set base damage / heal stuff
             m_doBaseDamageTarget = 16.0;
