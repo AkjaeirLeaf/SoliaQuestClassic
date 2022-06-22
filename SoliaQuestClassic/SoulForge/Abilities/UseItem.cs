@@ -44,13 +44,38 @@ namespace SoliaQuestClassic.SoulForge.Abilities
                 }
                 else
                 {//creature verified to be an automated entity.
-
+                    if (sender.DynamicHealth < sender.Health * 0.2)
+                    //try to find a potion or snack
+                    {
+                        int search = FindIndexInInventory(sender, 1);
+                        if(search == -1) { FindIndexInInventory(sender, 2); }
+                        if(search != -1)
+                        {
+                            if (sender.MainInventory.Contents[search].StackItem.CanUseInCombat)
+                            {
+                                sender.MainInventory.Contents[search].StackItem.UseItem(sender, sender.MainInventory.Contents[search]);
+                            }
+                        }
+                    }
                 }
             }
             else
             {
-
+                
             }
+        }
+
+        private int FindIndexInInventory(SQCreature sender, int family, int sub = -1)
+        {
+            for(int s = 0; s < sender.MainInventory.Contents.Length; s++)
+            {
+                if (sender.MainInventory.Contents[s].StackItem.Family == family
+                    && (sender.MainInventory.Contents[s].StackItem.ItemID == sub || sub == -1))
+                {
+                    return s;
+                }
+            }
+            return -1;
         }
 
         public static int RegisterAbility()
