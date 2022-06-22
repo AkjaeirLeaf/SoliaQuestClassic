@@ -247,6 +247,7 @@ namespace SoliaQuestClassic.SoulForge
     public enum SQAbilityPurpose
     {
         UNKNOWN,
+        STAT_HIT,
         DAMAGE_ONLY,
         DAMAGE_REFLECT,
         APPLY_DAMAGE_EFFECT,
