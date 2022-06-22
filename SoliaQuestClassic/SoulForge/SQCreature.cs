@@ -10,10 +10,10 @@ namespace SoliaQuestClassic.SoulForge
 {
     public partial class SQCreature
     {
-        private string creatureUniqueID = "";
-        private string creatureName = "";
+        protected string creatureUniqueID = "";
+        protected string creatureName = "";
         public string CreatureName { get { return creatureName; } set { creatureName = value; } }
-        private SQGender gender = SQGender.Genderless;
+        protected SQGender gender = SQGender.Genderless;
         public SQGender Gender { get { return gender; } set { gender = value; } }
         private Dictionary<string, object> containedCreatureTags = new Dictionary<string, object>();
         public SQSpecies CreatureSpecies { get { return m_species; } }
@@ -59,30 +59,30 @@ namespace SoliaQuestClassic.SoulForge
         }
 
 
-        private SQSpecies m_species;
-        private string m_speciesInternal;
+        protected SQSpecies m_species;
+        protected string m_speciesInternal;
         
 
-        private double stat_Health  = 100.0; private int pointsU_Health  = 0;
-        private double stat_Defense =   2.0; private int pointsU_Defense = 0;
-        private double stat_Attack  =  10.0; private int pointsU_Attack  = 0;
-        private double stat_Stamina =  20.0; private int pointsU_Stamina = 0;
-        private double stat_Evade   =   1.0; private int pointsU_Evade   = 0;
-        private double stat_Control =   0.5; private int pointsU_Control = 0;
+        protected double stat_Health  = 100.0; protected int pointsU_Health  = 0;
+        protected double stat_Defense =   2.0; protected int pointsU_Defense = 0;
+        protected double stat_Attack  =  10.0; protected int pointsU_Attack  = 0;
+        protected double stat_Stamina =  20.0; protected int pointsU_Stamina = 0;
+        protected double stat_Evade   =   1.0; protected int pointsU_Evade   = 0;
+        protected double stat_Control =   0.5; protected int pointsU_Control = 0;
 
-        private string statRank_Health  = "";
-        private string statRank_Defense = "";
-        private string statRank_Attack  = "";
-        private string statRank_Stamina = "";
-        private string statRank_Evade   = "";
-        private string statRank_Control = "";
+        protected string statRank_Health  = "";
+        protected string statRank_Defense = "";
+        protected string statRank_Attack  = "";
+        protected string statRank_Stamina = "";
+        protected string statRank_Evade   = "";
+        protected string statRank_Control = "";
 
-        private double stat_advanceHealth  = 100.0; private double softLock_Health  = 0;
-        private double stat_advanceDefense =   2.0; private double softLock_Defense = 0;
-        private double stat_advanceAttack  =  10.0; private double softLock_Attack  = 0;
-        private double stat_advanceStamina =  20.0; private double softLock_Stamina = 0;
-        private double stat_advanceEvade   =   1.0; private double softLock_Evade   = 0;
-        private double stat_advanceControl =   0.5; private double softLock_Control = 0;
+        protected double stat_advanceHealth  = 100.0; protected double softLock_Health  = 0;
+        protected double stat_advanceDefense =   2.0; protected double softLock_Defense = 0;
+        protected double stat_advanceAttack  =  10.0; protected double softLock_Attack  = 0;
+        protected double stat_advanceStamina =  20.0; protected double softLock_Stamina = 0;
+        protected double stat_advanceEvade   =   1.0; protected double softLock_Evade   = 0;
+        protected double stat_advanceControl =   0.5; protected double softLock_Control = 0;
 
         public double Health { get { return stat_advanceHealth; } }
         public double Defense { get { return stat_advanceDefense; } }
@@ -99,12 +99,12 @@ namespace SoliaQuestClassic.SoulForge
         public double DefaultControl { get { return stat_Control; } }
 
         //DYNAMIC STATS SECTION - For storing the "current" stats of the creature, IE, in battle.
-        private double dynamic_Health  = 0.0;
-        private double dynamic_Defense = 0.0;
-        private double dynamic_Attack  = 0.0;
-        private double dynamic_Stamina = 0.0;
-        private double dynamic_Evade   = 0.0;
-        private double dynamic_Control = 0.0;
+        protected double dynamic_Health  = 0.0;
+        protected double dynamic_Defense = 0.0;
+        protected double dynamic_Attack  = 0.0;
+        protected double dynamic_Stamina = 0.0;
+        protected double dynamic_Evade   = 0.0;
+        protected double dynamic_Control = 0.0;
 
         public double DynamicHealth  { get { return dynamic_Health;  } }
         public double DynamicDefense { get { return dynamic_Defense; } }
@@ -201,7 +201,7 @@ namespace SoliaQuestClassic.SoulForge
 
 
         //Stat-Mod Storage
-        private string statMod = ""; string initialStatMod = ""; bool upgraded = false;
+        protected string statMod = ""; protected string initialStatMod = ""; protected bool upgraded = false;
         public string StatMod { get { return statMod; } }
         public double GetStatValue(SQCreatureStat statType)
         {
@@ -269,7 +269,7 @@ namespace SoliaQuestClassic.SoulForge
                     return new StatMods.Ordinary();
             }
         }
-        private SQStatMod CalculateStatRank(SQCreatureStat statType)
+        protected SQStatMod CalculateStatRank(SQCreatureStat statType)
         {
             SQStatMod[] statModList = new SQStatMod[SQWorld.SQWorldStatModList.Count];
             SQWorld.SQWorldStatModList.Values.CopyTo(statModList, 0);
@@ -334,7 +334,7 @@ namespace SoliaQuestClassic.SoulForge
             }
             return new StatMods.Ordinary();
         }
-        private void UpdateAllStatRanks()
+        protected void UpdateAllStatRanks()
         {
             statRank_Health  = CalculateStatRank(SQCreatureStat.Health ).InternalID;
             statRank_Defense = CalculateStatRank(SQCreatureStat.Defense).InternalID;
@@ -380,7 +380,7 @@ namespace SoliaQuestClassic.SoulForge
         
 
         //Color-Mods Storage
-        private string[] colorMods = new string[0];
+        protected string[] colorMods = new string[0];
         public string[] ColorMods { get { return colorMods; } }
 
 
@@ -390,7 +390,7 @@ namespace SoliaQuestClassic.SoulForge
         protected bool doesHaveInventory = false;
         protected int mainInventorySize = 0;
         protected SQInventory mainInventory;
-        private void SetupInventory()
+        protected void SetupInventory()
         {
             if(doesHaveInventory && mainInventorySize > 0)
             {
@@ -427,6 +427,7 @@ namespace SoliaQuestClassic.SoulForge
 
 
         //Primary Constructor
+        protected SQCreature() { }
         public SQCreature(SQSpecies species)
         {
             m_species = species;
@@ -657,7 +658,7 @@ namespace SoliaQuestClassic.SoulForge
             }
             else { return -3; }
         }
-        private void LearnDefaultAbilities()
+        protected void LearnDefaultAbilities()
         {
             if(m_species.InitialAbilities.Length > 0)
             {
@@ -1218,7 +1219,17 @@ namespace SoliaQuestClassic.SoulForge
                 totalPointsGiven += count;
             }
         }
-
+        public void DoLevelTo(int levelstop)
+        {
+            if(levelstop > Level)
+            {
+                while(Level < levelstop)
+                {
+                    double expreq = GetRequiredExp(Level + 1);
+                    GiveExperience(expreq);
+                }
+            }
+        }
         public void UpgradeRank(SQStatUpgradeInfo info)
         {
             if (info.canUpgrade)
