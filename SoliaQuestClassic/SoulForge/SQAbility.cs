@@ -30,6 +30,8 @@ namespace SoliaQuestClassic.SoulForge
 
         protected SQAbilityCategory abilityCategory = SQAbilityCategory.UNKNOWN;
         public SQAbilityCategory Category { get { return abilityCategory; } }
+        protected SQAbilityPurpose abilityPurpose = SQAbilityPurpose.UNKNOWN;
+        public SQAbilityPurpose Purpose { get { return abilityPurpose; } }
         protected int abilityOverwritePriority = 0;
         public int OverwritePower { get { return abilityOverwritePriority; } }
 
@@ -238,6 +240,18 @@ namespace SoliaQuestClassic.SoulForge
         UNKNOWN,
         PHYSICAL,
         ENERGY,
-        EFFECT_SET
+        EFFECT_SET,
+        ITEMLOCK
+    }
+
+    public enum SQAbilityPurpose
+    {
+        UNKNOWN,
+        DAMAGE_ONLY,
+        DAMAGE_REFLECT,
+        APPLY_DAMAGE_EFFECT,
+        HEAL_ONLY,
+        HEAL_DAMAGE,
+        USE_ITEM
     }
 }
