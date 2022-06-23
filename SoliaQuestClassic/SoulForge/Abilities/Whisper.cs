@@ -36,7 +36,7 @@ namespace SoliaQuestClassic.SoulForge.Abilities
 
         public override void OnAbilityUse(SQCreature sender)
         {
-            sender.DoModifyEvade(sender.Evade * 1.15);
+            sender.DoModifyEvade(sender.DynamicEvade * 1.15);
         }
 
         public static int RegisterAbility()
