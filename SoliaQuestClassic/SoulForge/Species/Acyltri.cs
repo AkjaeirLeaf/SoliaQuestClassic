@@ -27,11 +27,37 @@ namespace SoliaQuestClassic.SoulForge.Species
             statEvade   =  0.8;
             statControl =  0.5;
 
+            //add initially known abilities:
+            AddInitialAbility("useItem");
+            AddInitialAbility("swish");
+
             //Setup which stat / color mods options to use
 
 
 
         }
+
+        public override void Event_LevelUp(SQCreature sender)
+        {
+            switch (sender.Level)
+            {
+                case 3:
+                    //sender.TeachAbility(new Abilities.Mirror());
+                    break;
+                case 5:
+                    
+                    break;
+                case 10:
+                    
+                    break;
+                default:
+
+                    break;
+            }
+
+            base.Event_LevelUp(sender);
+        }
+
         public static int RegisterSpecies()
         {
             SQWorld.Register(new Acyltri());
