@@ -735,6 +735,7 @@ namespace SoliaQuestClassic.SoulForge
                 {
                     info.abilityType = SQWorld.GetTrueTypes(creatureAbilities[p].AbilityType);
                     info.abilityDisplay = creatureAbilities[p].DisplayName;
+                    info.flavorText = creatureAbilities[p].GetFlavorText(this);
                     info.doDamageTarget = creatureAbilities[p].GetDealDamageTarget(this);
                     info.doDamageSelf = creatureAbilities[p].GetDealDamageSelf(this);
                     info.doHealTarget = creatureAbilities[p].GetHealValueTarget(this);
@@ -1061,6 +1062,13 @@ namespace SoliaQuestClassic.SoulForge
                 dynamic_Defense = newValue;
             }
         }
+        public void DoModifyStamina(double newValue)
+        {
+            if (newValue >= 0)
+            {
+                dynamic_Stamina = newValue;
+            }
+        }
         public void DoModifyEvade(double newValue)
         {
             if (newValue >= 0)
@@ -1088,6 +1096,13 @@ namespace SoliaQuestClassic.SoulForge
                     return 32000 * Level * Level;
                 default:
                     return 1000 * Level * Level;
+            }
+        }
+        public virtual void EndCombat()
+        {
+            for(int staEff = 0; staEff < ActiveEffects.Length; staEff++)
+            {
+                if (ActiveEffects[staEff].RemoveCombatEnd) { RemoveEffect(ActiveEffects[staEff].InternalName); }
             }
         }
 
@@ -1270,6 +1285,7 @@ namespace SoliaQuestClassic.SoulForge
         public SQAbilityError ErrorCode;
         public SQType[] abilityType;
         public string abilityDisplay;
+        public string flavorText;
         public double outgoingEffector;//TODO Add This
         public double incomingEffector;//TODO Add This
         public double doDamageTarget;
