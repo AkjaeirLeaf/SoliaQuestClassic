@@ -234,5 +234,10 @@ namespace SoliaQuestClassic.SoulForge
         {
             return incoming;
         }
+
+        public virtual SQAbilityInfo PreDoHeal(SQAbilityInfo incoming, SQCreature effected)
+        {
+            return incoming;
+        }
     }
 }
