@@ -44,6 +44,9 @@ namespace SoliaQuestClassic.SoulForge
 
         protected double m_doDecay = 1; //1 is no decay
         protected double m_timeLeft = 0;
+        
+        protected bool removePostCombat = false;
+        public bool RemoveCombatEnd { get { return removePostCombat; } }
 
         protected int m_doNumberedTicks = -1; //-1 is use decay.
         protected double m_doTickSpeed = 1.0;
@@ -212,6 +215,17 @@ namespace SoliaQuestClassic.SoulForge
         }
 
         public virtual int EffectEvent_DoAbilityUsedSelf(SQAbility ability, SQCreature effected)
+        {
+            return 0;
+        }
+
+        public virtual int EffectEvent_CombatRoomEnds(SQCreature effected)
+        {
+            if (removePostCombat) { effected.RemoveEffect(this.internalID); }
+            return 0;
+        }
+
+        public virtual int EffectEvent_PostUseAbility(SQAbility ability, SQCreature effected)
         {
             return 0;
         }
