@@ -28,8 +28,8 @@ namespace SoliaQuestClassic
         public MainWindow()
         {
             SQWorld.AllocSetupAll();
-            SQSpecies sender = new EaltaeQhota();
-            SQSpecies target = new NoctaelQhota();
+            //SQSpecies sender = new EaltaeQhota();
+            //SQSpecies target = new NoctaelQhota();
             //SQWorld.C_AbilityEffective(sender.UseSpeciesTypes, new string[] { "light" }, target.UseSpeciesTypes);
             //SQWorld.C_AbilityEffective(sender.UseSpeciesTypes, new string[] { "light", "spirit" }, target.UseSpeciesTypes);
             //SQWorld.C_AbilityEffective(sender.UseSpeciesTypes, new string[] { "light", "spirit", "crystal" }, target.UseSpeciesTypes);
@@ -160,7 +160,7 @@ namespace SoliaQuestClassic
         private bool usable = false;
         private void AwakeGenerateCreature()
         {
-            player = new EaltaeQhota().NewCreatureOf();
+            player = new Silvertail().NewCreatureOf();
             player.AddTag("tag_isActiveUser", true);
             usable = true;
         }
