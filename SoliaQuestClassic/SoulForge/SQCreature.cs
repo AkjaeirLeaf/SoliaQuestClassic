@@ -924,6 +924,20 @@ namespace SoliaQuestClassic.SoulForge
         }
         public SQHealInfo DoHeal(SQAbilityInfo[] healAbility, bool isTarget = true)
         {
+            SQAbilityInfo[] modified = new SQAbilityInfo[healAbility.Length];
+            if (ActiveEffects.Length > 0)
+            {
+                for (int at = 0; at < healAbility.Length; at++)
+                {
+                    for (int i = 0; i < ActiveEffects.Length; i++)
+                    {
+                        for (int stk = 0; stk < EffectsStack[i]; stk++)
+                        {
+                            modified[at] = ActiveEffects[i].PreDoHeal(modified[at], this);
+                        }
+                    }
+                }
+            }
             SQHealInfo healInfo = new SQHealInfo();
             double sumHeal = 0;
             double sumStamina = 0;
@@ -983,6 +997,17 @@ namespace SoliaQuestClassic.SoulForge
         }
         public SQHealInfo DoHeal(SQAbilityInfo healAbility, bool isTarget = true)
         {
+            SQAbilityInfo modified = new SQAbilityInfo();
+            if (ActiveEffects.Length > 0)
+            {
+                for (int i = 0; i < ActiveEffects.Length; i++)
+                {
+                    for (int stk = 0; stk < EffectsStack[i]; stk++)
+                    {
+                        modified = ActiveEffects[i].PreDoHeal(healAbility, this);
+                    }
+                }
+            }
             SQHealInfo healInfo = new SQHealInfo();
             double sumHeal = 0;
             double sumStamina = 0;
