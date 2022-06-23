@@ -223,6 +223,11 @@ namespace SoliaQuestClassic.SoulForge
 
         }
 
+        public virtual string GetFlavorText(SQCreature sender)
+        {
+            return "";
+        }
+
         /// <summary>
         /// <tooltip>Returns the experience gained for using this ability.</tooltip>
         /// </summary>
