@@ -47,11 +47,13 @@ namespace SoliaQuestClassic.SoulForge
         protected double m_doBaseHealSelf     = 1.0;
 
         protected double m_dodgeCompdChance = 0.5;
+        protected double m_controlMod = 1;
 
         protected double m_doBaseStaminaCost = 1.0;
         protected double m_doBaseSpeed = 1.0;
         // in the future maybe ill do efficiency boost per type?
         public double GetDodgeChance { get { return m_dodgeCompdChance; } }
+        public double GetControlMod { get { return m_controlMod; } }
         public double GetStaminaCost { get { return m_doBaseStaminaCost; } }
         public double GetUseTime { get { return m_doBaseSpeed; } }
 
@@ -226,6 +228,34 @@ namespace SoliaQuestClassic.SoulForge
         public virtual string GetFlavorText(SQCreature sender)
         {
             return "";
+        }
+
+        public virtual double GetCriticalChance(SQCreature sender)
+        {
+            return (Math.Pow(m_controlMod, 2) / 5) * Math.Pow(sender.DynamicControl, 2 * m_controlMod);
+        }
+
+        public virtual double RollCritical(SQCreature sender)
+        {
+            double critChance = 0;
+            return 0;
+        }
+
+        public virtual double GetCriticalDamage(double critResult)
+        {
+            return m_doBaseDamageTarget * (1 + Math.Floor(critResult) * m_controlMod);
+        }
+
+        public virtual double GetCriticalHeal(double critResult, bool isTargetSender = false)
+        {
+            if (isTargetSender)
+            {
+                return m_doBaseHealSelf * (1 + Math.Floor(critResult) * m_controlMod);
+            }
+            else
+            {
+                return m_doBaseHealTarget * (1 + Math.Floor(critResult) * m_controlMod);
+            }
         }
 
         /// <summary>

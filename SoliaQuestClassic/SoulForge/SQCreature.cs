@@ -1311,6 +1311,7 @@ namespace SoliaQuestClassic.SoulForge
         public SQType[] abilityType;
         public string abilityDisplay;
         public string flavorText;
+        public bool criticalHit;
         public double outgoingEffector;//TODO Add This
         public double incomingEffector;//TODO Add This
         public double doDamageTarget;
