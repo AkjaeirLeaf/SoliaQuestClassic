@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoulForge\Abilities\BlankStare.cs" />
     <Compile Include="SoulForge\Abilities\CrystalStorm.cs" />
     <Compile Include="SoulForge\Abilities\CrystalTalon.cs" />
     <Compile Include="SoulForge\Abilities\DustOff.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="SoulForge\Effects\MirageEffect.cs" />
     <Compile Include="SoulForge\Effects\MirrorEffect.cs" />
     <Compile Include="SoulForge\Effects\SwishEffect.cs" />
+    <Compile Include="SoulForge\Effects\TrainingRoomEffect.cs" />
     <Compile Include="SoulForge\ItemFamilies\FoodItems.cs" />
     <Compile Include="SoulForge\ItemFamilies\HealingItems.cs" />
     <Compile Include="SoulForge\ItemFamilies\Unitemized.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="SoulForge\Species\DaecaserDer.cs" />
     <Compile Include="SoulForge\Species\EaltaeQhota.cs" />
     <Compile Include="SoulForge\Species\NoctaelQhota.cs" />
+    <Compile Include="SoulForge\Species\TrainingDummy.cs" />
     <Compile Include="SoulForge\Species\Ufim.cs" />
     <Compile Include="SoulForge\Species\Yikjder.cs" />
     <Compile Include="SoulForge\SQItemFamily.cs" />
@@ -122,6 +125,7 @@
     <Compile Include="SoulForge\SQInventory.cs" />
     <Compile Include="SoulForge\SQItem.cs" />
     <Compile Include="SoulForge\SQItemStack.cs" />
+    <Compile Include="SoulForge\SQOpponentCreature.cs" />
     <Compile Include="SoulForge\SQSpecies.cs" />
     <Compile Include="SoulForge\SQStatMod.cs" />
     <Compile Include="SoulForge\SQType.cs" />
