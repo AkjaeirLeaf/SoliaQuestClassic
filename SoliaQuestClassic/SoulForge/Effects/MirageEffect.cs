@@ -19,7 +19,7 @@ namespace SoliaQuestClassic.SoulForge.Effects
 
         public override int EffectEvent_Activated(SQCreature effected)
         {
-            effected.DoModifyEvade(1.5 * effected.DefaultEvade);
+            effected.DoModifyEvade(1.5 * effected.DynamicEvade);
             return 1;
         }
     }

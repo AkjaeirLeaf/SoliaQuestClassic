@@ -23,7 +23,7 @@ namespace SoliaQuestClassic.SoulForge.Effects
             //for  MIRROR we want the ability used on by opponent/attacker to be reflected.
             SQAbilityInfo abilityUsed = sender.GetAbilityInfo(ability.InternalName);
             abilityUsed.doDamageTarget *= 0.5;
-
+            abilityUsed.abilityDodgeChance = 0;
             sender.DoDamage(abilityUsed);
             didReflect = true;
             if (didReflect && didBlock) { effected.RemoveEffect(this.InternalName); }
