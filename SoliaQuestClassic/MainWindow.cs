@@ -265,6 +265,8 @@ namespace SoliaQuestClassic
                     AddRewards(fightDialog.enemyCreature.MainInventory.Contents[i]);
                 }
             }
+            player.FullHeal();
+            player.EndCombat();
             UpdateInventoryImages();
             UpdateTextData();
         }

@@ -20,7 +20,7 @@ namespace SoliaQuestClassic
 {
     public partial class FightDialog : Form
     {
-        public SQCreature enemyCreature;
+        public SQOpponentCreature enemyCreature;
 
         private bool playerWon = false;
         public bool PlayerWins { get { return playerWon; } }
@@ -28,9 +28,11 @@ namespace SoliaQuestClassic
         public FightDialog()
         {
             InitializeComponent();
-            enemyCreature = new SQCreature(new SoulForge.Species.Silvertail());
+            //enemyCreature = new SQOpponentCreature(new SoulForge.Species.Acyltri());
+            enemyCreature = new SQOpponentCreature(); //trainer dummy
             enemyCreature.AddTag("tag_isActiveUser", false);
-            enemyCreature.TeachAbility(new SoulForge.Abilities.Opalium("X"));
+            MainWindow.player.AddEffect(new SoulForge.Effects.TrainingRoomEffect());
+            //enemyCreature.TeachAbility(new SoulForge.Abilities.Opalium("X"));
 
             CreateLootInventory();
             UpdateTextGeneral();
@@ -39,7 +41,7 @@ namespace SoliaQuestClassic
         public void CreateLootInventory()
         {
             enemyCreature.CreateCreatureMainInventory(8);
-
+            /*
             int count0 = Kirali.Framework.Random.Int(2, 5);
             int count1 = Kirali.Framework.Random.Int(4, 12);
             enemyCreature.QuickGiveItem(new HealingPotion0(), count0);
@@ -61,8 +63,9 @@ namespace SoliaQuestClassic
             rareitem0 = Kirali.Framework.Random.Int(0, 500);
             if (rareitem0 < 25)
             {
-                enemyCreature.QuickGiveItem(new DefaultAbilityScript(new SoulForge.Abilities.Opalium("X"), 3), 1);
+                //enemyCreature.QuickGiveItem(new DefaultAbilityScript(new SoulForge.Abilities.Opalium("X"), 3), 1);
             }
+            */
         }
 
         private void UpdateTextGeneral()
@@ -131,10 +134,7 @@ namespace SoliaQuestClassic
             string enemyAbilityUse = "";
             int r = Kirali.Framework.Random.Int(0, 100);
 
-            if (r > 30)
-            { enemyAbilityUse = "crystalTalon"; }
-            else if (r <= 30)
-            { enemyAbilityUse = "opalium"; }
+            enemyAbilityUse = enemyCreature.GetAbilityUse(MainWindow.player);
 
             if (!ended)
             {
@@ -186,9 +186,23 @@ namespace SoliaQuestClassic
                         { target.ActiveEffects[u].EffectEvent_DoAbilityUsedOn(sender.GetAbility(internalID), target, sender); }
                     }
 
+                    for (int u = 0; u < sender.ActiveEffects.Length; u++)
+                    {
+                        sender.ActiveEffects[u].EffectEvent_PostUseAbility(sender.GetAbility(internalID), sender);
+                    }
+
                     //grant experience to player for using ability:
                     sender.GiveExperience(abilityUsedInfo.experienceForUse);
-                    abilityLogDisplayString += doCreatureDisplay + " used " + abilityUsedInfo.abilityDisplay + ".\n";
+                    if (!String.IsNullOrEmpty(abilityUsedInfo.flavorText))
+                    {
+                        abilityLogDisplayString += abilityUsedInfo.flavorText + ".\n";
+                        
+                    }
+                    else
+                    {
+                        abilityLogDisplayString += doCreatureDisplay + " used " + abilityUsedInfo.abilityDisplay + ".\n";
+                        
+                    }
                     targetDodged = damageToTarget.evade;
                     if (targetDodged) { abilityLogDisplayString += doTargetDisplay + " dodged.\n"; }
 
