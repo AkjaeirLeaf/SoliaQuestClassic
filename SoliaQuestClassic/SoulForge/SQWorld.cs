@@ -121,6 +121,7 @@ namespace SoliaQuestClassic.SoulForge
             Types.Water.RegisterSpeciesType();
 
             //Register Creature Abilities
+            Abilities.BlankStare.RegisterAbility();
             Abilities.UseItem.RegisterAbility();
             Abilities.Scratch.RegisterAbility();
 
@@ -163,6 +164,7 @@ namespace SoliaQuestClassic.SoulForge
             ItemFamilies.FoodItems.Register();
 
             //Register Species (do this last :))
+            Species.TrainingDummy.RegisterSpecies();
             Species.Acyltri.RegisterSpecies();
             Species.AvieaDer.RegisterSpecies();
             Species.DaecaserDer.RegisterSpecies();
