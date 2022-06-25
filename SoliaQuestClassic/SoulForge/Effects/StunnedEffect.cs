@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,24 +6,21 @@ using System.Threading.Tasks;
 
 namespace SoliaQuestClassic.SoulForge.Effects
 {
-    public class TrainingRoomEffect : SQEffect
+    public class StunnedEffect : SQEffect
     {
-        public TrainingRoomEffect()
+        public StunnedEffect()
         {
-            ModifyEffectReference("Training Room", "trainingRoomEffect");
-            tooltip = "Upon using an ability, your STAMINA is restored.";
+            ModifyEffectReference("Stunned", "stunnedEffect");
+            tooltip = "You\'re stunned, the next ability is likely to fail.";
             stackMax = -1;
             doShowEffect = true;
             m_timeLeft = -1;
-            removePostCombat = true;
         }
 
         public override SQAbilityInfo EffectEvent_OnUseAbility(SQAbilityInfo ability, SQCreature effected, SQCreature target)
         {
-            if (effected.DynamicStamina < effected.Stamina)
-            {
-                effected.DoModifyStamina(effected.Stamina);
-            }
+            //stall ability with updated PostUseAbility event
+            effected.RemoveEffect(InternalName);
             return ability;
         }
     }
