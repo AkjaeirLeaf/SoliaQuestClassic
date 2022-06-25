@@ -11,6 +11,7 @@ namespace SoliaQuestClassic.SoulForge
     public partial class SQCreature
     {
         protected string creatureUniqueID = "";
+        public string GetUniqueID() { return creatureUniqueID; }
         protected string creatureName = "";
         public string CreatureName { get { return creatureName; } set { creatureName = value; } }
         protected SQGender gender = SQGender.Genderless;
@@ -1087,6 +1088,13 @@ namespace SoliaQuestClassic.SoulForge
                 dynamic_Defense = newValue;
             }
         }
+        public void DoModifyAttack(double newValue)
+        {
+            if (newValue >= 0)
+            {
+                dynamic_Attack = newValue;
+            }
+        }
         public void DoModifyStamina(double newValue)
         {
             if (newValue >= 0)
@@ -1099,6 +1107,13 @@ namespace SoliaQuestClassic.SoulForge
             if (newValue >= 0)
             {
                 dynamic_Evade = newValue;
+            }
+        }
+        public void DoModifyControl(double newValue)
+        {
+            if (newValue >= 0)
+            {
+                dynamic_Control = newValue;
             }
         }
         public virtual double GetDefeatExperience()

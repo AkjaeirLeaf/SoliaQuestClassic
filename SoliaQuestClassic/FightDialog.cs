@@ -170,6 +170,11 @@ namespace SoliaQuestClassic
 
                 if (abilityUsedInfo.ErrorCode == SQAbilityError.noError)
                 {
+                    for (int u = 0; u < sender.ActiveEffects.Length; u++)
+                    {
+                        abilityUsedInfo = sender.ActiveEffects[u].EffectEvent_OnUseAbility(abilityUsedInfo, sender, target);
+                    }
+
                     SQDamageInfo damageToSelf = sender.DoDamage(abilityUsedInfo, false);
                     SQHealInfo healingToSelf = sender.DoHeal(abilityUsedInfo, false);
                     SQDamageInfo damageToTarget = target.DoDamage(abilityUsedInfo, true);
@@ -186,10 +191,7 @@ namespace SoliaQuestClassic
                         { target.ActiveEffects[u].EffectEvent_DoAbilityUsedOn(sender.GetAbility(internalID), target, sender); }
                     }
 
-                    for (int u = 0; u < sender.ActiveEffects.Length; u++)
-                    {
-                        sender.ActiveEffects[u].EffectEvent_PostUseAbility(sender.GetAbility(internalID), sender);
-                    }
+                    
 
                     //grant experience to player for using ability:
                     sender.GiveExperience(abilityUsedInfo.experienceForUse);
@@ -250,7 +252,7 @@ namespace SoliaQuestClassic
                     for (int t = 0; t < MainWindow.player.Abilities[SelectedAbilityIndex].AbilityType.Length; t++)
                     {
                         SQType type;
-                        if (SQWorld.SQWorldTypeList.TryGetValue(MainWindow.player.Abilities[SelectedAbilityIndex].AbilityType[t], out type)) ;
+                        if (SQWorld.SQWorldTypeList.TryGetValue(MainWindow.player.Abilities[SelectedAbilityIndex].AbilityType[t], out type)) 
                         {
                             typeslist += type.Title;
                             if (t != MainWindow.player.Abilities[SelectedAbilityIndex].AbilityType.Length - 1)

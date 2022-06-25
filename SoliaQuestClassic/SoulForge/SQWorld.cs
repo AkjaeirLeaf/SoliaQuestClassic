@@ -124,21 +124,41 @@ namespace SoliaQuestClassic.SoulForge
             Abilities.BlankStare.RegisterAbility();
             Abilities.UseItem.RegisterAbility();
             Abilities.Scratch.RegisterAbility();
+            Abilities.ScratchII.RegisterAbility();
 
             Abilities.Swish.RegisterAbility();
 
+            Abilities.Torch.RegisterAbility();
+            Abilities.Stunlight.RegisterAbility();
             Abilities.Mirage.RegisterAbility();
             Abilities.Mirror.RegisterAbility();
+            Abilities.Source.RegisterAbility();
 
             Abilities.CrystalTalon.RegisterAbility();
             Abilities.PrismSlash.RegisterAbility();
             Abilities.Opalium.RegisterAbility();
+            Abilities.Opalescence.RegisterAbility();
+            Abilities.OpaliumUltimatum.RegisterAbility();
             Abilities.Shatter.RegisterAbility();
             Abilities.CrystalStorm.RegisterAbility();
 
             Abilities.Infinity.RegisterAbility();
 
+            Abilities.CryonicBlast.RegisterAbility();
+
+            Abilities.RockArmor.RegisterAbility();
+
+            Abilities.Brush.RegisterAbility();
             Abilities.Whisper.RegisterAbility();
+            Abilities.Curse.RegisterAbility();
+            Abilities.Haunt.RegisterAbility();
+            Abilities.StarPath.RegisterAbility();
+            Abilities.Sacrifice.RegisterAbility();
+            Abilities.PrismTrap.RegisterAbility();
+            Abilities.Blessing.RegisterAbility();
+            Abilities.SharedFate.RegisterAbility();
+            Abilities.Shell.RegisterAbility();
+            Abilities.Rebirth.RegisterAbility();
 
             //Register Stat Modifiers
             StatMods.Ordinary.RegisterStatMod();
@@ -408,6 +428,171 @@ namespace SoliaQuestClassic.SoulForge
                 return 1.0;
             }
         }
+
+        //Pronounssss
+        public enum PronounType
+        {
+            Subject,
+            Object,
+            PossessiveAdj,
+            Possessive,
+            Reflexive
+        }
+        public static string GetPronoun(SQGender gender, PronounType pronounType)
+        {
+            if(pronounType == PronounType.Subject)
+            {
+                switch (gender)
+                {
+                    case SQGender.Genderless:
+                    return "they";
+                    case SQGender.Agender:
+                    return "they";
+                    case SQGender.Androgyne:
+                    return "they";
+                    case SQGender.Bigender:
+                    return "they";
+                    case SQGender.Genderfluid:
+                    return "they";
+                    case SQGender.Nonbinary:
+                    return "they";
+                    case SQGender.Omnigender:
+                    return "they";
+                    case SQGender.Polygender:
+                    return "they";
+                    case SQGender.Twospirit:
+                    return "they";
+                    case SQGender.Female:
+                    return "her";
+                    case SQGender.Male:
+                    return "he";
+                    default:
+                    return "they";
+                }
+            }
+            else if (pronounType == PronounType.Object)
+            {
+                switch (gender)
+                {
+                    case SQGender.Genderless:
+                    return "them";
+                    case SQGender.Agender:
+                    return "them";
+                    case SQGender.Androgyne:
+                    return "them";
+                    case SQGender.Bigender:
+                    return "them";
+                    case SQGender.Genderfluid:
+                    return "them";
+                    case SQGender.Nonbinary:
+                    return "them";
+                    case SQGender.Omnigender:
+                    return "them";
+                    case SQGender.Polygender:
+                    return "them";
+                    case SQGender.Twospirit:
+                    return "them";
+                    case SQGender.Female:
+                    return "her";
+                    case SQGender.Male:
+                    return "him";
+                    default:
+                    return "them";
+                }
+            }
+            else if (pronounType == PronounType.PossessiveAdj)
+            {
+                switch (gender)
+                {
+                    case SQGender.Genderless:
+                    return "their";
+                    case SQGender.Agender:
+                    return "their";
+                    case SQGender.Androgyne:
+                    return "their";
+                    case SQGender.Bigender:
+                    return "their";
+                    case SQGender.Genderfluid:
+                    return "their";
+                    case SQGender.Nonbinary:
+                    return "their";
+                    case SQGender.Omnigender:
+                    return "their";
+                    case SQGender.Polygender:
+                    return "their";
+                    case SQGender.Twospirit:
+                    return "their";
+                    case SQGender.Female:
+                    return "her";
+                    case SQGender.Male:
+                    return "his";
+                    default:
+                    return "their";
+                }
+            }
+            else if (pronounType == PronounType.Possessive)
+            {
+                switch (gender)
+                {
+                    case SQGender.Genderless:
+                    return "theirs";
+                    case SQGender.Agender:
+                    return "theirs";
+                    case SQGender.Androgyne:
+                    return "theirs";
+                    case SQGender.Bigender:
+                    return "theirs";
+                    case SQGender.Genderfluid:
+                    return "theirs";
+                    case SQGender.Nonbinary:
+                    return "theirs";
+                    case SQGender.Omnigender:
+                    return "theirs";
+                    case SQGender.Polygender:
+                    return "theirs";
+                    case SQGender.Twospirit:
+                    return "theirs";
+                    case SQGender.Female:
+                    return "hers";
+                    case SQGender.Male:
+                    return "his";
+                    default:
+                    return "theirs";
+                }
+            }
+            else //(pronounType == PronounType.Reflexive)
+            {
+                switch (gender)
+                {
+                    case SQGender.Genderless:
+                    return "themself";
+                    case SQGender.Agender:
+                    return "themself";
+                    case SQGender.Androgyne:
+                    return "themself";
+                    case SQGender.Bigender:
+                    return "themself";
+                    case SQGender.Genderfluid:
+                    return "themself";
+                    case SQGender.Nonbinary:
+                    return "themself";
+                    case SQGender.Omnigender:
+                    return "themself";
+                    case SQGender.Polygender:
+                    return "themself";
+                    case SQGender.Twospirit:
+                    return "themself";
+                    case SQGender.Female:
+                    return "herself";
+                    case SQGender.Male:
+                    return "himself";
+                    default:
+                    return "themself";
+                }
+            }
+            
+        }
+
 
         public SQWorld()
         {

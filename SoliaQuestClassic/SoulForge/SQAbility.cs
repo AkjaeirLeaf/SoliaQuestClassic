@@ -237,8 +237,9 @@ namespace SoliaQuestClassic.SoulForge
 
         public virtual double RollCritical(SQCreature sender)
         {
-            double critChance = 0;
-            return 0;
+            double critChance = GetCriticalChance(sender);
+            double x = Kirali.Framework.Random.Double(0, 1) * critChance;
+            return x;
         }
 
         public virtual double GetCriticalDamage(double critResult)

@@ -225,9 +225,9 @@ namespace SoliaQuestClassic.SoulForge
             return 0;
         }
 
-        public virtual int EffectEvent_PostUseAbility(SQAbility ability, SQCreature effected)
+        public virtual SQAbilityInfo EffectEvent_OnUseAbility(SQAbilityInfo ability, SQCreature effected, SQCreature target)
         {
-            return 0;
+            return ability;
         }
 
         public virtual SQAbilityInfo PreDoDamage(SQAbilityInfo incoming, SQCreature effected, bool dodged = false)

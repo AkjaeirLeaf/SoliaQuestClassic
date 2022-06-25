@@ -160,7 +160,7 @@ namespace SoliaQuestClassic
         private bool usable = false;
         private void AwakeGenerateCreature()
         {
-            player = new Silvertail().NewCreatureOf();
+            player = new EaltaeQhota().NewCreatureOf();
             player.AddTag("tag_isActiveUser", true);
             usable = true;
         }
