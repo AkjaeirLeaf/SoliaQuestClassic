@@ -30,6 +30,7 @@ namespace SoliaQuestClassic.SoulForge.Species
 
             //add initially known abilities:
             AddInitialAbility("useItem");
+            AddInitialAbility("brush");
             AddInitialAbility("whisper");
             AddInitialAbility("mirror");
 
@@ -43,6 +44,7 @@ namespace SoliaQuestClassic.SoulForge.Species
             switch (sender.Level)
             {
                 case 3:
+                    sender.TeachAbility(new Abilities.Curse());
                     sender.TeachAbility(new Abilities.Mirage());
                     break;
                 case 5:
