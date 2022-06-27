@@ -39,6 +39,7 @@ namespace SoliaQuestClassic.SoulForge.Effects
             SQAbilityInfo info = new SQAbilityInfo();
             info.abilityDisplay = "Cursed";
             info.abilityType = trueTypes;
+            info.targetDodges = false;
             info.doDamageTarget = this.m_tickBaseDamageTarget * (timeRemainingCustom * 0.2);
 
             effected.DoDamage(info);
