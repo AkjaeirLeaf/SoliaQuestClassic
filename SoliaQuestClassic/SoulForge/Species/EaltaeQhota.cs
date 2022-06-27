@@ -30,9 +30,10 @@ namespace SoliaQuestClassic.SoulForge.Species
 
             //add initially known abilities:
             AddInitialAbility("useItem");
+            AddInitialAbility("waterbolt");
+            AddInitialAbility("timespell");
             AddInitialAbility("brush");
-            AddInitialAbility("whisper");
-            AddInitialAbility("mirror");
+            AddInitialAbility("curse");
 
 
             //Setup which stat / color mods options to use
@@ -51,7 +52,7 @@ namespace SoliaQuestClassic.SoulForge.Species
                     sender.TeachAbility(new Abilities.Opalium());
                     break;
                 case 10:
-                    sender.ReplaceAbility("prismSlashI", new Abilities.PrismSlashII());
+                    //sender.ReplaceAbility("prismSlashI", new Abilities.PrismSlashII());
                     break;
                 default:
 

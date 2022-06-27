@@ -26,7 +26,11 @@ namespace SoliaQuestClassic.SoulForge
                 containedCreatureTags.Add(key, obj);
                 return 1;
             }
-            catch { return -1; }
+            catch (ArgumentException)
+            {
+                containedCreatureTags[key] = obj;
+                return 2;
+            }
         }
         public bool TryGetTag(string key, out object tagInfo)
         {
@@ -747,6 +751,7 @@ namespace SoliaQuestClassic.SoulForge
                     info.senderLevel = Level;
                     info.experienceForUse = creatureAbilities[p].GetExperienceUse(this);
                     info.ErrorCode = SQAbilityError.noError;
+                    info.source = SQDamageSource.Ability;
 
                     if (doUseAbility)
                     {
@@ -755,7 +760,18 @@ namespace SoliaQuestClassic.SoulForge
                         {
                             info.ErrorCode = SQAbilityError.noError;
                             creatureAbilities[p].OnAbilityUse(this);
-                            creatureAbilities[p].OnAbilityUsedOn(target);
+
+                            //test if target dodges
+                            //implement dodge chance and evasion stat:
+                            double modifiedDodgeChance = info.abilityDodgeChance * dynamic_Evade;
+                            double r = Kirali.Framework.Random.Double(0, 1);
+                            if (r > modifiedDodgeChance)
+                            {
+                                creatureAbilities[p].OnAbilityUsedOn(target);
+                                info.targetDodges = false;
+                            }
+                            else { info.targetDodges = true; }
+                                
                         }
                         else
                         {
@@ -847,10 +863,7 @@ namespace SoliaQuestClassic.SoulForge
         }
         public SQDamageInfo DoDamage(SQAbilityInfo attacks, bool isTarget = true)
         {
-            //implement dodge chance and evasion stat:
-            double modifiedDodgeChance = attacks.abilityDodgeChance * dynamic_Evade;
-            double r = Kirali.Framework.Random.Double(0, 1);
-            if(r > modifiedDodgeChance)
+            if (isTarget)
             {
                 SQAbilityInfo effectPredamage = attacks;
                 if (ActiveEffects.Length > 0)
@@ -864,64 +877,58 @@ namespace SoliaQuestClassic.SoulForge
                     }
                 }
                 attacks = effectPredamage;
+            }
 
-                SQDamageInfo damage = new SQDamageInfo();
-                double sumDamage = 0;
-                damage.failed = false;
-                damage.evade = false;
+            SQDamageInfo damage = new SQDamageInfo();
+            double sumDamage = 0;
+            damage.failed = false;
+            //damage.evade = attacks.targetDodges;
 
-                double modify = 0.0;
-                int typeTotal = 0;
-                for (int typeCt = 0; typeCt < m_species.UseSpeciesTypes.Length; typeCt++)
+            double modify = 0.0;
+            int typeTotal = 0;
+            for (int typeCt = 0; typeCt < m_species.UseSpeciesTypes.Length; typeCt++)
+            {
+                //modify = attacks[attackIndex].damageType.GetModifyDamageOutgoing(m_species.UseSpeciesTypes[typeCt]);
+                SQType thisType;
+                if (SQWorld.SQWorldTypeList.TryGetValue(m_species.UseSpeciesTypes[typeCt], out thisType))
                 {
-                    //modify = attacks[attackIndex].damageType.GetModifyDamageOutgoing(m_species.UseSpeciesTypes[typeCt]);
-                    SQType thisType;
-                    if (SQWorld.SQWorldTypeList.TryGetValue(m_species.UseSpeciesTypes[typeCt], out thisType))
+                    double subModify = 0.0; int h = 0;
+                    for (h = 0; h < attacks.abilityType.Length; h++)
                     {
-                        double subModify = 0.0; int h = 0;
-                        for (h = 0; h < attacks.abilityType.Length; h++)
-                        {
-                            subModify += thisType.GetModifyDamageIncoming(attacks.abilityType[h].Internal);
-                        }
-                        modify += (subModify / h);
+                        subModify += thisType.GetModifyDamageIncoming(attacks.abilityType[h].Internal);
                     }
-                    else { modify += 1.0; }
-
-                    typeTotal++;
+                    modify += (subModify / h);
                 }
-                modify /= typeTotal;
+                else { modify += 1.0; }
 
-                if (isTarget) { sumDamage += modify * attacks.doDamageTarget; }
-                else { sumDamage += modify * attacks.doDamageSelf; }
+                typeTotal++;
+            }
+            modify /= typeTotal;
 
-                damage.effectivity = modify;
+            if (isTarget) { sumDamage += modify * attacks.doDamageTarget; }
+            else { sumDamage += modify * attacks.doDamageSelf; }
 
-                //deal damage to creature
-                double damageThroughDefense = sumDamage;
-                if (dynamic_Defense < sumDamage) { damageThroughDefense = sumDamage - dynamic_Defense; }
-                else { damageThroughDefense = 0; }
-                if (dynamic_Health > damageThroughDefense)
-                {
-                    dynamic_Health -= damageThroughDefense;
-                    creatureState = SQCreatureState.Nominal;//TODO work on this more
-                    damage.stateAfter = SQCreatureState.Nominal;
-                }
-                else
-                {
-                    dynamic_Health = 0;
-                    creatureState = SQCreatureState.Blackout;//TODO work on this more
-                    damage.stateAfter = SQCreatureState.Blackout;
-                }
-                damage.damageDone = damageThroughDefense;
+            damage.effectivity = modify;
 
-                return damage;
+            //deal damage to creature
+            double damageThroughDefense = sumDamage;
+            if (dynamic_Defense < sumDamage) { damageThroughDefense = sumDamage - dynamic_Defense; }
+            else { damageThroughDefense = 0; }
+            if (dynamic_Health > damageThroughDefense)
+            {
+                dynamic_Health -= damageThroughDefense;
+                creatureState = SQCreatureState.Nominal;//TODO work on this more
+                damage.stateAfter = SQCreatureState.Nominal;
             }
             else
             {
-                SQDamageInfo dodgedInfo = new SQDamageInfo();
-                dodgedInfo.evade = true;
-                return dodgedInfo;
+                dynamic_Health = 0;
+                creatureState = SQCreatureState.Blackout;//TODO work on this more
+                damage.stateAfter = SQCreatureState.Blackout;
             }
+            damage.damageDone = damageThroughDefense;
+
+            return damage;
         }
         public SQHealInfo DoHeal(SQAbilityInfo[] healAbility, bool isTarget = true)
         {
@@ -1340,6 +1347,16 @@ namespace SoliaQuestClassic.SoulForge
         public double senderAbilityMultiplier;
         public double senderLevel;
         public double experienceForUse;
+        public bool targetDodges;
+        public SQDamageSource source;
+    }
+
+    public enum SQDamageSource
+    {
+        Ability,
+        Recoil,
+        Effect,
+        Hazard
     }
 
     public struct SQDamageInfo

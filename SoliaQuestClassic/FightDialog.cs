@@ -29,7 +29,7 @@ namespace SoliaQuestClassic
         {
             InitializeComponent();
             //enemyCreature = new SQOpponentCreature(new SoulForge.Species.Acyltri());
-            enemyCreature = new SQOpponentCreature(); //trainer dummy
+            enemyCreature = new SQOpponentCreature(new SoulForge.Species.Silvertail()); //trainer dummy
             enemyCreature.AddTag("tag_isActiveUser", false);
             MainWindow.player.AddEffect(new SoulForge.Effects.TrainingRoomEffect());
             //enemyCreature.TeachAbility(new SoulForge.Abilities.Opalium("X"));
@@ -41,7 +41,7 @@ namespace SoliaQuestClassic
         public void CreateLootInventory()
         {
             enemyCreature.CreateCreatureMainInventory(8);
-            /*
+            
             int count0 = Kirali.Framework.Random.Int(2, 5);
             int count1 = Kirali.Framework.Random.Int(4, 12);
             enemyCreature.QuickGiveItem(new HealingPotion0(), count0);
@@ -65,7 +65,7 @@ namespace SoliaQuestClassic
             {
                 //enemyCreature.QuickGiveItem(new DefaultAbilityScript(new SoulForge.Abilities.Opalium("X"), 3), 1);
             }
-            */
+            
         }
 
         private void UpdateTextGeneral()
@@ -170,22 +170,32 @@ namespace SoliaQuestClassic
 
                 if (abilityUsedInfo.ErrorCode == SQAbilityError.noError)
                 {
-                    for (int u = 0; u < sender.ActiveEffects.Length; u++)
+                    
+                    if (!abilityUsedInfo.targetDodges)
                     {
-                        abilityUsedInfo = sender.ActiveEffects[u].EffectEvent_OnUseAbility(abilityUsedInfo, sender, target);
+                        for (int u = 0; u < sender.ActiveEffects.Length; u++)
+                        {
+                            abilityUsedInfo = sender.ActiveEffects[u].EffectEvent_OnUseAbility(abilityUsedInfo, sender, target);
+                        }
+                        SQDamageInfo damageToTarget = target.DoDamage(abilityUsedInfo, true);
+                        SQHealInfo healingToTarget = target.DoHeal(abilityUsedInfo, true);
                     }
+                    else
+                    {
+                        //Console.WriteLine("Dodged!");
+                    }
+                    
 
                     SQDamageInfo damageToSelf = sender.DoDamage(abilityUsedInfo, false);
                     SQHealInfo healingToSelf = sender.DoHeal(abilityUsedInfo, false);
-                    SQDamageInfo damageToTarget = target.DoDamage(abilityUsedInfo, true);
-                    SQHealInfo healingToTarget = target.DoHeal(abilityUsedInfo, true);
+                    
 
                     if (sender == target)
                     {
                         for (int u = 0; u < sender.ActiveEffects.Length; u++)
                         { sender.ActiveEffects[u].EffectEvent_DoAbilityUsedSelf(sender.GetAbility(internalID), sender); }
                     }
-                    else
+                    else if(!abilityUsedInfo.targetDodges)
                     {
                         for (int u = 0; u < target.ActiveEffects.Length; u++)
                         { target.ActiveEffects[u].EffectEvent_DoAbilityUsedOn(sender.GetAbility(internalID), target, sender); }
@@ -205,7 +215,7 @@ namespace SoliaQuestClassic
                         abilityLogDisplayString += doCreatureDisplay + " used " + abilityUsedInfo.abilityDisplay + ".\n";
                         
                     }
-                    targetDodged = damageToTarget.evade;
+                    targetDodged = abilityUsedInfo.targetDodges;
                     if (targetDodged) { abilityLogDisplayString += doTargetDisplay + " dodged.\n"; }
 
                     return useAbilityEnum.used;

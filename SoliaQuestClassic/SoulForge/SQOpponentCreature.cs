@@ -160,6 +160,8 @@ namespace SoliaQuestClassic.SoulForge
                     if (ind != -1) { return Abilities[ind].InternalName; }
                     ind = FindAbilityType(SQAbilityPurpose.STAT_BOOST);
                     if (ind != -1) { return Abilities[ind].InternalName; }
+                    ind = FindAbilityType(SQAbilityPurpose.DAMAGE_ONLY);
+                    if (ind != -1) { return Abilities[ind].InternalName; }
                 }
                 //If under 50% health, will begin using defensive measures
                 else if (dynamic_Health < stat_advanceHealth * 0.5)
@@ -172,6 +174,8 @@ namespace SoliaQuestClassic.SoulForge
                     healind = FindAbilityType(SQAbilityPurpose.STAT_BOOST);
                     if (healind != -1) { return Abilities[healind].InternalName; }
                     healind = FindAbilityType(SQAbilityPurpose.DAMAGE_REFLECT);
+                    if (healind != -1) { return Abilities[healind].InternalName; }
+                    healind = FindAbilityType(SQAbilityPurpose.DAMAGE_ONLY);
                     if (healind != -1) { return Abilities[healind].InternalName; }
                 }
                 //if under 20% health, will begin using very defensive measures
@@ -189,6 +193,20 @@ namespace SoliaQuestClassic.SoulForge
                     if (healind != -1) { return Abilities[healind].InternalName; }
                     healind = FindAbilityType(SQAbilityPurpose.DAMAGE_REFLECT);
                     if (healind != -1) { return Abilities[healind].InternalName; }
+                    healind = FindAbilityType(SQAbilityPurpose.DAMAGE_ONLY);
+                    if (healind != -1) { return Abilities[healind].InternalName; }
+                }
+                else
+                {
+                    int ind = -1;
+                    ind = FindAbilityType(SQAbilityPurpose.DAMAGE_ONLY);
+                    if (ind != -1) { return Abilities[ind].InternalName; }
+                    ind = FindAbilityType(SQAbilityPurpose.APPLY_DAMAGE_EFFECT);
+                    if (ind != -1) { return Abilities[ind].InternalName; }
+                    ind = FindAbilityType(SQAbilityPurpose.STAT_HIT);
+                    if (ind != -1) { return Abilities[ind].InternalName; }
+                    ind = FindAbilityType(SQAbilityPurpose.STAT_BOOST);
+                    if (ind != -1) { return Abilities[ind].InternalName; }
                 }
                 if (Abilities.Length > 0) { return Abilities[0].InternalName; }
                 return "";

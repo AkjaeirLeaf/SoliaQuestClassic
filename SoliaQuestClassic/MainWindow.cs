@@ -50,7 +50,7 @@ namespace SoliaQuestClassic
             creatureNameLabel.Text = player.CreatureName;
             //creatureInventoryLabel.Text = player.CreatureName + "\'s Inventory:";
             player.CreateCreatureMainInventory(8);
-            player.QuickGiveItem(new SoulForge.Items.HealingItems.HealingPotion0(), 3);
+            player.QuickGiveItem(new SoulForge.Items.FoodItems.BakedPotato(), 16);
             
 
             UpdateTextData();

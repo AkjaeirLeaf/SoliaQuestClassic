@@ -160,6 +160,10 @@ namespace SoliaQuestClassic.SoulForge
             Abilities.Shell.RegisterAbility();
             Abilities.Rebirth.RegisterAbility();
 
+            Abilities.Timespell.RegisterAbility();
+
+            Abilities.Waterbolt.RegisterAbility();
+
             //Register Stat Modifiers
             StatMods.Ordinary.RegisterStatMod();
             StatMods.Unimpressive.RegisterStatMod();

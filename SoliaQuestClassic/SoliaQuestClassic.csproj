@@ -76,6 +76,7 @@
     <Compile Include="SoulForge\Abilities\CrystalStorm.cs" />
     <Compile Include="SoulForge\Abilities\CrystalTalon.cs" />
     <Compile Include="SoulForge\Abilities\Curse.cs" />
+    <Compile Include="SoulForge\Abilities\Dewdrop.cs" />
     <Compile Include="SoulForge\Abilities\DustOff.cs" />
     <Compile Include="SoulForge\Abilities\Exsanguinate.cs" />
     <Compile Include="SoulForge\Abilities\Haunt.cs" />
@@ -102,8 +103,10 @@
     <Compile Include="SoulForge\Abilities\StarPath.cs" />
     <Compile Include="SoulForge\Abilities\Stunlight.cs" />
     <Compile Include="SoulForge\Abilities\Swish.cs" />
+    <Compile Include="SoulForge\Abilities\Timespell.cs" />
     <Compile Include="SoulForge\Abilities\Torch.cs" />
     <Compile Include="SoulForge\Abilities\UseItem.cs" />
+    <Compile Include="SoulForge\Abilities\Waterbolt.cs" />
     <Compile Include="SoulForge\Abilities\Whisper.cs" />
     <Compile Include="SoulForge\ColorMods\Cosmic.cs" />
     <Compile Include="SoulForge\ColorMods\Default.cs" />
@@ -132,6 +135,7 @@
     <Compile Include="SoulForge\Effects\SatisfiedEffect.cs" />
     <Compile Include="SoulForge\Effects\StunnedEffect.cs" />
     <Compile Include="SoulForge\Effects\SwishEffect.cs" />
+    <Compile Include="SoulForge\Effects\TimespellEffect.cs" />
     <Compile Include="SoulForge\Effects\TrainingRoomEffect.cs" />
     <Compile Include="SoulForge\ItemFamilies\ArmorEquips.cs" />
     <Compile Include="SoulForge\ItemFamilies\BlasterWeapons.cs" />

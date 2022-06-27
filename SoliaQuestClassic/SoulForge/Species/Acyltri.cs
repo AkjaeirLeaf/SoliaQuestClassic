@@ -21,6 +21,7 @@ namespace SoliaQuestClassic.SoulForge.Species
 
             //Set base stats
             statHealth  = 39.0;
+            //statHealth  = 3900000000.0;
             statDefense = 6.0;
             statAttack  =  0.8;
             statStamina = 36.0;
@@ -29,7 +30,7 @@ namespace SoliaQuestClassic.SoulForge.Species
 
             //add initially known abilities:
             AddInitialAbility("useItem");
-            AddInitialAbility("swish");
+            AddInitialAbility("waterbolt");
 
             //Setup which stat / color mods options to use
 
