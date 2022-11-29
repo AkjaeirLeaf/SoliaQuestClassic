@@ -114,9 +114,11 @@ namespace SoliaQuestClassic.SoulForge
             Types.Ice.RegisterSpeciesType();
             Types.Light.RegisterSpeciesType();
             Types.Metal.RegisterSpeciesType();
+            Types.Plant.RegisterSpeciesType();
             Types.Plasma.RegisterSpeciesType();
             Types.Spirit.RegisterSpeciesType();
             Types.Stone.RegisterSpeciesType();
+            Types.Toxic.RegisterSpeciesType();
             Types.Typeless.RegisterSpeciesType();
             Types.Water.RegisterSpeciesType();
 
@@ -147,6 +149,10 @@ namespace SoliaQuestClassic.SoulForge
             Abilities.CryonicBlast.RegisterAbility();
 
             Abilities.RockArmor.RegisterAbility();
+
+            Abilities.HydrateGrow.RegisterAbility();
+            Abilities.LeafBlade.RegisterAbility();
+            Abilities.Thorns.RegisterAbility();
 
             Abilities.Brush.RegisterAbility();
             Abilities.Whisper.RegisterAbility();
@@ -195,6 +201,7 @@ namespace SoliaQuestClassic.SoulForge
             Species.EaltaeQhota.RegisterSpecies();
             Species.NoctaelQhota.RegisterSpecies();
             Species.Silvertail.RegisterSpecies();
+            Species.Soqaruth.RegisterSpecies();
             Species.Ufim.RegisterSpecies();
         }
 
