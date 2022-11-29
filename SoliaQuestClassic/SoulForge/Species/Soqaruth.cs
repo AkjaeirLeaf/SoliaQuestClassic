@@ -6,33 +6,31 @@ using System.Threading.Tasks;
 
 namespace SoliaQuestClassic.SoulForge.Species
 {
-    public class EaltaeQhota : SQSpecies
+    public class Soqaruth : SQSpecies
     {
-        public EaltaeQhota()
+        public Soqaruth()
         {
             //Set creature ref and name
-            ModifySpeciesReference("Ealtae River Cat", "ealtaeQhota");
-            description = "A sleek, silvery-blue feline that lives in small communities near Ealtae\'s forest rivers and caves.\n" +
-                "Exceptionally high evasive stat but lower defense and resistance.\n" +
-                "Possibly a descendent or relative of the elusive Silvertail Cat.";
+            ModifySpeciesReference("Soqaruth", "soqaruth");
+            description = "Soqaruth is more plant than animal; They require little food but can digest almost anything.\n" +
+                "Exceptionally high defense and attack stats but lower base health.";
 
             //Set creature type
-            SetSpeciesType("water");
-            SetSpeciesType("spirit");
+            SetSpeciesType("plant");
 
             //Set base stats
-            statHealth = 92.0;
-            statDefense = 7.0;
-            statAttack = 1.5;
-            statStamina = 95.0;
-            statEvade = 5.3;
+            statHealth = 55.0;
+            statDefense = 16.0;
+            statAttack = 1.8;
+            statStamina = 65.0;
+            statEvade = 4.3;
             statControl = 0.5;
 
             //add initially known abilities:
             AddInitialAbility("useItem");
-            AddInitialAbility("waterbolt");
-            AddInitialAbility("brush");
-            AddInitialAbility("curse");
+            AddInitialAbility("scratchbasic");
+            AddInitialAbility("leafBlade");
+            AddInitialAbility("thorns");
 
 
             //Setup which stat / color mods options to use
@@ -43,12 +41,15 @@ namespace SoliaQuestClassic.SoulForge.Species
         {
             switch (sender.Level)
             {
+                case 2:
+                    sender.ReplaceAbility("scratchbasic", new Abilities.ScratchII(UseSpeciesTypes));
+                    sender.TeachAbility(new Abilities.Sunbathe("plant"));
+                    break;
                 case 3:
-                    sender.TeachAbility(new Abilities.Curse());
-                    sender.TeachAbility(new Abilities.Mirage());
+                    sender.TeachAbility(new Abilities.HydrateGrow());
                     break;
                 case 5:
-                    sender.TeachAbility(new Abilities.Opalium());
+                    sender.TeachAbility(new Abilities.Thorns());
                     break;
                 case 10:
                     //sender.ReplaceAbility("prismSlashI", new Abilities.PrismSlashII());
@@ -69,14 +70,14 @@ namespace SoliaQuestClassic.SoulForge.Species
         //boring stuff
         public static int RegisterSpecies()
         {
-            SQWorld.Register(new EaltaeQhota());
+            SQWorld.Register(new Soqaruth());
             return 1;
         }
 
 
         public override SQCreature NewCreatureOf()
         {
-            return new SQCreature(new EaltaeQhota());
+            return new SQCreature(new Soqaruth());
         }
     }
 }

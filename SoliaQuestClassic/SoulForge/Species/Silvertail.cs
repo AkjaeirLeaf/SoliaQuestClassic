@@ -37,6 +37,9 @@ namespace SoliaQuestClassic.SoulForge.Species
 
             //Setup which stat / color mods options to use
 
+
+            //Load Images
+            LoadSpeciesImages();
         }
 
         public override void Event_LevelUp(SQCreature sender)
@@ -60,9 +63,15 @@ namespace SoliaQuestClassic.SoulForge.Species
             base.Event_LevelUp(sender);
         }
 
+        //RENDER
+        public override void LoadSpeciesImages()
+        {
+            AddSpeciesImage("frame", "young", "p0",    "default");
+            AddSpeciesImage("frame", "young", "p0",  "leucistic");
+            AddSpeciesImage("frame", "young", "p0",   "negative");
+            AddSpeciesImage("frame", "young", "p0",  "prismatic");
 
-
-
+        }
 
 
         //boring stuff
