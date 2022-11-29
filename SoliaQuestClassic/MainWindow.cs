@@ -28,15 +28,10 @@ namespace SoliaQuestClassic
         public MainWindow()
         {
             SQWorld.AllocSetupAll();
-            //SQSpecies sender = new EaltaeQhota();
-            //SQSpecies target = new NoctaelQhota();
-            //SQWorld.C_AbilityEffective(sender.UseSpeciesTypes, new string[] { "light" }, target.UseSpeciesTypes);
-            //SQWorld.C_AbilityEffective(sender.UseSpeciesTypes, new string[] { "light", "spirit" }, target.UseSpeciesTypes);
-            //SQWorld.C_AbilityEffective(sender.UseSpeciesTypes, new string[] { "light", "spirit", "crystal" }, target.UseSpeciesTypes);
-            //Console.WriteLine(SQWorld.C_FindMostEffective(sender.UseSpeciesTypes, target.UseSpeciesTypes, 1));
-            //Console.WriteLine(SQWorld.C_FindMostEffective(sender.UseSpeciesTypes, target.UseSpeciesTypes, 2));
-            //Console.WriteLine(SQWorld.C_FindMostEffective(sender.UseSpeciesTypes, target.UseSpeciesTypes, 3));
 
+            //Console.WriteLine(SQWorld.C_FindMostEffective(new string[] { "dark" }, new string[] { "crystal", "light" }, 1));
+
+            if(true)
 
 #if true
             //initialize
@@ -51,7 +46,8 @@ namespace SoliaQuestClassic
             //creatureInventoryLabel.Text = player.CreatureName + "\'s Inventory:";
             player.CreateCreatureMainInventory(8);
             player.QuickGiveItem(new SoulForge.Items.FoodItems.BakedPotato(), 16);
-            
+            player.QuickGiveItem(new SoulForge.Items.Unitemized.DefaultAbilityScript(new SoulForge.Abilities.Whisper(), 0), 1);
+
 
             UpdateTextData();
             UpdateInventoryImages();
@@ -60,115 +56,23 @@ namespace SoliaQuestClassic
 
         }
 
-        private int SelectedAbilityIndex = 0;
-        private int UpdateAbilitiesDisplay()
-        {
-            if(player.Abilities.Length > 0)
-            {
-                if (SelectedAbilityIndex >= 0 && SelectedAbilityIndex < player.Abilities.Length)
-                {
-                    string typeslist = "";
-                    for(int t = 0; t < player.Abilities[SelectedAbilityIndex].AbilityType.Length; t++)
-                    {
-                        SQType type;
-                        if (SQWorld.SQWorldTypeList.TryGetValue(player.Abilities[SelectedAbilityIndex].AbilityType[t], out type)) ;
-                        {
-                            typeslist += type.Title;
-                            if (t != player.Abilities[SelectedAbilityIndex].AbilityType.Length - 1)
-                            {
-                                typeslist += ", ";
-                            }
-                        }
-                    }
-
-                    selectAbilityName.Text = player.Abilities[SelectedAbilityIndex].DisplayName;
-                    selectAbilityTypes.Text = typeslist + "\n" +
-                        player.Abilities[SelectedAbilityIndex].Description
-                        + "\nDamage: " + player.Abilities[SelectedAbilityIndex].GetDealDamageTarget(player)
-                        + "\nHealing: " + player.Abilities[SelectedAbilityIndex].GetHealValueSelf(player)
-                        + "\nEffectiveness: " + player.Abilities[SelectedAbilityIndex].UseEffectivity(player);
-
-                    abilityTypeImg0.Image = null;
-                    abilityTypeImg1.Image = null;
-                    abilityTypeImg2.Image = null;
-
-                    //type images
-                    for (int t = 0; t < player.Abilities[SelectedAbilityIndex].AbilityType.Length; t++)
-                    {
-                        SQType type;
-                        if (SQWorld.SQWorldTypeList.TryGetValue(player.Abilities[SelectedAbilityIndex].AbilityType[t], out type))
-                        {
-                            Bitmap bmpI = type.Image();
-                            if (bmpI != null)
-                            {
-                                switch (t)
-                                {
-                                    case 0:
-                                        abilityTypeImg0.Image = bmpI;
-                                        break;
-                                    case 1:
-                                        abilityTypeImg1.Image = bmpI;
-                                        break;
-                                    case 2:
-                                        abilityTypeImg2.Image = bmpI;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                        }
-                    }
-
-                    int displace = selectAbilityName.Size.Width;
-                    int buff = 4;
-                    int x = 24;
-                    int y = 9;
-                    abilityTypeImg0.Location = new Point(buff + displace, y);
-                    abilityTypeImg1.Location = new Point(buff + displace + x, y);
-                    abilityTypeImg2.Location = new Point(buff + displace + x + x, y);
-                    return 1;
-                }
-            }
-
-            selectAbilityName.Text = "";
-            selectAbilityTypes.Text = "";
-
-            return 0;
-        }
-
-        private void selectAbilityLast_Click(object sender, EventArgs e)
-        {
-            if (SelectedAbilityIndex == 0)
-            {
-                SelectedAbilityIndex = player.Abilities.Length - 1;
-            }
-            else { SelectedAbilityIndex--; }
-            UpdateAbilitiesDisplay();
-        }
-        private void selectAbilityNext_Click(object sender, EventArgs e)
-        {
-            if (SelectedAbilityIndex == player.Abilities.Length - 1)
-            {
-                SelectedAbilityIndex = 0;
-            }
-            else { SelectedAbilityIndex++; }
-            UpdateAbilitiesDisplay();
-        }
-
 
         public static SQCreature player;
-        private bool usable = false;
+        private bool usable = false; //can cross reference access
         private void AwakeGenerateCreature()
         {
-            player = new EaltaeQhota().NewCreatureOf();
+            player = new Soqaruth().NewCreatureOf();
             player.AddTag("tag_isActiveUser", true);
+            //player.ForceModifyColors(new string[] { "prismatic" } );
+            //player.ForceModifyColors(new string[] { "negative" } );
             usable = true;
         }
 
         private void UpdateTextData()
         {
-            creatureNameLabel.Text = player.CreatureName;
-            creatureInfoLabel.Text = player.DisplayAs();
+            creatureNameLabel.Text  = player.CreatureName;
+            creatureInfoLabel.Text  = player.DisplayAs();
+            CreaturePoseFrame.Image = player.GetFrameImage();
 
             double expCurr = player.Experience;
             double expReqd = SQCreature.GetRequiredExp(player.Level + 1);
@@ -246,6 +150,8 @@ namespace SoliaQuestClassic
             }
         }
 
+
+        #region ClickOnStat
         private void creatureNameLabel_Click(object sender, EventArgs e)
         {
             EnterNameDialog end = new EnterNameDialog();
@@ -312,9 +218,9 @@ namespace SoliaQuestClassic
             sdw.ShowDialog();
             UpdateTextData();
         }
+        #endregion ClickOnStat
 
-
-
+        #region Inventory
         //inventory handles
         private void UpdateInventoryImages()
         {
@@ -788,5 +694,106 @@ namespace SoliaQuestClassic
         {
             UpdateInvHoverText(-1);
         }
+        #endregion Inventory
+
+        #region Abilities
+        private int SelectedAbilityIndex = 0;
+        private int UpdateAbilitiesDisplay()
+        {
+            if(player.Abilities.Length > 0)
+            {
+                if (SelectedAbilityIndex >= 0 && SelectedAbilityIndex < player.Abilities.Length)
+                {
+                    string typeslist = "";
+                    for(int t = 0; t < player.Abilities[SelectedAbilityIndex].AbilityType.Length; t++)
+                    {
+                        SQType type;
+                        if (SQWorld.SQWorldTypeList.TryGetValue(player.Abilities[SelectedAbilityIndex].AbilityType[t], out type)) ;
+                        {
+                            typeslist += type.Title;
+                            if (t != player.Abilities[SelectedAbilityIndex].AbilityType.Length - 1)
+                            {
+                                typeslist += ", ";
+                            }
+                        }
+                    }
+
+                    selectAbilityName.Text = player.Abilities[SelectedAbilityIndex].DisplayName;
+                    selectAbilityTypes.Text = typeslist + "\n" +
+                        player.Abilities[SelectedAbilityIndex].Description
+                        + "\nDamage: " + player.Abilities[SelectedAbilityIndex].GetDealDamageTarget(player)
+                        + "\nHealing: " + player.Abilities[SelectedAbilityIndex].GetHealValueSelf(player)
+                        + "\nEffectiveness: " + player.Abilities[SelectedAbilityIndex].UseEffectivity(player);
+
+                    abilityTypeImg0.Image = null;
+                    abilityTypeImg1.Image = null;
+                    abilityTypeImg2.Image = null;
+
+                    //type images
+                    for (int t = 0; t < player.Abilities[SelectedAbilityIndex].AbilityType.Length; t++)
+                    {
+                        SQType type;
+                        if (SQWorld.SQWorldTypeList.TryGetValue(player.Abilities[SelectedAbilityIndex].AbilityType[t], out type))
+                        {
+                            Bitmap bmpI = type.Image();
+                            if (bmpI != null)
+                            {
+                                switch (t)
+                                {
+                                    case 0:
+                                        abilityTypeImg0.Image = bmpI;
+                                        break;
+                                    case 1:
+                                        abilityTypeImg1.Image = bmpI;
+                                        break;
+                                    case 2:
+                                        abilityTypeImg2.Image = bmpI;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
+                    }
+
+                    int displace = selectAbilityName.Size.Width;
+                    int buff = 4;
+                    int x = 24;
+                    int y = 9;
+                    abilityTypeImg0.Location = new Point(buff + displace, y);
+                    abilityTypeImg1.Location = new Point(buff + displace + x, y);
+                    abilityTypeImg2.Location = new Point(buff + displace + x + x, y);
+                    return 1;
+                }
+            }
+
+            selectAbilityName.Text = "";
+            selectAbilityTypes.Text = "";
+
+            return 0;
+        }
+        private void selectAbilityLast_Click(object sender, EventArgs e)
+        {
+            if (SelectedAbilityIndex == 0)
+            {
+                SelectedAbilityIndex = player.Abilities.Length - 1;
+            }
+            else { SelectedAbilityIndex--; }
+            UpdateAbilitiesDisplay();
+        }
+        private void selectAbilityNext_Click(object sender, EventArgs e)
+        {
+            if (SelectedAbilityIndex == player.Abilities.Length - 1)
+            {
+                SelectedAbilityIndex = 0;
+            }
+            else { SelectedAbilityIndex++; }
+            UpdateAbilitiesDisplay();
+        }
+
+#endregion Abilities
+
+
+
     }
 }

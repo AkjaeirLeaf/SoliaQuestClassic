@@ -31,7 +31,10 @@ namespace SoliaQuestClassic
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.characterTab = new System.Windows.Forms.TabPage();
+            this.CreaturePoseFrame = new System.Windows.Forms.PictureBox();
             this.creatureInfoPanel = new System.Windows.Forms.Panel();
+            this.typeImgBox2 = new System.Windows.Forms.PictureBox();
+            this.typeImgBox1 = new System.Windows.Forms.PictureBox();
             this.typeImgBox0 = new System.Windows.Forms.PictureBox();
             this.creatureNameLabel = new System.Windows.Forms.Label();
             this.controlStagLabel = new System.Windows.Forms.Label();
@@ -98,20 +101,21 @@ namespace SoliaQuestClassic
             this.invSlotIcon4 = new System.Windows.Forms.PictureBox();
             this.abilitiesTab = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.abilityTypeImg2 = new System.Windows.Forms.PictureBox();
+            this.abilityTypeImg1 = new System.Windows.Forms.PictureBox();
+            this.abilityTypeImg0 = new System.Windows.Forms.PictureBox();
             this.selectAbilityLast = new System.Windows.Forms.Button();
             this.selectAbilityNext = new System.Windows.Forms.Button();
             this.selectAbilityTypes = new System.Windows.Forms.Label();
             this.selectAbilityName = new System.Windows.Forms.Label();
             this.combatTab = new System.Windows.Forms.TabPage();
             this.debugOpenCombat = new System.Windows.Forms.Button();
-            this.typeImgBox1 = new System.Windows.Forms.PictureBox();
-            this.typeImgBox2 = new System.Windows.Forms.PictureBox();
-            this.abilityTypeImg2 = new System.Windows.Forms.PictureBox();
-            this.abilityTypeImg1 = new System.Windows.Forms.PictureBox();
-            this.abilityTypeImg0 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.characterTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CreaturePoseFrame)).BeginInit();
             this.creatureInfoPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.typeImgBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.typeImgBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.typeImgBox0)).BeginInit();
             this.HealthStatBack.SuspendLayout();
             this.DefenseStatBack.SuspendLayout();
@@ -142,12 +146,10 @@ namespace SoliaQuestClassic
             ((System.ComponentModel.ISupportInitialize)(this.invSlotIcon4)).BeginInit();
             this.abilitiesTab.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.combatTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.typeImgBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.typeImgBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abilityTypeImg2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abilityTypeImg1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abilityTypeImg0)).BeginInit();
+            this.combatTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -165,6 +167,7 @@ namespace SoliaQuestClassic
             // 
             // characterTab
             // 
+            this.characterTab.Controls.Add(this.CreaturePoseFrame);
             this.characterTab.Controls.Add(this.creatureInfoPanel);
             this.characterTab.Location = new System.Drawing.Point(4, 22);
             this.characterTab.Name = "characterTab";
@@ -173,6 +176,15 @@ namespace SoliaQuestClassic
             this.characterTab.TabIndex = 0;
             this.characterTab.Text = "Character Sheet";
             this.characterTab.UseVisualStyleBackColor = true;
+            // 
+            // CreaturePoseFrame
+            // 
+            this.CreaturePoseFrame.Location = new System.Drawing.Point(247, 3);
+            this.CreaturePoseFrame.Name = "CreaturePoseFrame";
+            this.CreaturePoseFrame.Size = new System.Drawing.Size(328, 324);
+            this.CreaturePoseFrame.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.CreaturePoseFrame.TabIndex = 16;
+            this.CreaturePoseFrame.TabStop = false;
             // 
             // creatureInfoPanel
             // 
@@ -197,8 +209,26 @@ namespace SoliaQuestClassic
             this.creatureInfoPanel.Controls.Add(this.ExpBarBack);
             this.creatureInfoPanel.Location = new System.Drawing.Point(0, 3);
             this.creatureInfoPanel.Name = "creatureInfoPanel";
-            this.creatureInfoPanel.Size = new System.Drawing.Size(233, 324);
+            this.creatureInfoPanel.Size = new System.Drawing.Size(242, 324);
             this.creatureInfoPanel.TabIndex = 15;
+            // 
+            // typeImgBox2
+            // 
+            this.typeImgBox2.Location = new System.Drawing.Point(122, 256);
+            this.typeImgBox2.Name = "typeImgBox2";
+            this.typeImgBox2.Size = new System.Drawing.Size(50, 50);
+            this.typeImgBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.typeImgBox2.TabIndex = 18;
+            this.typeImgBox2.TabStop = false;
+            // 
+            // typeImgBox1
+            // 
+            this.typeImgBox1.Location = new System.Drawing.Point(67, 256);
+            this.typeImgBox1.Name = "typeImgBox1";
+            this.typeImgBox1.Size = new System.Drawing.Size(50, 50);
+            this.typeImgBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.typeImgBox1.TabIndex = 17;
+            this.typeImgBox1.TabStop = false;
             // 
             // typeImgBox0
             // 
@@ -212,10 +242,10 @@ namespace SoliaQuestClassic
             // creatureNameLabel
             // 
             this.creatureNameLabel.AutoSize = true;
-            this.creatureNameLabel.Font = new System.Drawing.Font("Arno Pro Smbd", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.creatureNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.creatureNameLabel.Location = new System.Drawing.Point(3, 0);
             this.creatureNameLabel.Name = "creatureNameLabel";
-            this.creatureNameLabel.Size = new System.Drawing.Size(189, 36);
+            this.creatureNameLabel.Size = new System.Drawing.Size(227, 33);
             this.creatureNameLabel.TabIndex = 1;
             this.creatureNameLabel.Text = "Creature Name";
             this.creatureNameLabel.Click += new System.EventHandler(this.creatureNameLabel_Click);
@@ -223,10 +253,10 @@ namespace SoliaQuestClassic
             // controlStagLabel
             // 
             this.controlStagLabel.AutoSize = true;
-            this.controlStagLabel.Font = new System.Drawing.Font("Arno Pro", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.controlStagLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.controlStagLabel.Location = new System.Drawing.Point(182, 230);
             this.controlStagLabel.Name = "controlStagLabel";
-            this.controlStagLabel.Size = new System.Drawing.Size(45, 15);
+            this.controlStagLabel.Size = new System.Drawing.Size(53, 15);
             this.controlStagLabel.TabIndex = 14;
             this.controlStagLabel.Text = "Control";
             this.controlStagLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -234,20 +264,20 @@ namespace SoliaQuestClassic
             // creatureInfoLabel
             // 
             this.creatureInfoLabel.AutoSize = true;
-            this.creatureInfoLabel.Font = new System.Drawing.Font("Arno Pro", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.creatureInfoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.creatureInfoLabel.Location = new System.Drawing.Point(7, 36);
             this.creatureInfoLabel.Name = "creatureInfoLabel";
-            this.creatureInfoLabel.Size = new System.Drawing.Size(81, 16);
+            this.creatureInfoLabel.Size = new System.Drawing.Size(96, 16);
             this.creatureInfoLabel.TabIndex = 2;
             this.creatureInfoLabel.Text = "Creature Info";
             // 
             // evadeStagLabel
             // 
             this.evadeStagLabel.AutoSize = true;
-            this.evadeStagLabel.Font = new System.Drawing.Font("Arno Pro", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.evadeStagLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.evadeStagLabel.Location = new System.Drawing.Point(192, 204);
             this.evadeStagLabel.Name = "evadeStagLabel";
-            this.evadeStagLabel.Size = new System.Drawing.Size(35, 15);
+            this.evadeStagLabel.Size = new System.Drawing.Size(46, 15);
             this.evadeStagLabel.TabIndex = 13;
             this.evadeStagLabel.Text = "Evade";
             this.evadeStagLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -285,10 +315,10 @@ namespace SoliaQuestClassic
             // staminaStagLabel
             // 
             this.staminaStagLabel.AutoSize = true;
-            this.staminaStagLabel.Font = new System.Drawing.Font("Arno Pro", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.staminaStagLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.staminaStagLabel.Location = new System.Drawing.Point(181, 178);
             this.staminaStagLabel.Name = "staminaStagLabel";
-            this.staminaStagLabel.Size = new System.Drawing.Size(46, 15);
+            this.staminaStagLabel.Size = new System.Drawing.Size(60, 15);
             this.staminaStagLabel.TabIndex = 12;
             this.staminaStagLabel.Text = "Stamina";
             this.staminaStagLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -326,10 +356,10 @@ namespace SoliaQuestClassic
             // attackStagLabel
             // 
             this.attackStagLabel.AutoSize = true;
-            this.attackStagLabel.Font = new System.Drawing.Font("Arno Pro", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.attackStagLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.attackStagLabel.Location = new System.Drawing.Point(189, 152);
             this.attackStagLabel.Name = "attackStagLabel";
-            this.attackStagLabel.Size = new System.Drawing.Size(38, 15);
+            this.attackStagLabel.Size = new System.Drawing.Size(45, 15);
             this.attackStagLabel.TabIndex = 11;
             this.attackStagLabel.Text = "Attack";
             this.attackStagLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -367,10 +397,10 @@ namespace SoliaQuestClassic
             // defenseStafLabel
             // 
             this.defenseStafLabel.AutoSize = true;
-            this.defenseStafLabel.Font = new System.Drawing.Font("Arno Pro", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.defenseStafLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.defenseStafLabel.Location = new System.Drawing.Point(181, 126);
             this.defenseStafLabel.Name = "defenseStafLabel";
-            this.defenseStafLabel.Size = new System.Drawing.Size(46, 15);
+            this.defenseStafLabel.Size = new System.Drawing.Size(60, 15);
             this.defenseStafLabel.TabIndex = 10;
             this.defenseStafLabel.Text = "Defense";
             this.defenseStafLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -408,10 +438,10 @@ namespace SoliaQuestClassic
             // healthStagLabel
             // 
             this.healthStagLabel.AutoSize = true;
-            this.healthStagLabel.Font = new System.Drawing.Font("Arno Pro", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.healthStagLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.healthStagLabel.Location = new System.Drawing.Point(188, 100);
             this.healthStagLabel.Name = "healthStagLabel";
-            this.healthStagLabel.Size = new System.Drawing.Size(39, 15);
+            this.healthStagLabel.Size = new System.Drawing.Size(49, 15);
             this.healthStagLabel.TabIndex = 9;
             this.healthStagLabel.Text = "Health";
             this.healthStagLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -449,10 +479,10 @@ namespace SoliaQuestClassic
             // CreatureExperienceLabel
             // 
             this.CreatureExperienceLabel.AutoSize = true;
-            this.CreatureExperienceLabel.Font = new System.Drawing.Font("Arno Pro", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CreatureExperienceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CreatureExperienceLabel.Location = new System.Drawing.Point(8, 77);
             this.CreatureExperienceLabel.Name = "CreatureExperienceLabel";
-            this.CreatureExperienceLabel.Size = new System.Drawing.Size(59, 15);
+            this.CreatureExperienceLabel.Size = new System.Drawing.Size(79, 15);
             this.CreatureExperienceLabel.TabIndex = 8;
             this.CreatureExperienceLabel.Text = "Experience";
             // 
@@ -556,30 +586,30 @@ namespace SoliaQuestClassic
             // itemTooltipDesc
             // 
             this.itemTooltipDesc.AutoSize = true;
-            this.itemTooltipDesc.Font = new System.Drawing.Font("Arno Pro Smbd", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.itemTooltipDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.itemTooltipDesc.Location = new System.Drawing.Point(8, 145);
             this.itemTooltipDesc.Name = "itemTooltipDesc";
-            this.itemTooltipDesc.Size = new System.Drawing.Size(100, 14);
+            this.itemTooltipDesc.Size = new System.Drawing.Size(128, 13);
             this.itemTooltipDesc.TabIndex = 7;
             this.itemTooltipDesc.Text = "this item does a thing";
             // 
             // itemHoverName
             // 
             this.itemHoverName.AutoSize = true;
-            this.itemHoverName.Font = new System.Drawing.Font("Arno Pro", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.itemHoverName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.itemHoverName.Location = new System.Drawing.Point(8, 129);
             this.itemHoverName.Name = "itemHoverName";
-            this.itemHoverName.Size = new System.Drawing.Size(91, 16);
+            this.itemHoverName.Size = new System.Drawing.Size(111, 16);
             this.itemHoverName.TabIndex = 6;
             this.itemHoverName.Text = "Item ItemName";
             // 
             // creatureInventoryLabel
             // 
             this.creatureInventoryLabel.AutoSize = true;
-            this.creatureInventoryLabel.Font = new System.Drawing.Font("Arno Pro", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.creatureInventoryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.creatureInventoryLabel.Location = new System.Drawing.Point(7, 3);
             this.creatureInventoryLabel.Name = "creatureInventoryLabel";
-            this.creatureInventoryLabel.Size = new System.Drawing.Size(114, 16);
+            this.creatureInventoryLabel.Size = new System.Drawing.Size(142, 16);
             this.creatureInventoryLabel.TabIndex = 5;
             this.creatureInventoryLabel.Text = "Nobody\'s Inventory";
             this.creatureInventoryLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -909,84 +939,6 @@ namespace SoliaQuestClassic
             this.panel1.Size = new System.Drawing.Size(406, 324);
             this.panel1.TabIndex = 0;
             // 
-            // selectAbilityLast
-            // 
-            this.selectAbilityLast.Location = new System.Drawing.Point(3, 298);
-            this.selectAbilityLast.Name = "selectAbilityLast";
-            this.selectAbilityLast.Size = new System.Drawing.Size(59, 23);
-            this.selectAbilityLast.TabIndex = 9;
-            this.selectAbilityLast.Text = "< Last";
-            this.selectAbilityLast.UseVisualStyleBackColor = true;
-            this.selectAbilityLast.Click += new System.EventHandler(this.selectAbilityLast_Click);
-            // 
-            // selectAbilityNext
-            // 
-            this.selectAbilityNext.Location = new System.Drawing.Point(138, 298);
-            this.selectAbilityNext.Name = "selectAbilityNext";
-            this.selectAbilityNext.Size = new System.Drawing.Size(59, 23);
-            this.selectAbilityNext.TabIndex = 1;
-            this.selectAbilityNext.Text = "Next >";
-            this.selectAbilityNext.UseVisualStyleBackColor = true;
-            this.selectAbilityNext.Click += new System.EventHandler(this.selectAbilityNext_Click);
-            // 
-            // selectAbilityTypes
-            // 
-            this.selectAbilityTypes.AutoSize = true;
-            this.selectAbilityTypes.Font = new System.Drawing.Font("Arno Pro Smbd", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.selectAbilityTypes.Location = new System.Drawing.Point(5, 35);
-            this.selectAbilityTypes.Name = "selectAbilityTypes";
-            this.selectAbilityTypes.Size = new System.Drawing.Size(60, 14);
-            this.selectAbilityTypes.TabIndex = 8;
-            this.selectAbilityTypes.Text = "does things!";
-            // 
-            // selectAbilityName
-            // 
-            this.selectAbilityName.AutoSize = true;
-            this.selectAbilityName.Font = new System.Drawing.Font("Arno Pro", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.selectAbilityName.Location = new System.Drawing.Point(0, 9);
-            this.selectAbilityName.Name = "selectAbilityName";
-            this.selectAbilityName.Size = new System.Drawing.Size(150, 26);
-            this.selectAbilityName.TabIndex = 2;
-            this.selectAbilityName.Text = "Creature Ability";
-            // 
-            // combatTab
-            // 
-            this.combatTab.Controls.Add(this.debugOpenCombat);
-            this.combatTab.Location = new System.Drawing.Point(4, 22);
-            this.combatTab.Name = "combatTab";
-            this.combatTab.Size = new System.Drawing.Size(583, 335);
-            this.combatTab.TabIndex = 3;
-            this.combatTab.Text = "Combat";
-            this.combatTab.UseVisualStyleBackColor = true;
-            // 
-            // debugOpenCombat
-            // 
-            this.debugOpenCombat.Location = new System.Drawing.Point(446, 294);
-            this.debugOpenCombat.Name = "debugOpenCombat";
-            this.debugOpenCombat.Size = new System.Drawing.Size(75, 23);
-            this.debugOpenCombat.TabIndex = 0;
-            this.debugOpenCombat.Text = "Fight!";
-            this.debugOpenCombat.UseVisualStyleBackColor = true;
-            this.debugOpenCombat.Click += new System.EventHandler(this.debugOpenCombat_Click);
-            // 
-            // typeImgBox1
-            // 
-            this.typeImgBox1.Location = new System.Drawing.Point(67, 256);
-            this.typeImgBox1.Name = "typeImgBox1";
-            this.typeImgBox1.Size = new System.Drawing.Size(50, 50);
-            this.typeImgBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.typeImgBox1.TabIndex = 17;
-            this.typeImgBox1.TabStop = false;
-            // 
-            // typeImgBox2
-            // 
-            this.typeImgBox2.Location = new System.Drawing.Point(122, 256);
-            this.typeImgBox2.Name = "typeImgBox2";
-            this.typeImgBox2.Size = new System.Drawing.Size(50, 50);
-            this.typeImgBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.typeImgBox2.TabIndex = 18;
-            this.typeImgBox2.TabStop = false;
-            // 
             // abilityTypeImg2
             // 
             this.abilityTypeImg2.Location = new System.Drawing.Point(203, 9);
@@ -1014,6 +966,66 @@ namespace SoliaQuestClassic
             this.abilityTypeImg0.TabIndex = 19;
             this.abilityTypeImg0.TabStop = false;
             // 
+            // selectAbilityLast
+            // 
+            this.selectAbilityLast.Location = new System.Drawing.Point(3, 298);
+            this.selectAbilityLast.Name = "selectAbilityLast";
+            this.selectAbilityLast.Size = new System.Drawing.Size(59, 23);
+            this.selectAbilityLast.TabIndex = 9;
+            this.selectAbilityLast.Text = "< Last";
+            this.selectAbilityLast.UseVisualStyleBackColor = true;
+            this.selectAbilityLast.Click += new System.EventHandler(this.selectAbilityLast_Click);
+            // 
+            // selectAbilityNext
+            // 
+            this.selectAbilityNext.Location = new System.Drawing.Point(138, 298);
+            this.selectAbilityNext.Name = "selectAbilityNext";
+            this.selectAbilityNext.Size = new System.Drawing.Size(59, 23);
+            this.selectAbilityNext.TabIndex = 1;
+            this.selectAbilityNext.Text = "Next >";
+            this.selectAbilityNext.UseVisualStyleBackColor = true;
+            this.selectAbilityNext.Click += new System.EventHandler(this.selectAbilityNext_Click);
+            // 
+            // selectAbilityTypes
+            // 
+            this.selectAbilityTypes.AutoSize = true;
+            this.selectAbilityTypes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selectAbilityTypes.Location = new System.Drawing.Point(5, 35);
+            this.selectAbilityTypes.Name = "selectAbilityTypes";
+            this.selectAbilityTypes.Size = new System.Drawing.Size(76, 13);
+            this.selectAbilityTypes.TabIndex = 8;
+            this.selectAbilityTypes.Text = "does things!";
+            // 
+            // selectAbilityName
+            // 
+            this.selectAbilityName.AutoSize = true;
+            this.selectAbilityName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selectAbilityName.Location = new System.Drawing.Point(0, 9);
+            this.selectAbilityName.Name = "selectAbilityName";
+            this.selectAbilityName.Size = new System.Drawing.Size(175, 25);
+            this.selectAbilityName.TabIndex = 2;
+            this.selectAbilityName.Text = "Creature Ability";
+            // 
+            // combatTab
+            // 
+            this.combatTab.Controls.Add(this.debugOpenCombat);
+            this.combatTab.Location = new System.Drawing.Point(4, 22);
+            this.combatTab.Name = "combatTab";
+            this.combatTab.Size = new System.Drawing.Size(583, 335);
+            this.combatTab.TabIndex = 3;
+            this.combatTab.Text = "Combat";
+            this.combatTab.UseVisualStyleBackColor = true;
+            // 
+            // debugOpenCombat
+            // 
+            this.debugOpenCombat.Location = new System.Drawing.Point(446, 294);
+            this.debugOpenCombat.Name = "debugOpenCombat";
+            this.debugOpenCombat.Size = new System.Drawing.Size(75, 23);
+            this.debugOpenCombat.TabIndex = 0;
+            this.debugOpenCombat.Text = "Fight!";
+            this.debugOpenCombat.UseVisualStyleBackColor = true;
+            this.debugOpenCombat.Click += new System.EventHandler(this.debugOpenCombat_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1024,8 +1036,11 @@ namespace SoliaQuestClassic
             this.Text = "SoliaQuest Classic";
             this.tabControl1.ResumeLayout(false);
             this.characterTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.CreaturePoseFrame)).EndInit();
             this.creatureInfoPanel.ResumeLayout(false);
             this.creatureInfoPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.typeImgBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.typeImgBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.typeImgBox0)).EndInit();
             this.HealthStatBack.ResumeLayout(false);
             this.DefenseStatBack.ResumeLayout(false);
@@ -1067,12 +1082,10 @@ namespace SoliaQuestClassic
             this.abilitiesTab.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.combatTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.typeImgBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.typeImgBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.abilityTypeImg2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.abilityTypeImg1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.abilityTypeImg0)).EndInit();
+            this.combatTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1159,6 +1172,7 @@ namespace SoliaQuestClassic
         private System.Windows.Forms.PictureBox abilityTypeImg2;
         private System.Windows.Forms.PictureBox abilityTypeImg1;
         private System.Windows.Forms.PictureBox abilityTypeImg0;
+        private System.Windows.Forms.PictureBox CreaturePoseFrame;
     }
 }
 

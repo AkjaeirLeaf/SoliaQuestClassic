@@ -36,6 +36,12 @@
     <Reference Include="Kirali">
       <HintPath>..\..\REPT\Kirali\bin\Debug\Kirali.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK, Version=3.0.1.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.3.0.1\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,6 +67,14 @@
     <Compile Include="FightDialog.Designer.cs">
       <DependentUpon>FightDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="IO\XMLFile.cs" />
+    <Compile Include="IO\XMLStructure.cs" />
+    <Compile Include="LevelEditorWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LevelEditorWindow.Designer.cs">
+      <DependentUpon>LevelEditorWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,8 +83,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Render\Camera.cs" />
+    <Compile Include="Render\GameLevel.cs" />
+    <Compile Include="Render\RenderWorld.cs" />
+    <Compile Include="Render\Texture2D.cs" />
+    <Compile Include="Render\TextureTile.cs" />
+    <Compile Include="Render\Worlds\PlanetWorld.cs" />
     <Compile Include="SoulForge\Abilities\BlankStare.cs" />
     <Compile Include="SoulForge\Abilities\Blessing.cs" />
+    <Compile Include="SoulForge\Abilities\HydrateGrow.cs" />
+    <Compile Include="SoulForge\Abilities\Sunbathe.cs" />
+    <Compile Include="SoulForge\Abilities\Thorns.cs" />
+    <Compile Include="SoulForge\Abilities\LeafBlade.cs" />
     <Compile Include="SoulForge\Abilities\Brush.cs" />
     <Compile Include="SoulForge\Abilities\CryonicBlast.cs" />
     <Compile Include="SoulForge\Abilities\CrystalStorm.cs" />
@@ -134,6 +158,8 @@
     <Compile Include="SoulForge\Effects\SacrificeEffect.cs" />
     <Compile Include="SoulForge\Effects\SatisfiedEffect.cs" />
     <Compile Include="SoulForge\Effects\StunnedEffect.cs" />
+    <Compile Include="SoulForge\Effects\HydrateEffect.cs" />
+    <Compile Include="SoulForge\Effects\ThornsEffect.cs" />
     <Compile Include="SoulForge\Effects\SwishEffect.cs" />
     <Compile Include="SoulForge\Effects\TimespellEffect.cs" />
     <Compile Include="SoulForge\Effects\TrainingRoomEffect.cs" />
@@ -161,6 +187,7 @@
     <Compile Include="SoulForge\Items\Unitemized\StatPointBox.cs" />
     <Compile Include="SoulForge\Species\AvieaDer.cs" />
     <Compile Include="SoulForge\Species\DaecaserDer.cs" />
+    <Compile Include="SoulForge\Species\Soqaruth.cs" />
     <Compile Include="SoulForge\Species\EaltaeQhota.cs" />
     <Compile Include="SoulForge\Species\NoctaelQhota.cs" />
     <Compile Include="SoulForge\Species\TrainingDummy.cs" />
@@ -199,6 +226,8 @@
     <Compile Include="SoulForge\StatMods\Mythical.cs" />
     <Compile Include="SoulForge\StatMods\Unimpressive.cs" />
     <Compile Include="SoulForge\StatMods\Ordinary.cs" />
+    <Compile Include="SoulForge\Types\Toxic.cs" />
+    <Compile Include="SoulForge\Types\Plant.cs" />
     <Compile Include="SoulForge\Types\Air.cs" />
     <Compile Include="SoulForge\Types\Crystal.cs" />
     <Compile Include="SoulForge\Types\Dark.cs" />
@@ -211,6 +240,7 @@
     <Compile Include="SoulForge\Types\Stone.cs" />
     <Compile Include="SoulForge\Types\Typeless.cs" />
     <Compile Include="SoulForge\Types\Water.cs" />
+    <Compile Include="SQGameWindow.cs" />
     <Compile Include="UseItemPopupSelect.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,6 +252,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FightDialog.resx">
       <DependentUpon>FightDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LevelEditorWindow.resx">
+      <DependentUpon>LevelEditorWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
@@ -241,6 +274,11 @@
     <EmbeddedResource Include="UseItemPopupSelect.resx">
       <DependentUpon>UseItemPopupSelect.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
+    <None Include="OpenTK.dll.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -283,7 +321,10 @@
     <EmbeddedResource Include="Resources\Families\r000unitemized\09crystaldisk.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\CreatureImages\Silvertail\" />
+    <Folder Include="Altia\" />
+    <Folder Include="Resources\Cinematic\" />
+    <Folder Include="Resources\Eggs\leafy\" />
+    <Folder Include="Resources\World\Objects\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\TypeImages\Crystal.png" />
@@ -317,6 +358,30 @@
     <EmbeddedResource Include="Resources\Families\r002foodItems\02caramelizedCarrot.png" />
     <EmbeddedResource Include="Resources\Families\r002foodItems\03potato.png" />
     <EmbeddedResource Include="Resources\Families\r002foodItems\04bakedPotato.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\CreatureImages\silvertail\frame_young_p0_default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\CreatureImages\silvertail\frame_young_p0_negative.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\CreatureImages\silvertail\frame_young_p0_leucistic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\CreatureImages\silvertail\frame_young_p0_prismatic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Debug\errorImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\World\Tiles\path_darktiles.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\World\Backgrounds\yikjtae_city_icemulti.png" />
+    <Content Include="Resources\Debug\cube.xml" />
+    <EmbeddedResource Include="Resources\TypeImages\Toxic.png" />
+    <Content Include="Resources\World\CharacterBackgrounds\yikjtae\yikjtae_0.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -29,9 +29,12 @@ namespace SoliaQuestClassic
         {
             InitializeComponent();
             //enemyCreature = new SQOpponentCreature(new SoulForge.Species.Acyltri());
-            enemyCreature = new SQOpponentCreature(new SoulForge.Species.Silvertail()); //trainer dummy
+            enemyCreature = new SQOpponentCreature(new SoulForge.Species.EaltaeQhota()); //trainer dummy
             enemyCreature.AddTag("tag_isActiveUser", false);
-            MainWindow.player.AddEffect(new SoulForge.Effects.TrainingRoomEffect());
+            MainWindow.player.EnterBattle();
+            enemyCreature.EnterBattle();
+            
+            //MainWindow.player.AddEffect(new SoulForge.Effects.TrainingRoomEffect());
             //enemyCreature.TeachAbility(new SoulForge.Abilities.Opalium("X"));
 
             CreateLootInventory();
@@ -63,7 +66,7 @@ namespace SoliaQuestClassic
             rareitem0 = Kirali.Framework.Random.Int(0, 500);
             if (rareitem0 < 25)
             {
-                //enemyCreature.QuickGiveItem(new DefaultAbilityScript(new SoulForge.Abilities.Opalium("X"), 3), 1);
+                enemyCreature.QuickGiveItem(new SoulForge.Items.Unitemized.DefaultAbilityScript(new SoulForge.Abilities.Whisper(), 0), 1);
             }
             
         }
@@ -374,6 +377,11 @@ namespace SoliaQuestClassic
                 if(MainWindow.player.State == SQCreatureState.Blackout) { playerWon = false; doPlayerLost(); }
             }
             UpdateTextGeneral();
+        }
+
+        private void FightDialog_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            MainWindow.player.ExitBattle();
         }
     }
 
