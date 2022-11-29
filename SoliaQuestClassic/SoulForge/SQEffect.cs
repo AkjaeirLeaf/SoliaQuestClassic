@@ -219,6 +219,11 @@ namespace SoliaQuestClassic.SoulForge
             return 0;
         }
 
+        public virtual int EffectEvent_RemoveEffect(SQCreature effected)
+        {
+            return 0;
+        }
+
         public virtual int EffectEvent_CombatRoomEnds(SQCreature effected)
         {
             if (removePostCombat) { effected.RemoveEffect(this.internalID); }
