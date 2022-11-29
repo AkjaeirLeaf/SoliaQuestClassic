@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 using Kirali.Framework;
 
@@ -89,6 +90,7 @@ namespace SoliaQuestClassic.SoulForge
         protected double stat_advanceEvade   =   1.0; protected double softLock_Evade   = 0;
         protected double stat_advanceControl =   0.5; protected double softLock_Control = 0;
 
+
         public double Health { get { return stat_advanceHealth; } }
         public double Defense { get { return stat_advanceDefense; } }
         public double Attack { get { return stat_advanceAttack; } }
@@ -110,6 +112,7 @@ namespace SoliaQuestClassic.SoulForge
         protected double dynamic_Stamina = 0.0;
         protected double dynamic_Evade   = 0.0;
         protected double dynamic_Control = 0.0;
+        protected string[] dynamic_Affinities = new string[0];
 
         public double DynamicHealth  { get { return dynamic_Health;  } }
         public double DynamicDefense { get { return dynamic_Defense; } }
@@ -117,6 +120,7 @@ namespace SoliaQuestClassic.SoulForge
         public double DynamicStamina { get { return dynamic_Stamina; } }
         public double DynamicEvade   { get { return dynamic_Evade;   } }
         public double DynamicControl { get { return dynamic_Control; } }
+        public string[] DynamicTypes { get { return dynamic_Affinities; } set { dynamic_Affinities = value; } }
 
         protected SQEffect[] activeEffects = new SQEffect[0];
         protected int[] effectsStack = new int[0];
@@ -179,14 +183,21 @@ namespace SoliaQuestClassic.SoulForge
                 SQEffect[] newEffectsList = new SQEffect[ActiveEffects.Length - 1];
                 int[] newEffectsStack = new int[newEffectsList.Length];
                 int place = 0;
+                bool removeEffectStack = true;
                 for (int p = 0; p < activeEffects.Length; p++)
                 {
                     if (activeEffects[p].InternalName == effectID)
                     {
-                        if(effectsStack[p] >= 1 && activeEffects[p].StackMaximum >= effectsStack[p])
+                        activeEffects[p].EffectEvent_RemoveEffect(this);
+                        if(effectsStack[p] > 1)
                         {
                             effectsStack[p]--;
+                            removeEffectStack = false;
                             return 2;
+                        }
+                        else
+                        {
+                            removeEffectStack = true;
                         }
                         //do nothing, and this effect won't be added to the new list.
                     }
@@ -197,6 +208,7 @@ namespace SoliaQuestClassic.SoulForge
                         place++;
                     }
                 }
+
                 activeEffects = newEffectsList;
                 effectsStack = newEffectsStack;
                 return 1;
@@ -523,11 +535,16 @@ namespace SoliaQuestClassic.SoulForge
             }
 
 
+
             //set full stats
+            DynamicTypes = species.UseSpeciesTypes;
+
             FullHeal();
             LearnDefaultAbilities();
             SetupInventory();
         }
+        
+        //Dislpay
         public string DisplayAs()
         {
             string displayCr = "";
@@ -559,8 +576,50 @@ namespace SoliaQuestClassic.SoulForge
             }
             return null;
         } //Display string, ex: Level 158 Unusual Negative Cosmic Silvertail Cat
+        public Bitmap GetFrameImage()
+        {
+            string age = "young";
+            string pose = "p0";
+            string color;
+            if(colorMods.Length == 0) { color = "default"; }
+            else { color = colorMods[0];  }
+            SpeciesImageReference res;
+            if (m_species.TryGetImage("frame", age, pose, color, out res))
+            {
+                return res.image_data;
+            }
+            else return new Bitmap(512, 512);
+        }
+        public void ForceModifyColors(string[] newColors)
+        {
+            colorMods = newColors;
+        }
+        
 
         //Combat
+        public void EnterBattle()
+        {
+            dynamic_Affinities = m_species.UseSpeciesTypes;
+            dynamic_Health  = Health;
+            dynamic_Defense = Defense;
+            dynamic_Attack  = Attack;
+            dynamic_Stamina = Stamina;
+            dynamic_Evade   = Evade;
+            dynamic_Control = Control;
+        }
+        
+        public void ExitBattle()
+        {
+            //Only modify health really :)
+            //stat_advanceHealth  = DynamicHealth;
+            //stat_advanceStamina = DynamicStamina;
+
+            dynamic_Defense = stat_advanceDefense;
+            dynamic_Attack  = stat_advanceAttack;
+            dynamic_Evade   = stat_advanceEvade;
+            dynamic_Control = stat_advanceControl;
+        }
+
         public void FullHeal()
         {
             dynamic_Health  = stat_advanceHealth ;
@@ -571,6 +630,92 @@ namespace SoliaQuestClassic.SoulForge
             dynamic_Control = stat_advanceControl;
             creatureState   = SQCreatureState.Nominal;
         }
+
+        public void AddDynamicTyping(string type_add)
+        {
+            SQType Typeadd;
+            bool alreadyHas  = false;
+            bool sp_isTless  = false;
+            bool hasTypeless = false;
+            for (int ix = 0; ix < dynamic_Affinities.Length; ix++)
+            {
+                if(type_add == dynamic_Affinities[ix])
+                {
+                    alreadyHas = true;
+                }
+            }
+            
+
+            if (SQWorld.SQWorldTypeList.TryGetValue(type_add, out Typeadd) && !alreadyHas)
+            {
+                string[] newDyn = new string[dynamic_Affinities.Length + 1];
+                for(int ix = 0; ix < dynamic_Affinities.Length; ix++)
+                {
+                    newDyn[ix] = dynamic_Affinities[ix];
+                }
+                newDyn[dynamic_Affinities.Length] = Typeadd.Internal;
+                dynamic_Affinities = newDyn;
+
+                //if new type affinity is added but creature has typeless in dyn but not species, we need to remove the typeless affinity.
+                for (int ix = 0; ix < m_species.UseSpeciesTypes.Length; ix++)
+                {
+                    if ("typeless" == m_species.UseSpeciesTypes[ix])
+                    {
+                        sp_isTless = true;
+                    }
+                }
+                for (int ix = 0; ix < dynamic_Affinities.Length; ix++)
+                {
+                    if ("typeless" == dynamic_Affinities[ix])
+                    {
+                        hasTypeless = true;
+                    }
+                }
+                if (!sp_isTless && hasTypeless)
+                {
+                    string[] nd2 = new string[dynamic_Affinities.Length - 1];
+                    int pl = 0;
+                    for(int ixa = 0; ixa < dynamic_Affinities.Length; ixa++)
+                    {
+                        if(dynamic_Affinities[ixa] == "typeless") { }
+                        else { nd2[pl] = dynamic_Affinities[ixa]; pl++; }
+                    }
+                    dynamic_Affinities = nd2;
+                }
+            }
+        }
+
+        public void RemoveDynamicTyping(string type_add)
+        {
+            int pl = 0;
+            bool found = false;
+            string[] newDyn = new string[dynamic_Affinities.Length - 1];
+
+            bool isSpeciesTyping = false;
+            for(int ixi = 0; ixi < m_species.UseSpeciesTypes.Length; ixi++)
+            {
+                if(m_species.UseSpeciesTypes[ixi] == type_add) { isSpeciesTyping = true; }
+            }
+
+            if (!isSpeciesTyping)
+            {
+                for (int ix = 0; ix < dynamic_Affinities.Length; ix++)
+                {
+                    if (type_add == dynamic_Affinities[ix])
+                    {
+                        found = true;
+                    }
+                    else
+                    {
+                        newDyn[pl] = dynamic_Affinities[ix];
+                        pl++;
+                    }
+                }
+                if (newDyn.Length == 0 && found) { newDyn = new string[] { "typeless" }; }
+                dynamic_Affinities = newDyn;
+            }
+        }
+
         public void GiveExperience(double points)
         {
             experienceAt += points;
@@ -816,11 +961,11 @@ namespace SoliaQuestClassic.SoulForge
             {
                 double modify = 0.0;
                 int typeTotal = 0;
-                for(int typeCt = 0; typeCt < m_species.UseSpeciesTypes.Length; typeCt++)
+                for(int typeCt = 0; typeCt < DynamicTypes.Length; typeCt++)
                 {
                     //modify = attacks[attackIndex].damageType.GetModifyDamageOutgoing(m_species.UseSpeciesTypes[typeCt]);
                     SQType thisType;
-                    if(SQWorld.SQWorldTypeList.TryGetValue(m_species.UseSpeciesTypes[typeCt], out thisType))
+                    if(SQWorld.SQWorldTypeList.TryGetValue(DynamicTypes[typeCt], out thisType))
                     {
                         double subModify = 0.0; int h = 0;
                         for(h = 0; h < attacks[attackIndex].abilityType.Length; h++)
@@ -886,11 +1031,11 @@ namespace SoliaQuestClassic.SoulForge
 
             double modify = 0.0;
             int typeTotal = 0;
-            for (int typeCt = 0; typeCt < m_species.UseSpeciesTypes.Length; typeCt++)
+            for (int typeCt = 0; typeCt < DynamicTypes.Length; typeCt++)
             {
                 //modify = attacks[attackIndex].damageType.GetModifyDamageOutgoing(m_species.UseSpeciesTypes[typeCt]);
                 SQType thisType;
-                if (SQWorld.SQWorldTypeList.TryGetValue(m_species.UseSpeciesTypes[typeCt], out thisType))
+                if (SQWorld.SQWorldTypeList.TryGetValue(DynamicTypes[typeCt], out thisType))
                 {
                     double subModify = 0.0; int h = 0;
                     for (h = 0; h < attacks.abilityType.Length; h++)
