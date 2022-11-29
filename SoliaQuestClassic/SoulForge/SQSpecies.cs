@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 using Kirali.Framework;
 
@@ -271,11 +272,70 @@ namespace SoliaQuestClassic.SoulForge
         {
             return new SQCreature(this);
         }
-
-
         public virtual void Event_LevelUp(SQCreature sender)
         {
 
         }
+
+        //Render and Image Display
+        private SpeciesImageReference[] species_images = new SpeciesImageReference[0];
+        protected void AddSpeciesImage(string display_container = "frame", string age = "middle", string pose = "p0", string colorID = "default")
+        {
+            string resourcepath = "SoliaQuestClassic.Resources.CreatureImages." + InternalName + "." +
+                display_container + "_" + age + "_" + pose + "_" + colorID + ".png";
+            SpeciesImageReference SI_ref = new SpeciesImageReference();
+            Bitmap bmp = SQWorld.LoadResourceImage(resourcepath);
+
+            SI_ref.disp_container = display_container;
+            SI_ref.age = age;
+            SI_ref.pose = pose;
+            SI_ref.colorID = colorID;
+            SI_ref.resource_path = resourcepath;
+            SI_ref.image_data = bmp;
+
+            SpeciesImageReference[] tmp = new SpeciesImageReference[species_images.Length + 1];
+            for(int ix = 0; ix < tmp.Length - 1; ix++)
+            {
+                tmp[ix] = species_images[ix];
+            }
+            tmp[species_images.Length] = SI_ref;
+            species_images = tmp;
+        }
+        public virtual void LoadSpeciesImages()
+        {
+
+        }
+        public virtual bool TryGetImage(string display_container, string age, string pose, string colorID, out SpeciesImageReference image)
+        {
+            for(int ix = 0; ix < species_images.Length; ix++)
+            {
+                if(SI_refsMatch(species_images[ix], display_container, age, pose, colorID))
+                {
+                    image = species_images[ix];
+                    return true;
+                }
+            }
+            image = new SpeciesImageReference();
+            return false;
+        }
+        protected static bool SI_refsMatch(SpeciesImageReference SI_ref, string display_container, string age, string pose, string colorID)
+        {
+            bool ismatch = true;
+            if(SI_ref.disp_container != display_container) { ismatch = false; }
+            if(SI_ref.age != age) { ismatch = false; }
+            if(SI_ref.pose != pose) { ismatch = false; }
+            if(SI_ref.colorID != colorID) { ismatch = false; }
+            return ismatch;
+        }
+    }
+
+    public struct SpeciesImageReference
+    {
+        public string disp_container;
+        public string age;
+        public string pose;
+        public string colorID;
+        public string resource_path;
+        public Bitmap image_data;
     }
 }
