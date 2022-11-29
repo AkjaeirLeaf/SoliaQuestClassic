@@ -15,7 +15,7 @@ namespace SoliaQuestClassic.SoulForge.Items.FoodItems
             displayName = "Carrot";
             description = "Replenishes your stats a small amount.";
             itemRarityID = 0;
-            maxStackSize = 16;
+            maxStackSize = 999;
             canUseItem = true;
             canUseCombat = true;
             removeWhenZero = true;

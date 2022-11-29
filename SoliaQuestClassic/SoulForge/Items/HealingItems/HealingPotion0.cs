@@ -15,7 +15,7 @@ namespace SoliaQuestClassic.SoulForge.Items.HealingItems
             displayName = "Minor Healing Potion";
             description = "Heals 50 health instantly.";
             itemRarityID = 0;
-            maxStackSize = 16;
+            maxStackSize = 999;
             canUseItem = true;
             canUseCombat = true;
             removeWhenZero = true;

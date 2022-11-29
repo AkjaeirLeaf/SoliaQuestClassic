@@ -15,7 +15,7 @@ namespace SoliaQuestClassic.SoulForge.Items.FoodItems
             displayName = "Baked Potato";
             description = "Replenishes your stats a significant amount.";
             itemRarityID = 0;
-            maxStackSize = 16;
+            maxStackSize = 999;
             canUseItem = true;
             canUseCombat = true;
             removeWhenZero = true;
