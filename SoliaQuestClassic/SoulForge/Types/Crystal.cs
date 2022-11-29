@@ -24,9 +24,11 @@ namespace SoliaQuestClassic.SoulForge.Types
             AddIncomingDamageModify(Ice.GetInternal      ,   0.6);
             AddIncomingDamageModify(Light.GetInternal    ,   0.4);
             AddIncomingDamageModify(Metal.GetInternal    ,   1.7);
+            AddIncomingDamageModify(Plant.GetInternal    ,   0.6);
             AddIncomingDamageModify(Plasma.GetInternal   ,   1.0);
             AddIncomingDamageModify(Spirit.GetInternal   ,   0.5);
             AddIncomingDamageModify(Stone.GetInternal    ,   1.6);
+            AddIncomingDamageModify(Toxic.GetInternal    ,   0.3);
             AddIncomingDamageModify(Typeless.GetInternal ,   1.0);
             AddIncomingDamageModify(Water.GetInternal    ,   0.5);
 
@@ -40,9 +42,11 @@ namespace SoliaQuestClassic.SoulForge.Types
             AddOutgoingDamageModify(Ice.GetInternal      ,   0.7);
             AddOutgoingDamageModify(Light.GetInternal    ,   1.0);
             AddOutgoingDamageModify(Metal.GetInternal    ,   0.5);
+            AddOutgoingDamageModify(Plant.GetInternal    ,   1.5);
             AddOutgoingDamageModify(Plasma.GetInternal   ,   0.7);
             AddOutgoingDamageModify(Spirit.GetInternal   ,   1.1);
             AddOutgoingDamageModify(Stone.GetInternal    ,   0.6);
+            AddOutgoingDamageModify(Toxic.GetInternal    ,   1.6);
             AddOutgoingDamageModify(Typeless.GetInternal ,   1.0);
             AddOutgoingDamageModify(Water.GetInternal    ,   0.9);
 
