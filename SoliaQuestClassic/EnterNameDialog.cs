@@ -15,15 +15,17 @@ namespace SoliaQuestClassic
         public string nameEntered = "";
         public SoulForge.SQGender genderEntered;
 
-        public EnterNameDialog(string initialName = "")
+        public EnterNameDialog(string initialName = "", SoulForge.SQGender initialGender = SoulForge.SQGender.Genderless)
         {
             InitializeComponent();
             if (!String.IsNullOrEmpty(initialName))
             {
                 nameEntryBox.Text = "New Creature";
             }
-            genderEntered = MainWindow.player.Gender;
-            genderSelectionBox.SelectedIndex = ((int)MainWindow.player.Gender);
+            //genderEntered = MainWindow.player.Gender;
+            genderEntered = initialGender;
+            //genderSelectionBox.SelectedIndex = ((int)MainWindow.player.Gender);
+            genderSelectionBox.SelectedIndex = ((int)initialGender);
         }
 
         private void nameEntryBox_Click(object sender, EventArgs e)

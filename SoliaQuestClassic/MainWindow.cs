@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using SoliaQuestClassic.IO;
 using SoliaQuestClassic.SoulForge;
 using SoliaQuestClassic.SoulForge.Species;
 
@@ -31,7 +32,9 @@ namespace SoliaQuestClassic
 
             //Console.WriteLine(SQWorld.C_FindMostEffective(new string[] { "dark" }, new string[] { "crystal", "light" }, 1));
 
-            if(true)
+            
+
+            if (true)
 
 #if true
             //initialize
@@ -42,6 +45,7 @@ namespace SoliaQuestClassic
             EnterNameDialog end = new EnterNameDialog();
             end.ShowDialog();
             player.CreatureName = end.nameEntered;
+            player.Gender       = end.genderEntered;
             creatureNameLabel.Text = player.CreatureName;
             //creatureInventoryLabel.Text = player.CreatureName + "\'s Inventory:";
             player.CreateCreatureMainInventory(8);
