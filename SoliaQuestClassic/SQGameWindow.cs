@@ -14,7 +14,9 @@ using OpenTK.Input;
 using OpenTK.Graphics.OpenGL;
 
 using SoliaQuestClassic.Render;
+using SoliaQuestClassic.SoulForge;
 using SoliaQuestClassic.Render.Worlds;
+using SoliaQuestClassic.SoulForge.Species;
 
 namespace SoliaQuestClassic
 {
@@ -26,11 +28,24 @@ namespace SoliaQuestClassic
 
         public static int CurrentBoundTexture = 0;
 
+        public static bool ModelReady = false;
+
         // RENDER WORLDS
-        private static int Active_RenderWorld = 2;
-        public static RenderWorld debug_world;   // rw 0
-        public static RenderWorld main_menu;     // rw 1
-        public static PlanetWorld planet_levels; // rw 2
+        private static int Active_RenderWorld = 3;
+        public static RenderWorld debug_world;          // rw 0
+        public static RenderWorld main_menu;            // rw 1
+        public static PlanetWorld planet_levels;        // rw 2
+        public static CharacterWorld character_screen;  // rw 3
+
+        // DEBUG
+        public static readonly bool DEBUG_MODELSFROMRESOURCE = false;
+        private static readonly bool DEBUG_BYPASS_NAMELOAD = true;
+        private static readonly string DEBUG_BYPASS_PLAYERNAME = "debug_player";
+        public static AnimatorWindow Animation_Window;
+
+
+        // PLAYER'S TEAM
+        public static CreatureTeam PlayerTeam;
 
 
         public SQGameWindow(int width, int height, string title) : base(width, height, GraphicsMode.Default, title)
@@ -39,9 +54,32 @@ namespace SoliaQuestClassic
             //this.Icon = 
             ENV_RUNNER = this;
             InitGlEvents();
+            SQWorld.AllocSetupAll();
             InitRenderWorld();
             //ResetCamera();
 
+            //TEAM
+            SQCreature player = new Qesota().NewCreatureOf();
+            player.AddTag("tag_isActiveUser", true);
+            EnterNameDialog end = new EnterNameDialog();
+            if (!DEBUG_BYPASS_NAMELOAD) { end.ShowDialog(); player.CreatureName = end.nameEntered; }
+            else
+            {
+                player.CreatureName = DEBUG_BYPASS_PLAYERNAME;
+            }
+            
+            player.CreateCreatureMainInventory(8);
+            player.QuickGiveItem(new SoulForge.Items.FoodItems.BakedPotato(), 16);
+            player.QuickGiveItem(new SoulForge.Items.Unitemized.DefaultAbilityScript(new SoulForge.Abilities.Whisper(), 0), 1);
+
+
+            PlayerTeam = new CreatureTeam();
+            PlayerTeam.Members = new SQCreature[] { player };
+
+            PlayerTeam.Members[0].LoadCloneModel();
+            // Open Armature and pose edit mode
+            Animation_Window = new AnimatorWindow();
+            Animation_Window.Show();
         }
 
         private void InitRenderWorld()
@@ -53,8 +91,10 @@ namespace SoliaQuestClassic
             planet_levels  = new PlanetWorld();
 
             planet_levels.ResizeLimits(Width, Height);
-            LevelEditorWindow LEV = new LevelEditorWindow();
-            LEV.Show();
+            //LevelEditorWindow LEV = new LevelEditorWindow();
+            //LEV.Show();
+
+            character_screen = new CharacterWorld();
         }
 
         public static RenderWorld GetRenderWorld(int ID)
@@ -67,6 +107,8 @@ namespace SoliaQuestClassic
                     return main_menu;
                 case 2:
                     return planet_levels;
+                case 3:
+                    return character_screen;
                 default:
                     return debug_world;
             }
@@ -104,28 +146,47 @@ namespace SoliaQuestClassic
         {
             KeyboardState input = Keyboard.GetState();
 
-            if (Active_RenderWorld == 2)
+            
+            switch (Active_RenderWorld)
             {
-                double MoveSpeed = 0.2;
+                case 0:
+                    //debug_world.Render();
+                    break;
+                case 1:
+                    //main_menu.Render();
+                    break;
+                case 2:
+                    if (Active_RenderWorld == 2)
+                    {
+                        double MoveSpeed = 0.2;
 
-                if (input.IsKeyDown(Key.W))
-                {
-                    planet_levels.MainCamera.Move(MoveSpeed, new Kirali.MathR.Vector3(0, 1, 0));
-                }
-                if (input.IsKeyDown(Key.A))
-                {
-                    planet_levels.MainCamera.Move(MoveSpeed, new Kirali.MathR.Vector3(-1, 0, 0));
-                }
-                if (input.IsKeyDown(Key.S))
-                {
-                    planet_levels.MainCamera.Move(MoveSpeed, new Kirali.MathR.Vector3(0, -1, 0));
-                }
-                if (input.IsKeyDown(Key.D))
-                {
-                    planet_levels.MainCamera.Move(MoveSpeed, new Kirali.MathR.Vector3(1, 0, 0));
-                }
+                        if (input.IsKeyDown(Key.W))
+                        {
+                            planet_levels.MainCamera.Move(MoveSpeed, new Kirali.MathR.Vector3(0, 1, 0));
+                        }
+                        if (input.IsKeyDown(Key.A))
+                        {
+                            planet_levels.MainCamera.Move(MoveSpeed, new Kirali.MathR.Vector3(-1, 0, 0));
+                        }
+                        if (input.IsKeyDown(Key.S))
+                        {
+                            planet_levels.MainCamera.Move(MoveSpeed, new Kirali.MathR.Vector3(0, -1, 0));
+                        }
+                        if (input.IsKeyDown(Key.D))
+                        {
+                            planet_levels.MainCamera.Move(MoveSpeed, new Kirali.MathR.Vector3(1, 0, 0));
+                        }
+                    }
+                    break;
+                case 3:
+                    character_screen.Tick();
+                    break;
+                default:
+                    //debug_world.Render();
+                    break;
             }
 
+            
             base.OnUpdateFrame(e);
         }
 
@@ -145,11 +206,15 @@ namespace SoliaQuestClassic
                 case 2:
                     planet_levels.Render();
                     break;
+                case 3:
+                    character_screen.Render();
+                    break;
                 default:
                     debug_world.Render();
                     break;
             }
 
+            ModelReady = true;
             Context.SwapBuffers();
             base.OnRenderFrame(e);
         }
@@ -214,5 +279,22 @@ namespace SoliaQuestClassic
             base.OnUnload(e);
         }
 
+
+        // EXTRA TOOLS
+
+        private int SUM_OFSTRING(string entry)
+        {
+            string[] broken = entry.Split(' ');
+            int acc = 0;
+
+            for(int ix = 0; ix < broken.Length; ix++)
+            {
+                int b;
+                if(Int32.TryParse(broken[ix], out b)) { acc += b; }
+            }
+            return acc;
+        }
+
+        private int HowManyEntries(string entry) { return entry.Split(' ').Length; }
     }
 }

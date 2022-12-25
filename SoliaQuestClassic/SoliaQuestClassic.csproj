@@ -55,6 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimatorWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnimatorWindow.Designer.cs">
+      <DependentUpon>AnimatorWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="EnterNameDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,10 @@
     <Compile Include="FightDialog.Designer.cs">
       <DependentUpon>FightDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="IO\Armature_bone.cs" />
+    <Compile Include="IO\Object3D.cs" />
+    <Compile Include="IO\ObjectJson.cs" />
+    <Compile Include="IO\PointInfluence.cs" />
     <Compile Include="IO\XMLFile.cs" />
     <Compile Include="IO\XMLStructure.cs" />
     <Compile Include="LevelEditorWindow.cs">
@@ -83,11 +93,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Render\ActivePose.cs" />
     <Compile Include="Render\Camera.cs" />
     <Compile Include="Render\GameLevel.cs" />
+    <Compile Include="Render\PoseableObject.cs" />
     <Compile Include="Render\RenderWorld.cs" />
     <Compile Include="Render\Texture2D.cs" />
     <Compile Include="Render\TextureTile.cs" />
+    <Compile Include="Render\UIObject.cs" />
+    <Compile Include="Render\UIObjectsLib\UI_PointerArrow.cs" />
+    <Compile Include="Render\Worlds\CharacterWorld.cs" />
     <Compile Include="Render\Worlds\PlanetWorld.cs" />
     <Compile Include="SoulForge\Abilities\BlankStare.cs" />
     <Compile Include="SoulForge\Abilities\Blessing.cs" />
@@ -139,6 +154,7 @@
     <Compile Include="SoulForge\ColorMods\Prismatic.cs" />
     <Compile Include="SoulForge\ColorMods\Unusual.cs" />
     <Compile Include="SoulForge\ColorMods\Vibrant.cs" />
+    <Compile Include="SoulForge\CreatureTeam.cs" />
     <Compile Include="SoulForge\Effects\BlessingEffect.cs" />
     <Compile Include="SoulForge\Effects\BlindedEffect.cs" />
     <Compile Include="SoulForge\Effects\BlossomEffect.cs" />
@@ -185,6 +201,7 @@
     <Compile Include="SoulForge\Items\Unitemized\DefaultAbilityScript.cs" />
     <Compile Include="SoulForge\Items\Unitemized\RankUpgrade.cs" />
     <Compile Include="SoulForge\Items\Unitemized\StatPointBox.cs" />
+    <Compile Include="SoulForge\Species\Qesota.cs" />
     <Compile Include="SoulForge\Species\AvieaDer.cs" />
     <Compile Include="SoulForge\Species\DaecaserDer.cs" />
     <Compile Include="SoulForge\Species\Soqaruth.cs" />
@@ -208,6 +225,7 @@
     <Compile Include="SoulForge\SQItemStack.cs" />
     <Compile Include="SoulForge\SQMission.cs" />
     <Compile Include="SoulForge\SQOpponentCreature.cs" />
+    <Compile Include="SoulForge\SQPlayerEntity.cs" />
     <Compile Include="SoulForge\SQRoom.cs" />
     <Compile Include="SoulForge\SQSpecies.cs" />
     <Compile Include="SoulForge\SQStatMod.cs" />
@@ -247,6 +265,9 @@
     <Compile Include="UseItemPopupSelect.Designer.cs">
       <DependentUpon>UseItemPopupSelect.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AnimatorWindow.resx">
+      <DependentUpon>AnimatorWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EnterNameDialog.resx">
       <DependentUpon>EnterNameDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -288,6 +309,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Resources\Debug\bear.dae" />
+    <EmbeddedResource Include="Resources\Debug\cube.dae" />
+    <EmbeddedResource Include="Resources\Debug\triangle.dae" />
+    <EmbeddedResource Include="Resources\Creatures\atavi\default.dae" />
+    <EmbeddedResource Include="Resources\Creatures\atavi\default.sqcj" />
+    <EmbeddedResource Include="Resources\Creatures\qesota\default.dae" />
+    <EmbeddedResource Include="Resources\Creatures\qesota\default.sqcj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -379,8 +407,19 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\World\Backgrounds\yikjtae_city_icemulti.png" />
-    <Content Include="Resources\Debug\cube.xml" />
+    <EmbeddedResource Include="Resources\Debug\bear_base.png" />
     <EmbeddedResource Include="Resources\TypeImages\Toxic.png" />
+    <EmbeddedResource Include="Resources\World\CharacterBackgrounds\melanoct\melanoct_0.png" />
+    <EmbeddedResource Include="Resources\Debug\cube_debug.png" />
+    <EmbeddedResource Include="Resources\Debug\triangle_test.png" />
+    <EmbeddedResource Include="Resources\Creatures\atavi\color_default.png" />
+    <EmbeddedResource Include="Resources\Creatures\qesota\color_default.png" />
+    <EmbeddedResource Include="Resources\Creatures\qesota\color_negative.png" />
+    <EmbeddedResource Include="Resources\Creatures\qesota\color_leucistic.png" />
+    <EmbeddedResource Include="Resources\Creatures\qesota\color_prismatic.png" />
+    <EmbeddedResource Include="Resources\Creatures\qesota\color_unusual.png" />
+    <EmbeddedResource Include="Resources\Creatures\qesota\color_vibrant.png" />
+    <EmbeddedResource Include="Resources\Creatures\qesota\color_cosmic.png" />
     <Content Include="Resources\World\CharacterBackgrounds\yikjtae\yikjtae_0.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

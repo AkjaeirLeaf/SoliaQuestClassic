@@ -10,7 +10,7 @@ namespace SoliaQuestClassic
     {
         // RUN WINFORMS
 
-#if true
+#if false
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
