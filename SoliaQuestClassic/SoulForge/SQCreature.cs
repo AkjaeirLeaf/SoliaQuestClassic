@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
+using SoliaQuestClassic.IO;
+using SoliaQuestClassic.Render;
+
 using Kirali.Framework;
 
 namespace SoliaQuestClassic.SoulForge
@@ -20,6 +23,8 @@ namespace SoliaQuestClassic.SoulForge
         private Dictionary<string, object> containedCreatureTags = new Dictionary<string, object>();
         public SQSpecies CreatureSpecies { get { return m_species; } }
         
+
+
         public int AddTag(string key, object obj)
         {
             try
@@ -594,7 +599,49 @@ namespace SoliaQuestClassic.SoulForge
         {
             colorMods = newColors;
         }
-        
+        public PoseableObject CreatureModel; private bool ModelClone = false;
+        public Texture2D[] CreatureTextures;
+        public void LoadCloneModel() 
+        {
+            SQSpecies species;
+            if(SQWorld.SQWorldSpeciesList.TryGetValue(m_species.InternalName, out species))
+            {
+                species.LoadSpeciesModel(); // this shoullddd load the textures too automatically
+                CreatureModel = new PoseableObject(species.GetModel()); ModelClone = true;
+                CreatureModel.LinkObject.ObjectTextures = species.GetTextures();
+                
+
+
+            }
+
+            
+
+            //m_species.LoadSpeciesModel(); 
+            //m_species.LoadSpeciesImages();
+            //CreatureModel = new PoseableObject(m_species.GetModel()); ModelClone = true;
+            //CreatureModel.LinkObject.ObjectTextures = m_species.GetTextures();
+        }
+        private int ctr = 0; // cycle throung colors mb
+        private int img = 0;
+        public void Render(Kirali.Light.Camera MainCamera, Kirali.MathR.Vector3 LightSource, Kirali.Light.KColor4 LightColor)
+        {
+            if (ModelClone)
+            {
+                //int useTextureSlot = 6;
+                int useTextureSlot = img;
+                //ctr++;
+                //if(ctr > 80) { ctr -= 80; img++; } if (img > 6) { img = 0; }
+                CreatureModel.Render(MainCamera, useTextureSlot, LightSource, LightColor);
+            }
+            else { LoadCloneModel(); }
+        }
+        public void Pose()
+        {
+            // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        }
+
+
+
 
         //Combat
         public void EnterBattle()
