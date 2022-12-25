@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
+using SoliaQuestClassic.IO;
+using SoliaQuestClassic.Render;
+
 using Kirali.Framework;
 
 namespace SoliaQuestClassic.SoulForge
@@ -110,6 +113,48 @@ namespace SoliaQuestClassic.SoulForge
         public string[] UseSpeciesTypes { get { return usespeciesTypes; } }
         public string[] UseStatMod { get { return usestatMod; } }
         public string[] UseColorMod { get { return usecolorMod; } }
+
+        // MESH
+        private Object3D model_default;
+        public Object3D CreatureModel { get { return model_default; } set { model_default = value; hasModel = true; } }
+        private bool hasModel = false;
+        public Texture2D[] CreatureTextures = new Texture2D[0];
+        public int RegisterTexture(Texture2D texture2D, string textureName)
+        {
+            if (CreatureTextures.Length == 0)
+            {
+                CreatureTextures = new Texture2D[] { texture2D };
+            }
+            else
+            {
+                Texture2D[] temp_texs = new Texture2D[CreatureTextures.Length + 1];
+                for (int k = 0; k < CreatureTextures.Length; k++)
+                {
+                    temp_texs[k] = CreatureTextures[k];
+
+                }
+                temp_texs[CreatureTextures.Length] = texture2D;
+                CreatureTextures = temp_texs;
+            }
+            return 0;
+        }
+        /// <summary>
+        /// <tooltip>To be called on register, place model loading and texture loading here.</tooltip>
+        /// </summary>
+        public virtual void LoadSpeciesModel()
+        {
+            CreatureModel = new Object3D();
+
+        }
+        public virtual Object3D GetModel()
+        {
+            return CreatureModel;
+        }
+        public virtual Texture2D[] GetTextures()
+        {
+            return CreatureTextures;
+        }
+
 
         public SQSpecies()
         {
