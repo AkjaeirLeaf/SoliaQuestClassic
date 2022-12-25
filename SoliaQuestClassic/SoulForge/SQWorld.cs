@@ -200,6 +200,7 @@ namespace SoliaQuestClassic.SoulForge
             Species.DaecaserDer.RegisterSpecies();
             Species.EaltaeQhota.RegisterSpecies();
             Species.NoctaelQhota.RegisterSpecies();
+            Species.Qesota.RegisterSpecies();
             Species.Silvertail.RegisterSpecies();
             Species.Soqaruth.RegisterSpecies();
             Species.Ufim.RegisterSpecies();
