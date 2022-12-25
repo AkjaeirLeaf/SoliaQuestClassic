@@ -34,6 +34,8 @@ namespace SoliaQuestClassic.Render
         private string ResourcePath;
         private bool isCompiledResource = true;
 
+        public Kirali.Light.KColor4 Tint = Kirali.Light.KColor4.WHITE;
+
         public int ID { get { return handle; } }
         public int Width { get { return width; } }
         public int Height { get { return height; } }
@@ -98,6 +100,39 @@ namespace SoliaQuestClassic.Render
             bmp.UnlockBits(bmpData);
 
             worldSender.RegisterTexture(t2d, textureName);
+            return t2d;
+        }
+
+        public static Texture2D RegisterNew(string resourcePath, string textureName, SoulForge.SQSpecies Species, int x_subdivision = 1, int y_subdivision = 1)
+        {
+            Texture2D t2d = new Texture2D();
+            t2d.ResourcePath = resourcePath;
+            t2d.isCompiledResource = true;
+            t2d.x_sub = x_subdivision;
+            t2d.y_sub = y_subdivision;
+
+            Assembly myAssembly = Assembly.GetExecutingAssembly();
+            Stream myStream = myAssembly.GetManifestResourceStream(resourcePath);
+            Bitmap bmp = new Bitmap(myStream);
+
+            t2d.handle = GL.GenTexture();
+            GL.BindTexture(TextureTarget.Texture2D, t2d.handle);
+
+            t2d.width = bmp.Width;
+            t2d.height = bmp.Height;
+
+            BitmapData bmpData = bmp.LockBits(
+                new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bmpData.Width, bmpData.Height, 0,
+                          OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bmpData.Scan0);
+
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMinFilter.Nearest);
+
+            bmp.UnlockBits(bmpData);
+
+            Species.RegisterTexture(t2d, textureName);
             return t2d;
         }
 
@@ -320,6 +355,32 @@ namespace SoliaQuestClassic.Render
 
             //GL.PopMatrix();
         }
+        public void Draw(Kirali.MathR.Vector2[] pointArray, Color[] colorArray, Kirali.MathR.Vector2[] uvMap)
+        {
+            //Translations if needed
+            GL.PushMatrix();
+            GL.Translate(x, y, 0);
+            GL.Rotate(angle, 0d, 0d, 1d);
+
+            //Bind Texture
+            BindIfNot();
+
+            Color[] withTint = new Color[3];
+
+            //Color[0] = Color.FromArgb((int)(colorArray[0].R * Tint.R), 
+
+
+
+            //DRAW
+            GL.Begin(PrimitiveType.Triangles);
+            GL.Color4(colorArray[0]); GL.TexCoord2(uvMap[0].X, 1 - uvMap[0].Y); GL.Vertex2(pointArray[0].X, pointArray[0].Y);
+            GL.Color4(colorArray[1]); GL.TexCoord2(uvMap[1].X, 1 - uvMap[1].Y); GL.Vertex2(pointArray[1].X, pointArray[1].Y);
+            GL.Color4(colorArray[2]); GL.TexCoord2(uvMap[2].X, 1 - uvMap[2].Y); GL.Vertex2(pointArray[2].X, pointArray[2].Y);
+            GL.End();
+
+            //GL.PopMatrix();
+        }
+
 
         public static void ClearTexture(TextureTarget target = TextureTarget.Texture2D)
         {
