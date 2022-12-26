@@ -108,7 +108,7 @@ namespace SoliaQuestClassic.Render.Worlds
         }
 
         private double rot_cameraView = 0;
-        private double rot_cameraSpeed = 0.01;
+        private double rot_cameraSpeed = 0.005;
         public void Tick()
         {
             rot_cameraView += rot_cameraSpeed;

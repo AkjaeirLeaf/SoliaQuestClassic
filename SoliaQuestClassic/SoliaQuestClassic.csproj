@@ -94,6 +94,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Render\ActivePose.cs" />
+    <Compile Include="Render\Animation\Animation.cs" />
+    <Compile Include="Render\Animation\AnimationAction.cs" />
     <Compile Include="Render\Camera.cs" />
     <Compile Include="Render\GameLevel.cs" />
     <Compile Include="Render\PoseableObject.cs" />
@@ -204,6 +206,7 @@
     <Compile Include="SoulForge\Species\Qesota.cs" />
     <Compile Include="SoulForge\Species\AvieaDer.cs" />
     <Compile Include="SoulForge\Species\DaecaserDer.cs" />
+    <Compile Include="SoulForge\Species\Animations\QesotaIdle.cs" />
     <Compile Include="SoulForge\Species\Soqaruth.cs" />
     <Compile Include="SoulForge\Species\EaltaeQhota.cs" />
     <Compile Include="SoulForge\Species\NoctaelQhota.cs" />

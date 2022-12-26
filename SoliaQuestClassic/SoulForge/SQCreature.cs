@@ -7,6 +7,7 @@ using System.Drawing;
 
 using SoliaQuestClassic.IO;
 using SoliaQuestClassic.Render;
+using SoliaQuestClassic.Render.Animation;
 
 using Kirali.Framework;
 
@@ -601,6 +602,9 @@ namespace SoliaQuestClassic.SoulForge
         }
         public PoseableObject CreatureModel; private bool ModelClone = false;
         public Texture2D[] CreatureTextures;
+
+
+        
         public void LoadCloneModel() 
         {
             SQSpecies species;
@@ -609,8 +613,6 @@ namespace SoliaQuestClassic.SoulForge
                 species.LoadSpeciesModel(); // this shoullddd load the textures too automatically
                 CreatureModel = new PoseableObject(species.GetModel()); ModelClone = true;
                 CreatureModel.LinkObject.ObjectTextures = species.GetTextures();
-                
-
 
             }
 
@@ -621,6 +623,18 @@ namespace SoliaQuestClassic.SoulForge
             //CreatureModel = new PoseableObject(m_species.GetModel()); ModelClone = true;
             //CreatureModel.LinkObject.ObjectTextures = m_species.GetTextures();
         }
+
+        private Animation ActiveAnimationLink;
+        public void PlayAnimation(Animation anim)
+        {
+            ActiveAnimationLink = anim;
+            ActiveAnimationLink.PlayAnimation();
+        }
+
+        public void PauseAnimation() { ActiveAnimationLink.PauseAnimation(); }
+        public void ClearAnimation() { ActiveAnimationLink = null; }
+
+
         private int ctr = 0; // cycle throung colors mb
         private int img = 0;
         public void Render(Kirali.Light.Camera MainCamera, Kirali.MathR.Vector3 LightSource, Kirali.Light.KColor4 LightColor)
@@ -629,6 +643,10 @@ namespace SoliaQuestClassic.SoulForge
             {
                 //int useTextureSlot = 6;
                 int useTextureSlot = img;
+
+                //do animations tick
+                if(ActiveAnimationLink != null) { ActiveAnimationLink.Tick(); }
+
                 //ctr++;
                 //if(ctr > 80) { ctr -= 80; img++; } if (img > 6) { img = 0; }
                 CreatureModel.Render(MainCamera, useTextureSlot, LightSource, LightColor);

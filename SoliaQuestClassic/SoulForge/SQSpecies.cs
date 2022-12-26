@@ -7,6 +7,8 @@ using System.Drawing;
 
 using SoliaQuestClassic.IO;
 using SoliaQuestClassic.Render;
+using SoliaQuestClassic.Render.Animation;
+using SoliaQuestClassic.SoulForge.Species.Animations;
 
 using Kirali.Framework;
 
@@ -154,6 +156,8 @@ namespace SoliaQuestClassic.SoulForge
         {
             return CreatureTextures;
         }
+
+        public Dictionary<string, Animation> SpeciesAnimations = new Dictionary<string, Animation>();
 
 
         public SQSpecies()

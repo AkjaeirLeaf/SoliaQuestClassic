@@ -52,7 +52,7 @@ namespace SoliaQuestClassic.Render
             m_TailPos = m_TailPos_default;
         }
 
-        public void Mesh_Deform(Vector3 Axis, double radians)
+        public void Mesh_Deform_Rotate(Vector3 Axis, double radians)
         {
             // DEFORM MESH AND JUMP INTO THE SEA
             Vector3 axi_normal = Axis.SafeNormalize();
@@ -75,6 +75,63 @@ namespace SoliaQuestClassic.Render
             }
         }
 
+        public void Mesh_Deform_Rotate(Vector3 Axis, Vector3 Center, double radians)
+        {
+            // DEFORM MESH AND JUMP INTO THE SEA
+            Vector3 axi_normal = Axis.SafeNormalize();
+            for (int px = 0; px < obj_.PosedVertices.Length; px++)
+            {
+                PointInfluence PI_L = obj_.Point_Armature_Array[px];
+                if (PI_L.JOINT != null)
+                {
+                    for (int pl = 0; pl < PI_L.JOINT.Length; pl++)
+                    {
+                        if (PI_L.JOINT[pl] == jointID)
+                        {
+                            double weight = obj_.BoneInfluenceRef[PI_L.WEIGHT[pl]];
+                            Matrix deform = Matrix.RotationU(axi_normal, radians * weight);
+                            obj_.PosedVertices[px] = Center + ((obj_.PosedVertices[px] - Center).ToMatrix().Flip() * deform).ToVector3();
+                            //break;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void Mesh_Deform_Translate(Vector3 Axis, double distance)
+        {
+            // DEFORM MESH AND JUMP INTO THE SEA
+            Vector3 axi_normal = Axis.SafeNormalize();
+            for (int px = 0; px < obj_.PosedVertices.Length; px++)
+            {
+                PointInfluence PI_L = obj_.Point_Armature_Array[px];
+                if (PI_L.JOINT != null)
+                {
+                    for (int pl = 0; pl < PI_L.JOINT.Length; pl++)
+                    {
+                        if (PI_L.JOINT[pl] == jointID)
+                        {
+                            double weight = obj_.BoneInfluenceRef[PI_L.WEIGHT[pl]];
+                            obj_.PosedVertices[px] = obj_.PosedVertices[px] + Axis.SafeNormalize() * distance;
+                            //break;
+                        }
+                    }
+                }
+            }
+            /*
+            foreach(string bone in Basis_Define.Link_Children)
+            {
+                for(int ix = 0; ix < obj_.boneGroup.Length; ix++)
+                {
+                    if(obj_.boneGroup[ix].DefaultBone.Name == bone)
+                    {
+                        obj_.boneGroup[ix].Move_CustomAxis(Axis, distance);
+                    }
+                }
+            }
+            */
+        }
+
         public void PoseBone_RotateThet(double radians)
         {
             Matrix mat = Matrix.RotationU(m_Axis_Thet.SafeNormalize(), radians);
@@ -83,7 +140,7 @@ namespace SoliaQuestClassic.Render
 
             m_TailPos = m_HeadPos + (Tail_Relative.ToMatrix().Flip() * mat).ToVector3();
 
-            Mesh_Deform(m_Axis_Thet, radians);  
+            Mesh_Deform_Rotate(m_Axis_Thet, radians);  
         }
         public void PoseBone_RotatePhie(double radians)
         {
@@ -93,7 +150,7 @@ namespace SoliaQuestClassic.Render
 
             m_TailPos = m_HeadPos + (Tail_Relative.ToMatrix().Flip() * mat).ToVector3();
 
-            Mesh_Deform(m_Axis_Phie, radians);
+            Mesh_Deform_Rotate(m_Axis_Phie, radians);
         }
         public void PoseBone_RotateRadi(double radians)
         {
@@ -103,7 +160,7 @@ namespace SoliaQuestClassic.Render
 
             m_TailPos = m_HeadPos + (Tail_Relative.ToMatrix().Flip() * mat).ToVector3();
 
-            Mesh_Deform(m_Axis_Radi, radians);
+            Mesh_Deform_Rotate(m_Axis_Radi, radians);
         }
         public void PoseBone_RotateExternalSpecify(Vector3 axis, double radians, Vector3 center_absolute)
         {
@@ -114,6 +171,36 @@ namespace SoliaQuestClassic.Render
 
             m_HeadPos = center_absolute + ((m_HeadPos - center_absolute).ToMatrix().Flip() * mat).ToVector3();
             m_TailPos = center_absolute + ((m_TailPos - center_absolute).ToMatrix().Flip() * mat).ToVector3();
+
+            Mesh_Deform_Rotate(axis, center_absolute, radians);
+        }
+
+        public void Move_Axis_Thet(double distance)
+        {
+            m_HeadPos = m_HeadPos + m_Axis_Thet.SafeNormalize() * distance;
+            m_TailPos = m_TailPos + m_Axis_Thet.SafeNormalize() * distance;
+            Mesh_Deform_Translate(m_Axis_Thet, distance);
+        }
+
+        public void Move_Axis_Phie(double distance)
+        {
+            m_HeadPos = m_HeadPos + m_Axis_Phie.SafeNormalize() * distance;
+            m_TailPos = m_TailPos + m_Axis_Phie.SafeNormalize() * distance;
+            Mesh_Deform_Translate(m_Axis_Phie, distance);
+        }
+
+        public void Move_Axis_Radi(double distance)
+        {
+            m_HeadPos = m_HeadPos + m_Axis_Radi.SafeNormalize() * distance;
+            m_TailPos = m_TailPos + m_Axis_Radi.SafeNormalize() * distance;
+            Mesh_Deform_Translate(m_Axis_Radi, distance);
+        }
+
+        public void Move_CustomAxis(Vector3 axis, double distance)
+        {
+            m_HeadPos = m_HeadPos + axis.SafeNormalize() * distance;
+            m_TailPos = m_TailPos + axis.SafeNormalize() * distance;
+            Mesh_Deform_Translate(axis, distance);
         }
 
         // Order should always be ^v  <> roll (theta phi radial)

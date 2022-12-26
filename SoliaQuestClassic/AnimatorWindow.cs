@@ -12,7 +12,9 @@ using Kirali.MathR;
 
 using SoliaQuestClassic.Render;
 using SoliaQuestClassic.IO;
+using SoliaQuestClassic.Render.Animation;
 using SoliaQuestClassic.SoulForge;
+using SoliaQuestClassic.SoulForge.Species.Animations;
 using SoliaQuestClassic.Render.UIObjectsLib;
 
 namespace SoliaQuestClassic
@@ -30,6 +32,7 @@ namespace SoliaQuestClassic
         private bool isSelectingLinkParent = false;
 
         
+
         // CONSOLE
         public void Cout<T>(T content)
         {
@@ -64,6 +67,10 @@ namespace SoliaQuestClassic
             SLIDER_Center();
 
             Cout("Animator Window Console Initiated.");
+
+            SQGameWindow.PlayerTeam.Members[0].PlayAnimation(new QesotaIdle(CurrentEditingPoseable));
+
+
         }
 
         // TOOLS
@@ -443,6 +450,24 @@ namespace SoliaQuestClassic
         #region base_ui
         private void Button_ExportObjectInfo_Click(object sender, EventArgs e)
         {
+            /*
+            CurrentEditingMesh.Armature_Bones[0].Link_Children = new string[]
+            {
+                "top_wing_shoulder_L",
+                "top_wing_shoulder_R",
+                "top_wing_tip_L",
+                "top_wing_tip_R",
+                "bottom_wing_shoulder_L",
+                "bottom_wing_shoulder_R",
+                "bottom_wing_tip_L",
+                "bottom_wing_tip_R",
+                "cloth_mid",
+                "cloth_bottom",
+                "neck",
+                "head"
+            };
+            */
+
             RunCommand("export_object");
         }
         private void Button_SaveBone_Click(object sender, EventArgs e)
