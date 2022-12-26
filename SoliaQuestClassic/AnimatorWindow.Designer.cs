@@ -97,6 +97,10 @@ namespace SoliaQuestClassic
             this.DebugConsoleTab = new System.Windows.Forms.TabPage();
             this.RTB_ConsoleOutputBox = new System.Windows.Forms.RichTextBox();
             this.RTB_ConsoleInputBox = new System.Windows.Forms.TextBox();
+            this.RTB_VPTR_Override = new System.Windows.Forms.RichTextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.AnimEditTabs.SuspendLayout();
             this.Tab_Bones.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -699,6 +703,10 @@ namespace SoliaQuestClassic
             // 
             // DataOverrideTab
             // 
+            this.DataOverrideTab.Controls.Add(this.label4);
+            this.DataOverrideTab.Controls.Add(this.label3);
+            this.DataOverrideTab.Controls.Add(this.label2);
+            this.DataOverrideTab.Controls.Add(this.RTB_VPTR_Override);
             this.DataOverrideTab.Controls.Add(this.BUTTON_OverrideWeightData);
             this.DataOverrideTab.Controls.Add(this.RTB_WeightReference_Override);
             this.DataOverrideTab.Controls.Add(this.RTB_PointInfluence_Override);
@@ -742,21 +750,21 @@ namespace SoliaQuestClassic
             // 
             this.RTB_PointInfluence_Override.Location = new System.Drawing.Point(212, 25);
             this.RTB_PointInfluence_Override.Name = "RTB_PointInfluence_Override";
-            this.RTB_PointInfluence_Override.Size = new System.Drawing.Size(302, 96);
+            this.RTB_PointInfluence_Override.Size = new System.Drawing.Size(302, 78);
             this.RTB_PointInfluence_Override.TabIndex = 2;
             this.RTB_PointInfluence_Override.Text = "";
             // 
             // RTB_WeightReference_Override
             // 
-            this.RTB_WeightReference_Override.Location = new System.Drawing.Point(212, 127);
+            this.RTB_WeightReference_Override.Location = new System.Drawing.Point(212, 193);
             this.RTB_WeightReference_Override.Name = "RTB_WeightReference_Override";
-            this.RTB_WeightReference_Override.Size = new System.Drawing.Size(302, 96);
+            this.RTB_WeightReference_Override.Size = new System.Drawing.Size(302, 78);
             this.RTB_WeightReference_Override.TabIndex = 3;
             this.RTB_WeightReference_Override.Text = "";
             // 
             // BUTTON_OverrideWeightData
             // 
-            this.BUTTON_OverrideWeightData.Location = new System.Drawing.Point(381, 229);
+            this.BUTTON_OverrideWeightData.Location = new System.Drawing.Point(569, 23);
             this.BUTTON_OverrideWeightData.Name = "BUTTON_OverrideWeightData";
             this.BUTTON_OverrideWeightData.Size = new System.Drawing.Size(133, 23);
             this.BUTTON_OverrideWeightData.TabIndex = 4;
@@ -795,6 +803,41 @@ namespace SoliaQuestClassic
             this.RTB_ConsoleInputBox.Name = "RTB_ConsoleInputBox";
             this.RTB_ConsoleInputBox.Size = new System.Drawing.Size(813, 20);
             this.RTB_ConsoleInputBox.TabIndex = 1;
+            // 
+            // RTB_VPTR_Override
+            // 
+            this.RTB_VPTR_Override.Location = new System.Drawing.Point(212, 109);
+            this.RTB_VPTR_Override.Name = "RTB_VPTR_Override";
+            this.RTB_VPTR_Override.Size = new System.Drawing.Size(302, 78);
+            this.RTB_VPTR_Override.TabIndex = 5;
+            this.RTB_VPTR_Override.Text = "";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(447, 174);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(67, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Look for <v>";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(420, 90);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Look for <vcount>";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(371, 258);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(143, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Look for \"skin-weights-array\"";
             // 
             // AnimatorWindow
             // 
@@ -903,5 +946,9 @@ namespace SoliaQuestClassic
         private System.Windows.Forms.TabPage DebugConsoleTab;
         private System.Windows.Forms.TextBox RTB_ConsoleInputBox;
         private System.Windows.Forms.RichTextBox RTB_ConsoleOutputBox;
+        private System.Windows.Forms.RichTextBox RTB_VPTR_Override;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
     }
 }
