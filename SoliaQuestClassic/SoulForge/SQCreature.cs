@@ -625,6 +625,7 @@ namespace SoliaQuestClassic.SoulForge
         }
 
         private Animation ActiveAnimationLink;
+        private Animation AnimationQueued = null;
         public void PlayAnimation(Animation anim)
         {
             ActiveAnimationLink = anim;
@@ -632,7 +633,22 @@ namespace SoliaQuestClassic.SoulForge
         }
 
         public void PauseAnimation() { ActiveAnimationLink.PauseAnimation(); }
+        public void RestartAnimation() { ActiveAnimationLink.RestartAnimation(); }
+        public void StopAnimation()  { ActiveAnimationLink.StopAnimation(); }
         public void ClearAnimation() { ActiveAnimationLink = null; }
+        public void QueueStopAnimation()  { ActiveAnimationLink.StopAtNextLoop(); }
+        public void QueueAnimation(Animation anim)
+        {
+            AnimationQueued = anim;
+            QueueStopAnimation();
+        }
+        public void SwitchCurrentAnimation()
+        {
+            ClearAnimation();
+            ActiveAnimationLink = AnimationQueued;
+            AnimationQueued = null;
+            ActiveAnimationLink.PlayAnimation();
+        }
 
 
         private int ctr = 0; // cycle throung colors mb
@@ -646,6 +662,17 @@ namespace SoliaQuestClassic.SoulForge
 
                 //do animations tick
                 if(ActiveAnimationLink != null) { ActiveAnimationLink.Tick(); }
+                if(AnimationQueued != null)
+                {
+                    if(ActiveAnimationLink != null)
+                    {
+                        if (ActiveAnimationLink.AnimationQueuedReady) { SwitchCurrentAnimation(); }
+                    }
+                    else
+                    {
+                        SwitchCurrentAnimation();
+                    }
+                }
 
                 //ctr++;
                 //if(ctr > 80) { ctr -= 80; img++; } if (img > 6) { img = 0; }

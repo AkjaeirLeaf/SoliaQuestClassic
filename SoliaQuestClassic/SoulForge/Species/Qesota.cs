@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using SoliaQuestClassic.IO;
 using SoliaQuestClassic.Render;
+using SoliaQuestClassic.Render.Animation;
 using SoliaQuestClassic.SoulForge;
 using SoliaQuestClassic.SoulForge.Types;
 
@@ -88,6 +89,18 @@ namespace SoliaQuestClassic.SoulForge.Species
                 Texture2D.RegisterNew(RenderWorld.ResourcePath + "Creatures.qesota.color_prismatic.png", "species_qesota_tex_pri", species);
                 Texture2D.RegisterNew(RenderWorld.ResourcePath + "Creatures.qesota.color_cosmic.png",    "species_qesota_tex_cos", species);
             }
+        }
+
+        public override Animation GetStockAnimation(StockAnimationType stock_anim, PoseableObject poseable)
+        {
+            switch (stock_anim)
+            {
+                case StockAnimationType.IDLE_ANIMATION:
+                    return new Animations.QesotaIdle(poseable);
+                default:
+                    return new Animations.QesotaIdle(poseable);
+            }
+            return null;
         }
 
         public static int RegisterSpecies()

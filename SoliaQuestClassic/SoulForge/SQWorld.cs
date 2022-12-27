@@ -9,6 +9,7 @@ using System.IO;
 
 using Kirali.Framework;
 
+using SoliaQuestClassic.SoulForge.Lang;
 
 namespace SoliaQuestClassic.SoulForge
 {
@@ -105,6 +106,9 @@ namespace SoliaQuestClassic.SoulForge
         public static void AllocSetupAll()
         {
             WriteAllResources();
+
+            //Register Languages
+            English_Common.RegisterLanguage();
 
             //Register Types
             Types.Air.RegisterSpeciesType();
@@ -286,6 +290,20 @@ namespace SoliaQuestClassic.SoulForge
             }
         }
 
+
+        public static Language[] languageList = new Language[0];
+        public static int Register(Language lang)
+        {
+            try
+            {
+                languageList = ArrayHandler.append(languageList, lang);
+                return languageList.Length - 1;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
 
         //item searches:
         public static SQItem GetItem(int familyID, int itemID)

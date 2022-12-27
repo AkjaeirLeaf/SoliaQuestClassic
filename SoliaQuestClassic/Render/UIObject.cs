@@ -33,6 +33,12 @@ namespace SoliaQuestClassic.Render
         }
         protected BasicUIGeometry[] geo_obj = new BasicUIGeometry[0]; private bool geo_only = true;
 
+        private bool[] UI_Anchor = new bool[4];
+        public bool UI_Anchor_Top    { get { return UI_Anchor[0]; } }
+        public bool UI_Anchor_Right  { get { return UI_Anchor[1]; } }
+        public bool UI_Anchor_Bottom { get { return UI_Anchor[2]; } }
+        public bool UI_Anchor_Left   { get { return UI_Anchor[3]; } }
+
         private bool rect_bounds_calc = false; private bool rect_bounds;
         private bool BoundsAreRectangle
         {
@@ -72,19 +78,22 @@ namespace SoliaQuestClassic.Render
         public virtual void Render(Kirali.Light.Camera MainCamera)
         {
             // Render main ui (textures)
-
-
-
-            //unbind textures.
-            if (SQGameWindow.CurrentBoundTexture != 0)
+            if(object_Textures.Length > 0)
             {
-                SQGameWindow.CurrentBoundTexture = 0;
+                // TODO renderlayers...
+                // for now just render texture 0 slot
+                object_Textures[0].Draw(draw_object_bounds, Tint);
             }
 
             // Render geo objects (no textures)
             if(geo_obj.Length > 0)
             {
-                for(int ix = 0; ix < geo_obj.Length; ix++)
+                //unbind textures.
+                if (SQGameWindow.CurrentBoundTexture != 0)
+                {
+                    SQGameWindow.CurrentBoundTexture = 0;
+                }
+                for (int ix = 0; ix < geo_obj.Length; ix++)
                 {
                     RenderUIGeometry(MainCamera, Tint, geo_obj[ix]);
                 }
@@ -119,7 +128,9 @@ namespace SoliaQuestClassic.Render
 
         }
 
-        private static void RenderUIGeometry(Kirali.Light.Camera MainCamera, Color tint, BasicUIGeometry geometry)
+
+
+        protected static void RenderUIGeometry(Kirali.Light.Camera MainCamera, Color tint, BasicUIGeometry geometry)
         {
             if(geometry.points.Length == 4)
             {
@@ -179,11 +190,19 @@ namespace SoliaQuestClassic.Render
                     tl = new Kirali.MathR.Vector2(posX - Size.X, posY - Size.Y);
                     br = new Kirali.MathR.Vector2(posX + halfX, posY + halfY);
                     break;
+                case UI_ScalingMode.LEFT_CENTER:
+                    tl = new Kirali.MathR.Vector2(posX, posY - halfY);
+                    br = new Kirali.MathR.Vector2(posX + Size.X, posY + halfY);
+                    break;
+                default:
+                    tl = new Kirali.MathR.Vector2();
+                    br = new Kirali.MathR.Vector2();
+                    break;
             }
-            //geo.points[0] = new Kirali.MathR.Vector2(tl);
-            //geo.points[0] = new Kirali.MathR.Vector2(tl.Y, br.X);
-            //geo.points[2] = new Kirali.MathR.Vector2(br);
-            //geo.points[2] = new Kirali.MathR.Vector2(br.Y, tl.X);
+            geo.points[0] = new Kirali.MathR.Vector2(tl);
+            geo.points[1] = new Kirali.MathR.Vector2(br.X, tl.Y);
+            geo.points[2] = new Kirali.MathR.Vector2(br);
+            geo.points[3] = new Kirali.MathR.Vector2(tl.X, br.Y);
             return geo;
         }
         public static BasicUIGeometry GetTriangle(Kirali.MathR.Vector2 Position, Kirali.MathR.Vector2 p1, Kirali.MathR.Vector2 p2, Kirali.MathR.Vector2 p3)

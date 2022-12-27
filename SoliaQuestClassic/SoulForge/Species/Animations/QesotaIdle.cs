@@ -23,14 +23,16 @@ namespace SoliaQuestClassic.SoulForge.Species.Animations
             head_nodding  = new SineusoidalSwingAction(poseable.boneGroup[6], AnimationAxes.X_AXIS, Math.PI / 6, 120);
             wing_shoulder_left = new SineusoidalSwingAction(new ActiveBone[]  { poseable.boneGroup[1], poseable.boneGroup[2] , poseable.boneGroup[3] , poseable.boneGroup[4]  }, AnimationAxes.X_AXIS, Math.PI / 6, 120);
             wing_shoulder_right = new SineusoidalSwingAction(new ActiveBone[] { poseable.boneGroup[9], poseable.boneGroup[10], poseable.boneGroup[11], poseable.boneGroup[12] }, AnimationAxes.X_AXIS, Math.PI / 6, 120);
-            head_nodding.StartOnTick(80);
+            head_nodding.StartOnTick(60);
             wing_shoulder_left.StartOnTick(0);
             wing_shoulder_right.StartOnTick(60);
 
             body_fb_rocking = new SineusoidalMoveAction(poseable.boneGroup[0], AnimationAxes.Y_AXIS, 0.04, 120);
             body_fb_rocking.StartOnTick(0);
+            body_fb_rocking.SetForceMove(poseable.boneGroup[6]);
 
             Actions = new AnimationAction[] { head_nodding, wing_shoulder_left, wing_shoulder_right, body_fb_rocking };
+            //Actions = new AnimationAction[] { head_nodding, wing_shoulder_left, wing_shoulder_right };
         }
     }
 }

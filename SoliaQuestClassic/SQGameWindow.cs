@@ -32,15 +32,16 @@ namespace SoliaQuestClassic
 
         // RENDER WORLDS
         private static int Active_RenderWorld = 3;
-        public static RenderWorld debug_world;          // rw 0
-        public static RenderWorld main_menu;            // rw 1
-        public static PlanetWorld planet_levels;        // rw 2
-        public static CharacterWorld character_screen;  // rw 3
+        public static RenderWorld    debug_world;          // rw 0
+        public static RenderWorld    main_menu;            // rw 1
+        public static PlanetWorld    planet_levels;        // rw 2
+        public static CharacterWorld character_screen;     // rw 3
 
         // DEBUG
         public static readonly bool DEBUG_MODELSFROMRESOURCE = false;
         private static readonly bool DEBUG_BYPASS_NAMELOAD = true;
-        private static readonly string DEBUG_BYPASS_PLAYERNAME = "debug_player";
+        public static readonly bool DEBUG_SHOWANIMATIONWINDOW = false;
+        private static readonly string DEBUG_BYPASS_PLAYERNAME = "debugplayer";
         public static AnimatorWindow Animation_Window;
 
 
@@ -77,9 +78,20 @@ namespace SoliaQuestClassic
             PlayerTeam.Members = new SQCreature[] { player };
 
             PlayerTeam.Members[0].LoadCloneModel();
-            // Open Armature and pose edit mode
-            Animation_Window = new AnimatorWindow();
-            Animation_Window.Show();
+
+            if (DEBUG_SHOWANIMATIONWINDOW)
+            {
+                // Open Armature and pose edit mode
+
+                Animation_Window = new AnimatorWindow();
+                Animation_Window.Show();
+            }
+
+            PlayerTeam.Members[0].PlayAnimation
+                (PlayerTeam.Members[0].CreatureSpecies.GetStockAnimation(StockAnimationType.IDLE_ANIMATION, 
+                PlayerTeam.Members[0].CreatureModel));
+
+            GameInitComplete();
         }
 
         private void InitRenderWorld()
@@ -95,6 +107,13 @@ namespace SoliaQuestClassic
             //LEV.Show();
 
             character_screen = new CharacterWorld();
+        }
+        private void GameInitComplete()
+        {
+            debug_world       .OnInitComplete();
+            main_menu         .OnInitComplete();
+            planet_levels     .OnInitComplete();
+            character_screen  .OnInitComplete();
         }
 
         public static RenderWorld GetRenderWorld(int ID)

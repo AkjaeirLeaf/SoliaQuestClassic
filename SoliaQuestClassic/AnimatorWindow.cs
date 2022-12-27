@@ -15,6 +15,7 @@ using SoliaQuestClassic.IO;
 using SoliaQuestClassic.Render.Animation;
 using SoliaQuestClassic.SoulForge;
 using SoliaQuestClassic.SoulForge.Species.Animations;
+using SoliaQuestClassic.SoulForge.Abilities.Animations;
 using SoliaQuestClassic.Render.UIObjectsLib;
 
 namespace SoliaQuestClassic
@@ -69,6 +70,7 @@ namespace SoliaQuestClassic
             Cout("Animator Window Console Initiated.");
 
             SQGameWindow.PlayerTeam.Members[0].PlayAnimation(new QesotaIdle(CurrentEditingPoseable));
+            SQGameWindow.PlayerTeam.Members[0].QueueAnimation(new ScarletVoidDashAnimation(CurrentEditingPoseable));
 
 
         }

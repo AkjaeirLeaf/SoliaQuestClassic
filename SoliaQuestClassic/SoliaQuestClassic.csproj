@@ -79,6 +79,9 @@
     <Compile Include="IO\PointInfluence.cs" />
     <Compile Include="IO\XMLFile.cs" />
     <Compile Include="IO\XMLStructure.cs" />
+    <Compile Include="Render\UIObjectsLib\UI_TextLabel.cs" />
+    <Compile Include="SoulForge\Lang\English_Common.cs" />
+    <Compile Include="SoulForge\Lang\Language.cs" />
     <Compile Include="LevelEditorWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,9 +106,13 @@
     <Compile Include="Render\Texture2D.cs" />
     <Compile Include="Render\TextureTile.cs" />
     <Compile Include="Render\UIObject.cs" />
+    <Compile Include="Render\UIObjectsLib\UI_BackgroundImage.cs" />
+    <Compile Include="Render\UIObjectsLib\UI_MeterBar.cs" />
+    <Compile Include="Render\UIObjectsLib\UI_Panel.cs" />
     <Compile Include="Render\UIObjectsLib\UI_PointerArrow.cs" />
     <Compile Include="Render\Worlds\CharacterWorld.cs" />
     <Compile Include="Render\Worlds\PlanetWorld.cs" />
+    <Compile Include="SoulForge\Abilities\Animations\ScarletVoidDashAnimation.cs" />
     <Compile Include="SoulForge\Abilities\BlankStare.cs" />
     <Compile Include="SoulForge\Abilities\Blessing.cs" />
     <Compile Include="SoulForge\Abilities\HydrateGrow.cs" />
@@ -423,7 +430,12 @@
     <EmbeddedResource Include="Resources\Creatures\qesota\color_unusual.png" />
     <EmbeddedResource Include="Resources\Creatures\qesota\color_vibrant.png" />
     <EmbeddedResource Include="Resources\Creatures\qesota\color_cosmic.png" />
-    <Content Include="Resources\World\CharacterBackgrounds\yikjtae\yikjtae_0.png" />
+    <EmbeddedResource Include="Resources\World\CharacterBackgrounds\yikjtae\yikjtae_0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Language\english\glyphset_0.png" />
+    <EmbeddedResource Include="Resources\Language\english\glyphset_1.png" />
+    <EmbeddedResource Include="Resources\Language\english\glyphset_2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

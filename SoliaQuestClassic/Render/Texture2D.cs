@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Drawing;
 using System.Drawing.Imaging;
 
+using SoliaQuestClassic.SoulForge.Lang;
 
 using OpenTK;
 using OpenTK.Graphics;
@@ -100,6 +101,39 @@ namespace SoliaQuestClassic.Render
             bmp.UnlockBits(bmpData);
 
             worldSender.RegisterTexture(t2d, textureName);
+            return t2d;
+        }
+
+        public static Texture2D RegisterNew(string resourcePath, int slot, Language langSender, int x_subdivision = 1, int y_subdivision = 1)
+        {
+            Texture2D t2d = new Texture2D();
+            t2d.ResourcePath = resourcePath;
+            t2d.isCompiledResource = true;
+            t2d.x_sub = x_subdivision;
+            t2d.y_sub = y_subdivision;
+
+            Assembly myAssembly = Assembly.GetExecutingAssembly();
+            Stream myStream = myAssembly.GetManifestResourceStream(resourcePath);
+            Bitmap bmp = new Bitmap(myStream);
+
+            t2d.handle = GL.GenTexture();
+            GL.BindTexture(TextureTarget.Texture2D, t2d.handle);
+
+            t2d.width = bmp.Width;
+            t2d.height = bmp.Height;
+
+            BitmapData bmpData = bmp.LockBits(
+                new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bmpData.Width, bmpData.Height, 0,
+                          OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bmpData.Scan0);
+
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMinFilter.Nearest);
+
+            bmp.UnlockBits(bmpData);
+
+            langSender.RegisterTexture(t2d, slot);
             return t2d;
         }
 
@@ -315,6 +349,29 @@ namespace SoliaQuestClassic.Render
 
             GL.PopMatrix();
         }
+
+        public virtual void Draw(Kirali.MathR.Vector2[] pointArray, Color tint, Kirali.MathR.Vector2[] section)
+        {
+            //Translations if needed
+            GL.PushMatrix();
+            GL.Translate(x, y, 0);
+            GL.Rotate(angle, 0d, 0d, 1d);
+
+            //Bind Texture
+            BindIfNot();
+
+            //DRAW
+            GL.Begin(PrimitiveType.Quads);
+            GL.Color4(tint);
+            GL.TexCoord2(section[0].X, section[0].Y); GL.Vertex2(pointArray[0].X, pointArray[0].Y);
+            GL.TexCoord2(section[1].X, section[1].Y); GL.Vertex2(pointArray[1].X, pointArray[1].Y);
+            GL.TexCoord2(section[2].X, section[2].Y); GL.Vertex2(pointArray[2].X, pointArray[2].Y);
+            GL.TexCoord2(section[3].X, section[3].Y); GL.Vertex2(pointArray[3].X, pointArray[3].Y);
+            GL.End();
+
+            GL.PopMatrix();
+        }
+
         public virtual void Draw(Kirali.MathR.Vector2[] pointArray, TextureTile tile)
         {
             //Translations if needed

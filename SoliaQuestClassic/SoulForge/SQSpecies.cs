@@ -159,6 +159,19 @@ namespace SoliaQuestClassic.SoulForge
 
         public Dictionary<string, Animation> SpeciesAnimations = new Dictionary<string, Animation>();
 
+        public virtual Animation GetStockAnimation(StockAnimationType stock_anim, PoseableObject poseable)
+        {
+            switch (stock_anim)
+            {
+                case StockAnimationType.IDLE_ANIMATION:
+
+                    break;
+                default:
+
+                    break;
+            }
+            return null;
+        }
 
         public SQSpecies()
         {
@@ -386,5 +399,11 @@ namespace SoliaQuestClassic.SoulForge
         public string colorID;
         public string resource_path;
         public Bitmap image_data;
+    }
+
+    public enum StockAnimationType
+    {
+        IDLE_ANIMATION,
+
     }
 }

@@ -44,6 +44,10 @@ namespace SoliaQuestClassic.Render
         {
             // This is where we load all textures in!
         }
+        public virtual void OnInitComplete()
+        {
+            // Access init info on game and player and loaded data!
+        }
 
         public virtual int GetTextureID(int worldTextureID)
         {
