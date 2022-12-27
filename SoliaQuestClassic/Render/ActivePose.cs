@@ -203,6 +203,12 @@ namespace SoliaQuestClassic.Render
             Mesh_Deform_Translate(axis, distance);
         }
 
+        public void ForceMoveBoneRef(Vector3 axis, double distance)
+        {
+            m_HeadPos = m_HeadPos + axis.SafeNormalize() * distance;
+            m_TailPos = m_TailPos + axis.SafeNormalize() * distance;
+        }
+
         // Order should always be ^v  <> roll (theta phi radial)
         private PoseableObject obj_;
         private int jointID = 0;

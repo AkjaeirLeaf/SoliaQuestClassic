@@ -145,6 +145,9 @@ namespace SoliaQuestClassic.Render.Animation
         private double twopi = Math.PI * 2;
         private Vector3 CustomAxis;
 
+        private ActiveBone[] ControlBases = new ActiveBone[0];
+
+
         public SineusoidalMoveAction(ActiveBone target_link, AnimationAxes axis, double amplitude, int cycle_ticks, Vector3 custom_rotationaxis = null) : base(target_link)
         {
             move_axis = axis;
@@ -159,6 +162,11 @@ namespace SoliaQuestClassic.Render.Animation
             Amplitude = amplitude;
             cycle_time = cycle_ticks;
             if (axis == AnimationAxes.CUSTOMAXIS && custom_rotationaxis != null) { CustomAxis = custom_rotationaxis; }
+        }
+
+        public void SetForceMove(ActiveBone bone)
+        {
+            ControlBases = new ActiveBone[] { bone };
         }
 
         public override void PrepareAction()
@@ -191,7 +199,27 @@ namespace SoliaQuestClassic.Render.Animation
                 }
             }
 
-
+            if(ControlBases.Length > 0)
+            {
+                for (int ix = 0; ix < ControlBases.Length; ix++)
+                {
+                    switch (move_axis)
+                    {
+                        case AnimationAxes.X_AXIS:
+                            ControlBases[ix].ForceMoveBoneRef(target[0].Axis_Thet, delta);
+                            break;
+                        case AnimationAxes.Y_AXIS:
+                            ControlBases[ix].ForceMoveBoneRef(target[0].Axis_Phie, delta);
+                            break;
+                        case AnimationAxes.Z_AXIS:
+                            ControlBases[ix].ForceMoveBoneRef(target[0].Axis_Radi, delta);
+                            break;
+                        case AnimationAxes.CUSTOMAXIS:
+                            ControlBases[ix].ForceMoveBoneRef(CustomAxis, delta);
+                            break;
+                    }
+                }
+            }
 
             ActionTimer++;
             if (ActionTimer > cycle_time) { ActionTimer = 0; }

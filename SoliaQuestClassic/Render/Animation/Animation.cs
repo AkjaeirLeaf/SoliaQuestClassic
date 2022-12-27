@@ -13,6 +13,16 @@ namespace SoliaQuestClassic.Render.Animation
         private bool isPlaying = false;
         private int resetevery = 0;
         private int resetcounter = 0;
+        private bool queueStop = false;
+        private bool ready_switch = false;
+
+        public bool AnimationQueuedReady
+        {
+            get
+            {
+                return ready_switch;
+            }
+        }
 
         public Animation(PoseableObject poseable)
         {
@@ -46,6 +56,11 @@ namespace SoliaQuestClassic.Render.Animation
             PlayAnimation();
         }
 
+        public virtual void StopAtNextLoop()
+        {
+            queueStop = true;
+        }
+
         public virtual void SetRestartEvery(int resetlength)
         {
             resetevery = resetlength;
@@ -63,7 +78,16 @@ namespace SoliaQuestClassic.Render.Animation
             if(resetevery > 0) {
                 resetcounter++;
                 if(resetcounter > resetevery) {
-                    RestartAnimation();
+                    if (queueStop)
+                    {
+                        StopAnimation();
+                        ready_switch = true;
+                        queueStop = false;
+                    }
+                    else
+                    {
+                        RestartAnimation();
+                    }
                     resetcounter = 0;
                 }
             }
