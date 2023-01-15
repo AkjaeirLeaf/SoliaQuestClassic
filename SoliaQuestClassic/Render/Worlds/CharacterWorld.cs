@@ -80,14 +80,14 @@ namespace SoliaQuestClassic.Render.Worlds
             CharacterExpBar = new UI_MeterBar(
                 Color.FromArgb(116, 77, 175), Color.FromArgb(190, 146, 255)
                 , new Point(20, MainCamera.Height - 55), new Size(205, 5), Camera3D);
-            CharacterExpBar2 = new UI_MeterBar(
-                Color.FromArgb(116, 77, 175), Color.FromArgb(190, 146, 255)
-                , new Point(20, MainCamera.Height - 95), new Size(205, 5), Camera3D);
+            //CharacterExpBar2 = new UI_MeterBar(
+            //    Color.FromArgb(116, 77, 175), Color.FromArgb(190, 146, 255)
+            //    , new Point(20, MainCamera.Height - 95), new Size(205, 5), Camera3D);
 
             AddUIObject(CharacterExpBar);
             CharacterNameDisplay = new UI_TextLabel(0, 40, new Point(20, MainCamera.Height - 50), Color.White, Camera3D);
             AddUIObject(CharacterNameDisplay);
-            AddUIObject(CharacterExpBar2);
+            //AddUIObject(CharacterExpBar2);
 
             CharacterLevelDisplay = new UI_TextLabel(0, 20, new Point(20, MainCamera.Height - 75), Color.White, Camera3D);
             AddUIObject(CharacterLevelDisplay);
