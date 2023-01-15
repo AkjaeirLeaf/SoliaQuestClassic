@@ -51,6 +51,10 @@ namespace SoliaQuestClassic.Render.UIObjectsLib
 
         public override void Render(Kirali.Light.Camera MainCamera)
         {
+            if (SQGameWindow.CurrentBoundTexture != 0)
+            {
+                SQGameWindow.CurrentBoundTexture = 0;
+            }
             Background.Render(MainCamera);
             Foreground.Render(MainCamera);
         }

@@ -72,5 +72,15 @@ namespace SoliaQuestClassic.Render.UIObjectsLib
                 pos, new Vector2(pos.X + size.X, pos.Y), pos + size, new Vector2(pos.X, pos.Y + size.Y)
             };
         }
+
+        public override void Render(Kirali.Light.Camera MainCamera)
+        {
+            if (SQGameWindow.CurrentBoundTexture != 0)
+            {
+                SQGameWindow.CurrentBoundTexture = 0;
+            }
+            UIObject.RenderUIGeometry(MainCamera, Tint, main_panelbody);
+            //base.Render(MainCamera);
+        }
     }
 }
